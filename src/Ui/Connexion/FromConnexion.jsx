@@ -25,7 +25,7 @@ const DivFormConnexion = styled.div`
   background-position:center ;
   mix-blend-mode: difference;
   color:#fff;
-  filter: contrast(0.9);
+  filter: contrast(0.9); 
   border: none;
   font-weight: bold;
   width: 100%;
