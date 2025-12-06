@@ -1,22 +1,23 @@
-import {User2Icon} from 'lucide-react';
+import {Clapperboard, User2Icon} from 'lucide-react';
 import styled from 'styled-components';
 // Importation des fichier contenant les dimension des <<MediaQuery>>
 import { breakPoint, media } from './MediaQuery/MediaQuery.jsx';
 // Importation de l'icone de directoryflow pour le header
-import iconDirectoryFlow from '../Icon/iconedf.jpg';
+import iconDirectoryFlow from '../Ui/Connexion/Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg';
 import './style/Header.css';
-import { Link } from 'react-router-dom';
+import { isCookie, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import {TContext }from '../ThemeContext.jsx';
+import ProfilUser from './ProfilUsers/ProfilsUser.jsx';
 
 
 
 /* Creation de l'element HTML <<img>> via st
 yledComponent qui servira de logo pour le HEADER*/
 
-const ImgLgoHeader = styled.img`
+const ImgLgoHeader = styled(Clapperboard)`
                       object-fit: cover;
-                      width: 30px;
-                      height: 30px;
-                      border-radius: 50px;
+                      // border-radius: 50px;
                       `
 // Bouton de connextion et d'inscription dans directoryFlow
 
@@ -58,7 +59,7 @@ const BtnConnexion = styled.button`
 // Creation du text <<Directory-Flow>> depuis un span dans styled component
 
 const SpanTextDF = styled.span`
-                       font-size: 2.5em;
+                       font-size: 1.7em;
                        font-weight: bold;
                        color: #161616ff;
                        @media screen and (max-width: ${breakPoint.mobile}){
@@ -83,17 +84,19 @@ const IconUser = styled(User2Icon)`
 
 
 function Headers(){ 
+  const {isConnect} = useContext(TContext);
    return(
     <div>
       <header className='header'>
          <div className="navbar--header">
             <div className="navbar--header__logo-df">
-              <ImgLgoHeader src={iconDirectoryFlow} /><SpanTextDF className='icon-text1 flex:true'>Directory-Flow</SpanTextDF>
+              <ImgLgoHeader fill='#419aa4ff' color="#fff" size={70}/><SpanTextDF className='icon-text1 flex:true'>Directory-Flow</SpanTextDF>
             </div>
             <div className="navbar--header__connexion-backend">
+              {isConnect? <ProfilUser/>:<div>
                <Link to={"/connexion"}><BtnConnexion>Connexion</BtnConnexion></Link>
                <Link to={'/inscription'}><BtnInscription>Inscription</BtnInscription></Link>
-               <Link to={'/connexion'}><IconUser fill='#000' color='#ffff' size={60}/></Link>
+               <Link to={'/connexion'}><IconUser fill='#000' color='#ffff' size={50}/></Link></div>}
             </div>
          </div>
       </header>

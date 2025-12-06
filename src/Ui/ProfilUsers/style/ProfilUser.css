@@ -1,0 +1,17 @@
+.listItemsUser li .pp-user--text{
+    margin-left: 70px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 500;
+    font-size: 1.3em;
+}
+
+.listItemsUser li .pp-user-img{
+    margin-left: 30px;
+}
+.pp-user-img{
+    padding-left: 11px;
+    padding-top: 4px;
+    font-weight: bolder;
+    color: #ffff;
+    font-size: 1.5em;
+}

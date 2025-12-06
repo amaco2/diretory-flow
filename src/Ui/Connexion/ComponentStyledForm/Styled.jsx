@@ -1,6 +1,5 @@
 import {LucideHome } from "lucide-react";
 import styled from "styled-components";
-
 const Homes = styled(LucideHome)`
     color: #fff;
     display: inline-block;
@@ -12,8 +11,9 @@ const Homes = styled(LucideHome)`
       // Style globale input form
 
   const styleGlobalInput = `
-      background-color: #182a45ff;
-       color: #fff;
+      background-color: #DEE5F1;
+       color: #000;
+       border: none;
       &:focus {
       border: 1px solid #fff;
      }

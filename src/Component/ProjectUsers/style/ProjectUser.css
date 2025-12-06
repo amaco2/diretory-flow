@@ -1,0 +1,47 @@
+.addImgBg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../../../asset/1764788331386.jpeg');
+    background-position: center;
+}
+label{
+    font-weight: bold;
+    background-clip: padding-box;
+}
+
+.description {
+    position: relative;
+    top: 10vw;
+    color: #fff;
+    padding-left: 2.5rem;
+    background-color: #000;
+    left: 4vw;
+    border: none;
+    border-radius: 20px;
+    font-size: 2em;
+    width: 350px;
+    font-weight: bold;
+}
+
+.input-radio-check {
+    position: absolute;
+    top: 27svw;
+    left: 10svw;
+}
+
+.input-radio-check #rdio {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: #eeffdd;
+    margin-left: 10px;
+    filter: contrast(105);
+}
+
+.input-radio-check #rdio:checked {
+    background-color: rgb(0, 122, 252);
+}

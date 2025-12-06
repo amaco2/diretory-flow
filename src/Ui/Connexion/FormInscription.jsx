@@ -1,15 +1,14 @@
-import { HandCoins, HandFist, Mail } from "lucide-react";
+import {Mail,ClapperboardIcon} from "lucide-react";
 import {useEffect, useState } from "react"
 import styled from "styled-components";
-import bgImgConnexion from './Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg'
-import iconDirectoryFlow from './Icon/iconedf.jpg';
-import { breakPoint, media, mediaQueryInput } from "../MediaQuery/MediaQuery";
+import bgImgConnexion from './Icon/premium_vector-1683140945544-89a75438d4f5.png'
+import iconDirectoryFlow from './Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg';
+import { breakPoint, media, mediaQueryForm, mediaQueryInput } from "../MediaQuery/MediaQuery";
 import { Link } from "react-router-dom";
 import { BtnInscription } from "../Button";
 import './Connexion.css'
 import { registerUser } from "./UserConnexion/RegisterUser";
 import { Homes, styleGlobalInput } from "./ComponentStyledForm/Styled";
-
 
 // stockage de la hauteur et de la largeur de la fenetre d'affichege
 
@@ -21,7 +20,7 @@ const DivFormConnexion = styled.div`
     background-image: url("${bgImgConnexion}");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position:center ;
+    // background-position:center ;
     mix-blend-mode: difference;
     color:#fff;
     filter: contrast(0.9);
@@ -78,12 +77,12 @@ const DivFormConnexion = styled.div`
   /* Creation de l'element HTML <<img>> via st
 yledComponent qui servira de logo pour le HEADER*/
 
-const ImgLgoHeader = styled.img`
+const ImgLgoHeader = styled(ClapperboardIcon)`
                       object-fit: cover;
-                      width: 60px;
-                      height: 60px;
-                      border-radius: 50px;
-                      margin-top: 30px;
+                      width: 50px;
+                      height: 50px;
+                      border-radius: 55px;
+                      margin-top: -15px;
                       `;
 // Input des donnees de l'UI
   const InputPassword= styled.input.attrs({type: 'password', id: 'password', name:'password'})`
@@ -100,33 +99,32 @@ const ImgLgoHeader = styled.img`
   // Creation du text <<Directory-Flow>> depuis un span dans styled component
   
   const SpanTextDF = styled.span`
-                         font-size: 1.8em;
+                         font-size: 1.5em;
                          font-weight: bold;
-                         margin-top: 50px;
+                        //  margin-top: 50px;
                          color: #000;
-                         margin-left: 5px;
+                         margin-left: 15px;
                          @media screen and (max-width: ${breakPoint.mobile}){
                                 font-size: 1.2em;
                          }`;
   const DivWraper = styled.div`
   display: flex;
-  margin-left: -15svw;
+  margin-left: -3svw;
   `;
-
-  const DivWrapperForm = styled.div`
-    box-shadow: 0 0 50px #768cabff;
-    border: none;
-    // backgorund-color: #fff;
-    color: #fff;
-    border-radius: 10px;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80vw;
-    height: 78svh;
-
-  `;
+    const DivWrapperForm = styled.div`
+      box-shadow: 0 0 50px #363c3cff;
+      border: none;
+      border-radius: 10px;
+      display:flex;
+      position: absolute;
+      top: 1svw;
+      background-color: #fff;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40vw;
+      height: 95svh;
+      ${mediaQueryForm}`;
   // Lien en cas d'oublie du mot de passe
   const LinkObject = `
  position: relative;
@@ -190,10 +188,10 @@ function FormInscription(){
         <div>
             {/* On wrap les elements dans une <<div>> creee avec styled component */}
             <DivFormConnexion>
-              <DivWraper>
-                <ImgLgoHeader src={iconDirectoryFlow}/><SpanTextDF>DirectoryFlow(Inscription)</SpanTextDF><br />
-                </DivWraper><br /><br />
                 <DivWrapperForm>
+                   <DivWraper>
+                <ImgLgoHeader color="#7ecef5ff"/><SpanTextDF>DirectoryFlow</SpanTextDF><br />
+                </DivWraper><br />
                 <Link to={"/"}><Homes size={30} color="#0c0c0cff" /></Link><br />
                 <label htmlFor="nom">Nom</label>
                 <InputNom placeholder="Ex: Jhon" required size={50} maxLength={50} onChange={getfirstName} /><br />

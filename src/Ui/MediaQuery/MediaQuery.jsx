@@ -37,5 +37,16 @@ const mediaQueryInput = `
  @media screen and (max-width: ${breakPoint.mobile}){
  width: 60svw;
  }`;
+const mediaQueryForm = `
+   @media screen and (max-width: ${breakPoint.tablet}){
+       width: 58svw;
+ };
+ @media screen and (max-width: ${breakPoint.desktop}){
+     width: 60svw;
+ };
+ @media screen and (max-width: ${breakPoint.mobile}){
+ width: 80svw;
+ top: 7svw;
+ }`;
 
-export {breakPoint, media, mediaQueryInput};
+export {breakPoint, media, mediaQueryInput, mediaQueryForm};

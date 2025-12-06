@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
 const TContext = createContext();
+const IconUserContext = createContext();
 
-export default TContext;
+export  {TContext,IconUserContext};

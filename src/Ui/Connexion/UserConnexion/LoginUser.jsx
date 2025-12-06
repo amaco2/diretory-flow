@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const useAxioToLogin = async (email, password) => {
     try {
         const response = await axios.post(

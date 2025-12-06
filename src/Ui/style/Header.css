@@ -8,7 +8,7 @@
     position: fixed;
     box-shadow: 1px 1px 20px #000;
     top: 0;
-    z-index: 999;
+    z-index: 10;
 }
 body{
     background: linear-gradient(380deg, hsl(180, 16%, 89%), #d1ddf3)

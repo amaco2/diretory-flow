@@ -1,13 +1,15 @@
-import { Eye, EyeOff, Home, Mail } from "lucide-react";
-import {useState } from "react"
+import { ClapperboardIcon, Eye, EyeOff, Mail } from "lucide-react";
+import {useContext, useState } from "react"
 import styled from "styled-components";
+import "directoryflow-fonts";
 import iconDirectoryFlow from './Icon/iconedf.jpg';
-import bgImgConnexion from './Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg'
-import { breakPoint, media, mediaQueryInput } from "../MediaQuery/MediaQuery";
+import bgImgConnexion from './Icon/premium_vector-1683140945544-89a75438d4f5.png'
+import { breakPoint, media, mediaQueryForm, mediaQueryInput } from "../MediaQuery/MediaQuery";
 import { Link } from "react-router-dom";
 import { BtnConnexion } from "../Button";
 import { Homes, styleGlobalInput } from "./ComponentStyledForm/Styled";
 import { useAxioToLogin } from "./UserConnexion/LoginUser";
+import { TContext } from "../../ThemeContext";
 
 
 
@@ -19,10 +21,11 @@ const innerWidth = window.innerWidth;
 const DivFormConnexion = styled.div`
   position: absolute;
   z-index: 999;
+  font-family: 'Open Sans';
   background-image: url("${bgImgConnexion}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position:center ;
+  // background-position-x: -100px;
   mix-blend-mode: difference;
   color:#fff;
   filter: contrast(0.9); 
@@ -51,10 +54,10 @@ const DivFormConnexion = styled.div`
   /* Creation de l'element HTML <<img>> via st
 yledComponent qui servira de logo pour le HEADER*/
 
-const ImgLgoHeader = styled.img`
+const ImgLgoHeader = styled(ClapperboardIcon)`
                       object-fit: cover;
-                      width: 60px;
-                      height: 60px;
+                      width: 50px;
+                      height: 50px;
                       border-radius: 50px;
                       margin-top: 30px;
                       `;
@@ -72,7 +75,7 @@ const ImgLgoHeader = styled.img`
   // Creation du text <<Directory-Flow>> depuis un span dans styled component
   
   const SpanTextDF = styled.span`
-                         font-size: 1.9em;
+                         font-size: 1.5em;
                          font-weight: bold;
                          margin-top: 50px;
                          color: #000;
@@ -82,19 +85,23 @@ const ImgLgoHeader = styled.img`
                          }`;
   const DivWraper = styled.div`
   display: flex;
-  margin-left: -15svw;
+  margin-left: -3svw;
   `;
 
   const DivWrapperForm = styled.div`
-    box-shadow: 0 0 18px #299da7ff;
+    box-shadow: 0 0 50px #363c3cff;
     border: none;
     border-radius: 10px;
     display:flex;
+    position: absolute;
+    top: 5svw;
+    background-color: #fff;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80vw;
+    width: 40vw;
     height: 75svh;
+    ${mediaQueryForm}
   `;
   // Lien en cas d'oublie du mot de passe
   const LinkObject = `
@@ -143,7 +150,6 @@ function FormConnexion(){
     //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
     const [email, setEmail] = useState(''); // On laisse vide pour eviter d'avoir les email par defaut
     const [password, setPassword] = useState('');
-
     /** Les fonction suivante recupere les valeurs des in
     puts pour les envoyer au backend et faire l'authentificatiion*/
        const getEmail = (event)=>{
@@ -165,10 +171,10 @@ function FormConnexion(){
         <div>
             {/* On wrap les elements dans une <<div>> creee avec styled component */}
             <DivFormConnexion>
-              <DivWraper>
-                <ImgLgoHeader src={iconDirectoryFlow}/><SpanTextDF>DirectoryFlow(Connexion)</SpanTextDF><br />
-                </DivWraper><br /><br />
                 <DivWrapperForm>
+                  <DivWraper>
+                <ImgLgoHeader color="#7ecef5ff"/><SpanTextDF>DirectoryFlow</SpanTextDF><br />
+                </DivWraper><br />
                 <Link to={"/"}><Homes size={30} color="#0f0f0eff" /></Link><br />
                 <label htmlFor="email">Adresse e-mail <Mail size={15} color="4ffd05ff"/></label>
                 <InputEmail placeholder="EX: Jhondoe@gmail.com" maxLength={50}
@@ -181,10 +187,15 @@ function FormConnexion(){
                 <InputPassword type={isSeePassword?"password":"text"} maxLength={50} onChange={(event)=>{
                     event.preventDefault();
                     getPassword(event);
-                  setIsSeeEye(true)}}/>
+                    if(event.target.value !== ""){
+                  setIsSeeEye(true)
+                }else{
+                  setIsSeeEye(false)
+                }
+                }}/>
                 <SpamSeeOrNotSee hidden={isSeeEye? false: true}>{isSeePassword?
-                  <EyeOff onClick={()=>setIsSeePassword(false)} color="#fff"/>:
-                  <Eye onClick={()=> {setIsSeePassword(true)}} color="#fff"/>}</SpamSeeOrNotSee>
+                  <EyeOff onClick={()=>setIsSeePassword(false)} color="#0d0d0dff"/>:
+                  <Eye onClick={()=> {setIsSeePassword(true)}} color="#0f0e0eff"/>}</SpamSeeOrNotSee>
                 <LinkForgetPassword>Mot de passe Oublié?</LinkForgetPassword>
 
                 <BtnConnexion onClick={(event)=>{
