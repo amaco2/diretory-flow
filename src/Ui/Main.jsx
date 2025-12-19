@@ -10,7 +10,7 @@ import { TContext } from '../ThemeContext';
 const Div_Img_Bg_Main = styled.div`
   width: 100%;
   height: 550px;
-  margin-top: 50px;
+  margin-top: 65px;
   background-image: url('${ Bg_Img_Main }');
   background-repeat: no-repeat;
   // filter: contrast(80%);
