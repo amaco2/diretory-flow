@@ -1,14 +1,15 @@
-import Headers from "../Ui/Header";
-import Main from "../Ui/Main.jsx";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Headers from '../Ui/Header';
+import Main from '../Ui/Main.jsx';
 
-function Home(){
-    return(
+function Home()
+{
+    return (
         <div>
-           <Headers/>
-           <Main/>
+            <Headers />
+
+            <Main />
         </div>
-    )
+    );
 }
 
 export default Home;

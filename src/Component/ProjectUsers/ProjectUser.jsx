@@ -1,92 +1,186 @@
-import { AlarmClock, BookDashed, Film, ProjectorIcon, Repeat, Text } from "lucide-react"
-import { DivfonsScrool } from "../../Ui/ProfilUsers/ComponentsProfil"
-import { BtnNextQuest, DivForm, DivFormProjects, InputDate, InputDescription, InputText, InputTypeProductyion } from "./style/styleComponent"
-import {Link, Route, Routes} from 'react-router-dom'
-import { itemslist } from "./ComponentUser"
-import { useEffect, useRef } from "react"
+import { DivfonsScrool } from '../../Ui/ProfilUsers/ComponentsProfil';
+import
+{
+  DivForm,
+  DivFormProjects,
+} from './style/styleComponent';
+import { Link, Outlet } from 'react-router-dom';
+import { itemslist } from './ComponentUser';
+import { useEffect, useRef, useState } from 'react';
 // Importation de notre feuille de style
 import './style/ProjectUser.css';
+import { ProjectUserContext } from '../../ThemeContext';
 
-function ProjectUser(){
-   
-    /** Dans la suite nous declarons des variables qui 
-     * font references aux elements du DOM et des fonctions
-     * qui appel celle-ci */
-    const refDivInpuit = useRef(null);
-    const refDivBgImg = useRef(null);
-    const description = useRef(null)
+function ProjectUser()
+{
 
-// on place un tableau de dependence vide pour charger les donnes pendant chaque rendu 
-useEffect(()=>{
-        let i = 0;
-  const getDivInput = ()=>{
-    //  On recupere la <<DIV>> contenant les input ici
-    if(refDivInpuit.current){
-    return (refDivInpuit.current.querySelectorAll('input[type="radio"]'));
+  /**
+* On cree un state qui va stocker les information du <<step1>>
+* et un @Component de useContext
+*/
+  const [ dataProject, setDataProject ] = useState( {
+    title_project: "",
+    type_production: "",
+    status: 'Préproduction',
+    description: ""
+  } );
+
+  const [ formatOfProject, setFormatOfProject ] = useState(
+    {
+      format: '',
+      duree_estimer: '',
+      mode_diffusion: '',
+      niveau_complexite: '',
+      tournage_prevu: '',
+      existance_scenario: '',
     }
-  };
-  const getDivBgImg = ()=>{
-    if(refDivBgImg.current){
-        
-       const set =  setInterval(()=>{
-        refDivBgImg.current.style.backgroundImage = `url(${itemslist[i].img})`;
-        refDivBgImg.current.style.transition = 'all';
-        description.current.textContent = itemslist[i].description;
-         const get = getDivInput();
-         get[i].checked = true ;
-         i = (i + 1)% itemslist.length;
-        }, 10000)
-
-        return ()=>{
-            clearInterval(set)
-        }
+  )
+  const [ dataStep3, setDataStep3 ] = useState(
+    {
+      taille_equipe: '',
+      isDirecteurProduction: '',
+      isPremierAD: '',
+      methode_travaille: '',
+      expEquipe: '',
+      outil_utilise: '',
     }
-  }
-  getDivBgImg()
-},[])
+  )
 
-  
-    return(
+  const [ dataStep4, setDataStep4 ] = useState(
+    {
+      date_Debut: "",
+      date_Fin: "",
+      nbr_Jour_tournage: '',
+      contrainte: '',
+      niveauPression: '',
+      flexibilitePlanning: '',
+    }
+  )
+
+  const [ dataStep5, setDataStep5 ] = useState(
+    {
+      satusEquipe: '',
+      budget: '',
+      materiel: '',
+      tele_travail: '',
+      nbr_Lieux_Principaux: '',
+      risque: '',
+    }
+  );
+
+  const [ dataStep6, setDataStep6 ] = useState(
+    {
+      objectif: '',
+      crainte: '',
+      blockage: '',
+      priorite: '',
+      attente: '',
+      autoriserIA: '',
+    }
+  )
+
+
+  /** Dans la suite nous declarons des variables qui
+   * font references aux elements du DOM et des fonctions
+   * qui appel celle-ci */
+  const refDivInpuit = useRef( null );
+  const refDivBgImg = useRef( null );
+  const description = useRef( null );
+
+  // on place un tableau de dependence vide pour charger les donnes pendant chaque rendu
+  useEffect( () =>
+  {
+    let i = 0;
+    const getDivInput = () =>
+    {
+      //  On recupere la <<DIV>> contenant les input ici
+      if ( refDivInpuit.current )
+      {
+        return refDivInpuit.current.querySelectorAll( 'input[type="radio"]' );
+      }
+    };
+    const getDivBgImg = () =>
+    {
+      if ( refDivBgImg.current )
+      {
+        const set = setInterval( () =>
+        {
+          refDivBgImg.current.style.backgroundImage = `url(${ itemslist[ i ].img })`;
+          refDivBgImg.current.style.transition = 'all';
+          description.current.textContent = itemslist[ i ].description;
+          const get = getDivInput();
+          get[ i ].checked = true;
+          i = ( i + 1 ) % itemslist.length;
+        }, 10000 );
+
+        return () =>
+        {
+          clearInterval( set );
+        };
+      }
+    };
+    getDivBgImg();
+  }, [] );
+
+  return (
+    <div className='addImgBg' ref={ refDivBgImg }>
+      <DivFormProjects>
+        <DivfonsScrool>
+          <div >
+            {/* Ici seront les images */ }
+            <p ref={ description } className='description'>
+              ...
+            </p>
+            <div className='input-radio-check' ref={ refDivInpuit }>
+              <input type='radio' id='rdio' name='rdio' disabled />
+              <input type='radio' id='rdio' name='rdio' disabled />
+              <input type='radio' id='rdio' name='rdio' disabled />
+              <input type='radio' id='rdio' name='rdio' disabled />
+              <input type='radio' id='rdio' name='rdio' disabled />
+            </div>
+          </div>
+        </DivfonsScrool>
         <div>
-            <DivFormProjects>
-                <DivfonsScrool>
-                    <div className="addImgBg" ref={refDivBgImg}>
-                        {/* Ici seront les images */}
-                        <p ref={description} className="description">...</p>
-                        <div className="input-radio-check" ref={refDivInpuit}>
-
-                    <input type="radio" id="rdio" name="rdio" />
-                    <input type="radio" id="rdio" name="rdio" />
-                    <input type="radio" id="rdio" name="rdio" />
-                    <input type="radio" id="rdio" name="rdio" />
-                    <input type="radio" id="rdio" name="rdio" />
-
-                    </div>
-                    </div>
-                </DivfonsScrool>
-            <DivForm>
-                <label htmlFor="titre">Titre du projet : <ProjectorIcon color="#00ff00" size={35}/> </label>
-                <InputText type="text" id="titre" name="titre"/><br /><br />
-                <label htmlFor="date_debut">Date de début : <AlarmClock color="#ff0000" size={25}/> </label>
-                <InputDate type="date"/><br /><br />
-                <label htmlFor="type_production">Type de production  : <Film size={25}/> </label>
-                <InputTypeProductyion>
-                <option value="">--------</option>
-                <option value="film">Film</option>
-                <option value="clip">Clip</option>
-                <option value="pub">Pub</option>
-                <option value="court_metrage">Court métrage</option>
-                </InputTypeProductyion><br /><br />
-                <label htmlFor="description">Description : <Text/></label>
-                <InputDescription></InputDescription><br /><br />
-                <BtnNextQuest>Suivant</BtnNextQuest><br /><br />
-                <Link to={'/'}>Accueil</Link>
-            </DivForm>
-            <Routes>
-            </Routes>
-            </DivFormProjects>
+          {/* <form action=""> */ }
+          <DivForm>
+            <p style={ { fontSize: "1em", color: "#000000" } }>text</p>
+            <ProjectUserContext.Provider
+              style={ {
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center"
+              } } value={ {
+                dataProject,
+                setDataProject,
+                formatOfProject,
+                setFormatOfProject,
+                dataStep3,
+                setDataStep3,
+                dataStep4,
+                setDataStep4,
+                dataStep5,
+                setDataStep5,
+                dataStep6,
+                setDataStep6
+              } }>
+              <Outlet />
+            </ProjectUserContext.Provider>
+            {/* Lien de retour a la page d'accueil */ }
+            <Link to={ '/' }>Accueil</Link>
+          </DivForm>
+          {/* </form> */ }
         </div>
-    )
+      </DivFormProjects>
+    </div>
+  );
 }
+/**
+ * @param {<DivForm/>}Cretion d'une fonction servant d'index au swicth des donnes qui seront
+ * utilise pour pose diverse question a l'utilisateur
+ * @example
+ * @component
+ * <GetStartQuestion />
+ */
 
-export default ProjectUser
+export default ProjectUser;

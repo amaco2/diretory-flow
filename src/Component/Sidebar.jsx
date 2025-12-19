@@ -1,0 +1,73 @@
+import { Stack, NavLink } from "@mantine/core";
+import
+{
+    IconLayoutDashboard,
+    IconColumns,
+    IconCalendar,
+    IconUsers,
+    IconFolder,
+    IconRobot,
+    IconMessage
+} from "@tabler/icons-react";
+import { NavLink as RouterLink } from "react-router-dom";
+
+function Sidebar()
+{
+
+    return (
+        <Stack>
+            <NavLink
+                component={ RouterLink }
+                to="overview"
+                label="overview"
+                leftSection={ <IconLayoutDashboard /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="kanban"
+                label="kanban"
+                leftSection={ <IconColumns /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="timeline"
+                label="Planning"
+                leftSection={ <IconCalendar /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="team"
+                label="Equipe"
+                leftSection={ <IconUsers /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="documents"
+                label="Documents"
+                leftSection={ <IconFolder /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="ai"
+                label="Assistant IA"
+                leftSection={ <IconRobot /> }
+                __size={ 18 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="chat"
+                label="Chat"
+                leftSection={ <IconMessage /> }
+                __size={ 18 }
+                target="blank"
+            />
+        </Stack>
+    )
+}
+
+export default Sidebar;

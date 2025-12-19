@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import { mediaQueryInput } from "./MediaQuery/MediaQuery";
-
+import styled from 'styled-components';
+import { mediaQueryInput } from './MediaQuery/MediaQuery';
 
 const styleBtn_Connexion_Instription = `
                                     border: none;
@@ -16,23 +15,23 @@ const styleBtn_Connexion_Instription = `
                                           ${mediaQueryInput}
                                     `;
 const BtnInscription = styled.button`
-                                  ${styleBtn_Connexion_Instription};
-                                  background-color: #0af8b5ff;
-                                  color: #fff;
-                                  margin-left: 8px;
-                                   &:hover {
-                                     background-color: purple;
-                                    color: #fff
-                                  };
-                                 `;
+  ${styleBtn_Connexion_Instription};
+  background-color: #0af8b5ff;
+  color: #fff;
+  margin-left: 8px;
+  &:hover {
+    background-color: purple;
+    color: #fff;
+  }
+`;
 const BtnConnexion = styled.button`
-                            ${styleBtn_Connexion_Instription};
-                            background-color: #08fd9fff;
-                            color: #fff;
-                             &:hover {
-                                     background-color: #000;
-                                     color: #fff;
-                                     border: 1px solid #ec4f11ff;
-                                  };
-                            `;
-export {BtnInscription, BtnConnexion};
+  ${styleBtn_Connexion_Instription};
+  background-color: #08fd9fff;
+  color: #fff;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #ec4f11ff;
+  }
+`;
+export { BtnInscription, BtnConnexion };

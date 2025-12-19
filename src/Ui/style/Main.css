@@ -1,0 +1,19 @@
+.main--bg-img-p {
+  font-size: 1.6em;
+  font-weight: bold;
+  position: relative;
+  top: 13svw;
+  width: 50svw;
+  color: #00eeaa;
+  left: 25svw;
+  transition: font-size all color ease-in-out;
+}
+.main--bg-img-p:hover{
+     font-size: 1.8;
+     cursor: pointer;
+     color: #fff
+}
+
+.btn--gets-Start:hover .arrowRight {
+  fill: rgb(0, 0, 0);
+}

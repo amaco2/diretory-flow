@@ -1,16 +1,16 @@
-import {LucideHome } from "lucide-react";
-import styled from "styled-components";
+import { LucideHome } from 'lucide-react';
+import styled from 'styled-components';
 const Homes = styled(LucideHome)`
-    color: #fff;
-    display: inline-block;
-    postion: relative;
-    left: -20svw;
-    width: 50px;
-     `;
+  color: #fff;
+  display: inline-block;
+  postion: relative;
+  left: -20svw;
+  width: 50px;
+`;
 
-      // Style globale input form
+// Style globale input form
 
-  const styleGlobalInput = `
+const styleGlobalInput = `
       background-color: #DEE5F1;
        color: #000;
        border: none;
@@ -20,5 +20,4 @@ const Homes = styled(LucideHome)`
       height: 40px;
       `;
 
-
-export {Homes, styleGlobalInput}
+export { Homes, styleGlobalInput };

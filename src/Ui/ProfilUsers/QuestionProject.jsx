@@ -1,11 +1,3 @@
-
-
-
-
-
-function QuestionFormProject(){
-
-
-}
+function QuestionFormProject() {}
 
 export default QuestionFormProject;
