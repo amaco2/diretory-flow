@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Bg_Img_Main from '../asset/1766161148404.png';
 import './style/Main.css';
-import 'directoryflow-fonts';
 import { ArrowBigRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
