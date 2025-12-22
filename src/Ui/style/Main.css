@@ -8,12 +8,46 @@
   left: 25svw;
   transition: font-size all color ease-in-out;
 }
-.main--bg-img-p:hover{
-     font-size: 1.8;
-     cursor: pointer;
-     color: #fff
+
+.main--bg-img-p:hover {
+  font-size: 1.8em;
+  cursor: pointer;
+  color: #fff
 }
 
 .btn--gets-Start:hover .arrowRight {
   fill: rgb(0, 0, 0);
+}
+
+
+@media screen and (max-width: 1200px) {
+  .main--bg-img-p {
+    width: 50svw;
+    color: #fff;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1.5em;
+    color: #ffffff;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main--bg-img-p {
+    width: 60svw;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1.5em;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main--bg-img-p {
+    font-size: 1em;
+    width: 80svw;
+    left: 20svw;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1em;
+  }
 }

@@ -10,11 +10,10 @@ import
 } from 'lucide-react';
 import styled from 'styled-components';
 // Importation des fichier contenant les dimension des <<MediaQuery>>
-import { breakPoint, media } from './MediaQuery/MediaQuery.jsx';
+import { breakPoint } from './MediaQuery/MediaQuery.jsx';
 // Importation de l'icone de directoryflow pour le header
-import iconDirectoryFlow from '../Ui/Connexion/Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg';
 import './style/Header.css';
-import { isCookie, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { TContext } from '../ThemeContext.jsx';
 import ProfilUser from './ProfilUsers/ProfilsUser.jsx';
@@ -24,6 +23,7 @@ import
   stringToColor,
 } from '../Component/ProjectUsers/style/styleComponent.jsx';
 import { IconUsers } from '@tabler/icons-react';
+import { Burger } from '@mantine/core';
 
 /* Creation de l'element HTML <<img>> via st
 yledComponent qui servira de logo pour le HEADER*/
@@ -122,6 +122,10 @@ function Headers()
               justifyContent: 'space-evenly',
             } }
           >
+            <Burger
+              hiddenFrom="mm"
+              size={ "sm" }
+            />
             Accueil
             <Home size={ 30 } color={ bgColor } />
             Contact

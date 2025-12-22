@@ -30,6 +30,9 @@ const Div_Img_Bg_Main = styled.div`
       transform: scale(1);
     }
   }
+    @media screen and (max-width: 480px){
+       height: 380px;
+    }
 `;
 /** Bouton d'orientation de redirection de l'utilisateur vers la
  * creation de projet ou de compte si pas deja cree */
@@ -53,6 +56,46 @@ const BtnGetStart = styled.button`
   &:hover {
     color: #00eaffff;
     background-color: #000000ff;
+  }
+
+  @media screen and (max-width: 960px){
+        font-size: 1.4em;
+        height: 60px;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 768px){
+        font-size: 1.1em;
+        height: 60px;
+        width: 25svw;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 480px){
+        font-size: 1em;
+        height: 60px;
+        width: 55svw;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 210px){
+        font-size: 1em;
+        height: 60px;
+        width: 60svw;
+        left: 30svw;
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
   }
 `;
 

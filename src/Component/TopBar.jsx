@@ -23,9 +23,9 @@ function Topbar( { toogleSidebar, opened } )
                 hiddenFrom="mm"
                 size={ "sm" }
             />
-            <Text fw={ 600 } style={{marginTop: '30px', fontSize: '1.5em'}}>DirectoryFlow</Text>
+            <Text fw={ 600 } style={ { marginTop: '30px', fontSize: '1.5em' } }>DirectoryFlow</Text>
             <Avatar radius={ "xl" } bg={ bgColor } color="#fff" fz={ 20 }>{ intialUser }</Avatar>
-            <Link to={ "/" } style={{marginTop: '20px'}}><HomeIcon /></Link>
+            <Link to={ "/" } style={ { marginTop: '20px' } }><HomeIcon /></Link>
             {/* </Group> */ }
         </Group>
     );

@@ -11,45 +11,45 @@ const breakPoint = {
 };
 
 const media = {
-  mobile: (...args) => css`
+  mobile: ( ...args ) => css`
     @media (max-width: 480px) {
-      ${css(...args)};
+      ${ css( ...args ) };
     }
   `,
-  tablet: (...args) => css`
+  tablet: ( ...args ) => css`
     @media (max-width: 768px) {
-      ${css(...args)}
+      ${ css( ...args ) }
     }
   `,
-  desktop: (...args) => css`
+  desktop: ( ...args ) => css`
     @media (max-width: 1200px) {
-      ${css(...args)}
+      ${ css( ...args ) }
     }
   `,
-  mobileSlime: (...args) => css`
+  mobileSlime: ( ...args ) => css`
     @media (max-width: 290px) {
-      ${css(...args)};
+      ${ css( ...args ) };
     }
   `,
 };
 const mediaQueryInput = `
-   @media screen and (max-width: ${breakPoint.tablet}){
+   @media screen and (max-width: ${ breakPoint.tablet }){
        width: 45svw;
  };
- @media screen and (max-width: ${breakPoint.desktop}){
+ @media screen and (max-width: ${ breakPoint.desktop }){
      width: 50svw;
  };
- @media screen and (max-width: ${breakPoint.mobile}){
+ @media screen and (max-width: ${ breakPoint.mobile }){
  width: 60svw;
  }`;
 const mediaQueryForm = `
-   @media screen and (max-width: ${breakPoint.tablet}){
+   @media screen and (max-width: ${ breakPoint.tablet }){
        width: 58svw;
  };
- @media screen and (max-width: ${breakPoint.desktop}){
+ @media screen and (max-width: ${ breakPoint.desktop }){
      width: 60svw;
  };
- @media screen and (max-width: ${breakPoint.mobile}){
+ @media screen and (max-width: ${ breakPoint.mobile }){
  width: 80svw;
  top: 7svw;
  }`;
