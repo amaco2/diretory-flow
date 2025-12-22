@@ -42,12 +42,14 @@
 }
 @media screen and (max-width: 480px) {
   .main--bg-img-p {
-    font-size: 1em;
+    font-size: 1.2em;
     width: 80svw;
-    left: 20svw;
+    left: 15svw;
+    top: 35svw;
+    color: #ffffff;
   }
 
   .main--bg-img-p:hover {
-    font-size: 1em;
+    font-size: 1.3em;
   }
 }

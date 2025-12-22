@@ -81,6 +81,7 @@ const BtnGetStart = styled.button`
         font-size: 1em;
         height: 60px;
         width: 55svw;
+        top: 35svw;
 
         &:hover{
         background-color: #fff;
@@ -92,6 +93,7 @@ const BtnGetStart = styled.button`
         height: 60px;
         width: 60svw;
         left: 30svw;
+
         &:hover{
         background-color: #fff;
         font-weight: bolder;
