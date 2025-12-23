@@ -13,7 +13,7 @@ const Div_Img_Bg_Main = styled.div`
   background-image: url('${ Bg_Img_Main }');
   background-repeat: no-repeat;
   // filter: contrast(80%);
-  // box-shadow: inset 20px 20px 100px 950px #15161662;
+  box-shadow: inset 20px 20px 100px 950px #15161662;
   background-size: cover;
   background-position: center;
   object-fit: cover;

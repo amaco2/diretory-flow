@@ -29,7 +29,7 @@ const DivFormConnexion = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   // background-position-x: -100px;
-  mix-blend-mode: difference;
+  // mix-blend-mode: difference;
   color: #fff;
   filter: contrast(0.9);
   border: none;
@@ -259,7 +259,7 @@ function FormConnexion()
               event.stopPropagation();
               useAxioToLogin( email || nul, password || null );
               setIsSeeEye( false );
-               naviagte( '../' );
+              naviagte( '../' );
             } }
           >
             Connexion

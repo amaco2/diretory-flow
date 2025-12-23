@@ -29,11 +29,7 @@ function Step5()
         // Recuperation des donnees du formualire depuis <<FrromData>>
         updateData(
             {
-                satusEquipe: formaData.get( 'constitution_equipe' ),
                 budget: formaData.get( 'budget_global' ),
-                materiel: formaData.get( 'acces_materiel' ),
-                tele_travail: formaData.get( 'tele_travaille' ),
-                nbr_Lieux_Principaux: formaData.get( 'nbr_jours' ),
                 risque: formaData.get( 'risque' ),
             }
         );
@@ -42,66 +38,34 @@ function Step5()
     }
 
     return (
-        <form
-            style={ {
-                marginLeft: "90px"
-            } }
-            onSubmit={ handleSubmit }>
-            <div>
-                <label htmlFor="format_principale">1. Equipe complète déjà constitué ?</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="constitution_equipe" value={ "oui" } />
-                <label htmlFor="partielle">Partielle</label>
-                <InputCheckbox type="radio" name="constitution_equipe" value={ "partielle" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="constitution_equipe" value={ "non" } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">2. Budget Global estimé</label><br />
-                <label htmlFor="faible">Très faible</label>
-                <InputCheckbox type="radio" name="budget_global" value={ "faible" } />
-                <label htmlFor="moyen">Moyen</label>
-                <InputCheckbox type="radio" name="budget_global" value={ "moyen" } />
-                <label htmlFor="eleve">Elevé</label>
-                <InputCheckbox type="radio" name="budget_global" value={ "élevé" } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">3. Accès au matériel</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="acces_materiel" value={ "oui" } />
-                <label htmlFor="partiel">Partiel</label>
-                <InputCheckbox type="radio" name="acces_materiel" value={ "partiel" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="acces_materiel" value={ "non" } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">4. Travaille à distaner</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="tele_travaille" value={ "oui" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="tele_travaille" value={ "non" } />
-            </div><br />
-            <div>
-                <label htmlFor='nbr_jours'>
-                    Nombres de lieux Principaux: <Columns4 color='#00aeffff' size={ 25 } />{ ' ' }
-                </label>
-                <InputDate type='number' name="nbr_jours" style={ { marginLeft: "30px" } } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">6. Niveau de risque global</label><br />
-                <label htmlFor="faible">Faible</label>
-                <InputCheckbox type="radio" name="risque" value={ "faible" } />
-                <label htmlFor="moyen">Moyen</label>
-                <InputCheckbox type="radio" name="risque" value={ "moyen" } />
-                <label htmlFor="élevé">Elevé</label>
-                <InputCheckbox type="radio" name="risque" value={ "élevé" } />
-            </div><br />
+        <section aria-labelledby="step5-title">
+            <h2 id="step5-title" className="sr-only">Équipes et moyens</h2>
+            <form className="step-form" onSubmit={ handleSubmit }>
+                <fieldset className="form-field">
+                    <legend>2. Budget Global estimé</legend>
+                    <label htmlFor="budget-faible">Très faible</label>
+                    <InputCheckbox id="budget-faible" type="radio" name="budget_global" value={ "faible" } />
+                    <label htmlFor="budget-moyen">Moyen</label>
+                    <InputCheckbox id="budget-moyen" type="radio" name="budget_global" value={ "moyen" } />
+                    <label htmlFor="budget-eleve">Élevé</label>
+                    <InputCheckbox id="budget-eleve" type="radio" name="budget_global" value={ "élevé" } />
+                </fieldset>
+                <fieldset className="form-field">
+                    <legend>6. Niveau de risque global</legend>
+                    <label htmlFor="risque-faible">Faible</label>
+                    <InputCheckbox id="risque-faible" type="radio" name="risque" value={ "faible" } />
+                    <label htmlFor="risque-moyen">Moyen</label>
+                    <InputCheckbox id="risque-moyen" type="radio" name="risque" value={ "moyen" } />
+                    <label htmlFor="risque-eleve">Élevé</label>
+                    <InputCheckbox id="risque-eleve" type="radio" name="risque" value={ "élevé" } />
+                </fieldset>
 
-            <div className="nav-btn" style={ { marginLeft: "-120px" } }>
-                <Link to={ '../step3' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
-                <BtnNextQuest type="submit">Suivant</BtnNextQuest>
-            </div>
-        </form>
+                <div className="nav-btn">
+                    <Link to={ '../step3' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
+                    <BtnNextQuest type="submit">Suivant</BtnNextQuest>
+                </div>
+            </form>
+        </section>
     )
 }
 

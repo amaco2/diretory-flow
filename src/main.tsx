@@ -4,8 +4,8 @@ import ReactDom from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import WrapperComponent from './WrapperComponents.js';
 import "@mantine/core/styles.css";
-import "react-grid-layout/css/styles.css";
-import "react-resizable/css/styles.css";
+// import "react-grid-layout/css/styles.css";
+// import "react-resizable/css/styles.css";
 import { MantineProvider } from "@mantine/core";
 
 // Recperation de la route grace createRoot

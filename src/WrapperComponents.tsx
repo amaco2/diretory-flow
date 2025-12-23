@@ -14,6 +14,7 @@ import { Step3 } from './Component/ProjectUsers/StepCollectQuestion/Step3.jsx';
 import { Step4 } from './Component/ProjectUsers/StepCollectQuestion/Step4.jsx';
 import { Step5 } from './Component/ProjectUsers/StepCollectQuestion/Step5.jsx';
 import { Step6 } from './Component/ProjectUsers/StepCollectQuestion/Step6.jsx';
+import Summary from './Component/ProjectUsers/StepCollectQuestion/Summary.jsx';
 
 // Cette position est temporaire
 const colors = {
@@ -112,6 +113,7 @@ function WrapperComponent()
             <Route path='step4' element={<Step4 />} />
             <Route path='step5' element={<Step5 />} />
             <Route path='step6' element={<Step6 />} />
+            <Route path='summary' element={<Summary />} />
           </Route>
           <Route index path='/' element={<Home />} />
           <Route path='/project/' element={<ProjectDashboar />} >

@@ -31,7 +31,7 @@ import { ProjectUserContext } from '../../../ThemeContext';
 
 function Step4()
 {
-    const {dataStep4, setDataStep4} = useContext(ProjectUserContext)
+    const { dataStep4, setDataStep4 } = useContext( ProjectUserContext )
     // Variable de navigation
     const navigate = useNavigate();
 
@@ -47,10 +47,6 @@ function Step4()
             {
                 date_Debut: formaData.get( 'date_debut' ),
                 date_Fin: formaData.get( 'date_fin' ),
-                nbr_Jour_tournage: formaData.get( 'nbr_jours' ),
-                contrainte: formaData.get( 'contrainte' ),
-                niveauPression: formaData.get( 'niveau_pression' ),
-                flexibilitePlanning: formaData.get( 'flexibilite_planning' ),
             }
         );
         // Navigation
@@ -58,64 +54,27 @@ function Step4()
     }
 
     return (
-        <form
-            style={
-                {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center"
-                } }
-            onSubmit={ handleSubmit }>
-            <label htmlFor='date_debut'>
-                Date de début estimé: <AlarmClock color='#ff0000' size={ 25 } />{ ' ' }
-            </label>
-            <InputDate type='date' name='date_debut' />
-            <label htmlFor='date_fin'>
-                Date de fin estimé: <AlarmClock color='#ff0000' size={ 25 } />{ ' ' }
-            </label>
-            <InputDate type='date' name='date_fin' />
-            <label htmlFor='nbr_jours'>
-                Nombres de jours de tournage: <Calendar1Icon color='#00aeffff' size={ 25 } />{ ' ' }
-            </label>
-            <InputDate type='number' name='nbr_jours' />
-            <label htmlFor='type_production'>
-                Contrainte majeures : <Film size={ 25 } />{ ' ' }
-            </label>
-            <InputTypeProductyion name='contrainte'>
-                <option value=''>--------</option>
-                <option value='lieux'>Lieux</option>
-                <option value="acteurs">Acteurs</option>
-                <option value='budget'>Budget</option>
-                <option value='meteo'>météo</option>
-                <option value='all'>Tous ce qui précède</option>
-            </InputTypeProductyion>
-            <div>
-                <label htmlFor="format_principale">Niveau de préssion temporelle <TimerOff color='#ff0000' /></label><br />
-                <label htmlFor="faible">Faible</label>
-                <InputCheckbox type="radio" name="niveau_pression" value={ "faible" } />
-                <label htmlFor="moyen">Moyen</label>
-                <InputCheckbox type="radio" name="niveau_pression" value={ "moyen" } />
-                <label htmlFor="eleve">Elevé</label>
-                <InputCheckbox type="radio" name="niveau_pression" value={ "eleve" } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">Flexibilité du planning<TimerOff color='#ff0000' /></label><br />
-                <label htmlFor="rigide">Rigide</label>
-                <InputCheckbox type="radio" name="flexibilite_planning" value={ "rigide" } />
-                <label htmlFor="ajustable">Ajustable</label>
-                <InputCheckbox type="radio" name="flexibilite_planning" value={ "ajustable" } />
-                <label htmlFor="libre">Libre</label>
-                <InputCheckbox type="radio" name="flexibilite_planning" value={ "libre" } />
-            </div><br /><br />
-
-            <div className="nav-btn" style={ {
-                width: "600px"
-            } }>
-                <Link to={ '../step3' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
-                <BtnNextQuest type="submit">Suivant</BtnNextQuest>
-            </div>
-        </form>
+        <section aria-labelledby="step4-title">
+            <h2 id="step4-title" className="sr-only">Planning et contraintes</h2>
+            <form className="step-form center-column" onSubmit={ handleSubmit }>
+                <div className="form-field">
+                    <label htmlFor='date_debut'>
+                        Date de début estimé: <AlarmClock color='#ff0000' size={ 25 } />{ ' ' }
+                    </label>
+                    <InputDate id='date_debut' name='date_debut' type='date' />
+                </div>
+                <div className="form-field">
+                    <label htmlFor='date_fin'>
+                        Date de fin estimé: <AlarmClock color='#ff0000' size={ 25 } />{ ' ' }
+                    </label>
+                    <InputDate id='date_fin' name='date_fin' type='date' />
+                </div>
+                <div className="nav-btn">
+                    <Link to={ '../step3' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
+                    <BtnNextQuest type="submit">Suivant</BtnNextQuest>
+                </div>
+            </form>
+        </section>
     )
 }
 

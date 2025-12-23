@@ -10,7 +10,3 @@
   top: 0;
   z-index: 10;
 }
-
-body {
-  background: linear-gradient(380deg, hsl(180, 16%, 89%), #d1ddf3);
-}

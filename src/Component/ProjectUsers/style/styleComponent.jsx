@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { breakPoint } from '../../../Ui/MediaQuery/MediaQuery';
 
+const innerWidth = window.innerWidth;
 const DivFormProjects = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  // display: grid;
+  // grid-template-columns: repeat(1, 1fr);
   color: #fff;
   // width: 100vw;
   @media screen and (max-width: ${ breakPoint.tablet }) {
@@ -12,53 +13,63 @@ const DivFormProjects = styled.div`
   }
 `;
 const styleAllInput = `
-       width: 48svw;
+       width: 48vw;
+       max-width: 640px;
        height: 40px;
+       box-sizing: border-box;
+       padding: 8px 10px;
        border: none;
        background-color: #DEE5F1;
        border-radius: 10px;
+       outline: none;
+       &:focus{ box-shadow: 0 0 0 3px rgba(0,123,255,0.18); }
 
        @media screen and (max-width: ${ breakPoint.tablet }) {
-       width: 90svw;
-  }
+         width: 90vw;
+       }
      `;
 const InputText = styled.input`
   ${ styleAllInput }
 `;
 const DivForm = styled.div`
   position: relative;
-  // left: -2svw;
-  // box-shadow: 0 0 10px #201f1fff;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  width: 60svw;
-  height: 100svh;
-  background-color: #ffffff;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(11,11,11,0.85);
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
 
   @media screen and (max-width: ${ breakPoint.tablet }) {
-    width: 100vw;
-    position: absolute;
-    height: 100svh;
-    bottom: -0;
-    left: 0;
+    padding: 16px;
+    background-color: transparent;
+    box-shadow: none;
   }
 `;
 const InputDate = styled.input`
   ${ styleAllInput }
 `;
 const InputDescription = styled.textarea`
-  width: 48svw;
+  width: 48vw;
+  max-width: 640px;
   height: 200px;
+  box-sizing: border-box;
+  padding: 10px;
   border: none;
   background-color: #dee5f1;
   border-radius: 10px;
+  &:focus{ box-shadow: 0 0 0 3px rgba(0,123,255,0.18); }
 
        @media screen and (max-width: ${ breakPoint.tablet }) {
-       width: 90svw;
-  }
+         width: 90vw;
+       }
 `;
 const InputTypeProductyion = styled.select`
   cursor: pointer;
@@ -67,41 +78,38 @@ const InputTypeProductyion = styled.select`
 // Bouton de navigation des etapes suivantes
 
 const BtnNextQuest = styled.button`
-    width: 7svw;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  background-color: #0000ff;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1em;
-  cursor: pointer;
-  //     Gestion du hover
-  &:hover {
-    background-color: #000;
+    width: auto;
+    padding: 8px 14px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+  background-color: #c82333; /* cinema red */
     color: #fff;
-  }
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    &:focus{ outline: 3px solid rgba(0,0,0,0.12); }
+    &:hover { background-color: #000; color: #fff; }
 `;
 const BtnPrevQuest = styled.button`
-  width: 7svw;
-  height: 30px;
+  width: auto;
+  padding: 8px 14px;
+  height: 36px;
   border: none;
   border-radius: 8px;
-  background-color: #51ff00ff;
+  background-color: #ffd166; /* gold accent */
   color: #fff;
   font-weight: bold;
   font-size: 1em;
   cursor: pointer;
-  //     Gestion du hover
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
+  &:focus{ outline: 3px solid rgba(0,0,0,0.12); }
+  &:hover { background-color: #000; color: #fff; }
 `
 
 const InputCheckbox = styled.input`
-    margin-left: 20px;
-    cursor: pointer;
+  margin-left: 12px;
+  cursor: pointer;
+  &:focus{ outline: 2px solid rgba(0,123,255,0.25); }
 `
 /** ***********************************
  * ************** Les fonctions suivant sont place a cette endroit de facon temporaire

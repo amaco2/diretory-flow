@@ -53,80 +53,55 @@ function Step6()
         updateData(
             {
                 objectif: formaData.get( 'type_production' ),
-                crainte: formaData.get( 'crainte' ),
-                blockage: formaData.get( 'blockage' ),
                 priorite: formaData.get( 'priorite_absolue' ),
-                attente: formaData.get( 'attente' ),
                 autoriserIA: formaData.get( 'suggestion_IA' ),
             }
         );
         // Navigation
-        navigate( '/project' );
+        navigate( '../summary' );
     }
 
     return (
-        <form
-            style={
-                {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center"
-                } }
-            onSubmit={ handleSubmit }>
-            <label htmlFor='type_production'>
-                Objectif principale du projet : <Briefcase size={ 25 } />{ ' ' }
-            </label>
-            <InputTypeProductyion name='type_production'>
-                <option value=''>--------</option>
-                <option value='artistique'>Artistique</option>
-                <option value="commercial">Commercial</option>
-                <option value='pedqgogique'>Pédagogique</option>
-                <option value='autre'>Autre</option>
-            </InputTypeProductyion>
-            <label htmlFor='crainte'>
-                Plus grande crainte actuelle: <Ghost color='#1a1919ff' size={ 25 } />{ ' ' }
-            </label>
-            <InputDate type='text' name='crainte' />
-            <label htmlFor='blockage'>
-                Ce qui pourrait bloquer la production: <BriefcaseBusiness color='#ff00e1ff' size={ 25 } />{ ' ' }
-            </label>
-            <InputDate type='text' name='blockage' />
+        <section aria-labelledby="step6-title">
+            <h2 id="step6-title" className="sr-only">Vision, risques et attentes</h2>
+            <form className="step-form center-column" onSubmit={ handleSubmit }>
+                <div className="form-field">
+                    <label htmlFor='type_production'>
+                        Objectif principal du projet : <Briefcase size={ 25 } />{ ' ' }
+                    </label>
+                    <InputTypeProductyion id='type_production' name='type_production'>
+                        <option value=''>--------</option>
+                        <option value='artistique'>Artistique</option>
+                        <option value="commercial">Commercial</option>
+                        <option value='pedqgogique'>Pédagogique</option>
+                        <option value='autre'>Autre</option>
+                    </InputTypeProductyion>
+                </div>
 
-            <div>
-                <label htmlFor="format_principale">Priorité absolue <Flag color='#ff0000' /></label><br />
-                <label htmlFor="temps">Temps</label>
-                <InputCheckbox type="radio" name="priorite_absolue" value={ "temps" } />
-                <label htmlFor="qualite">Qualité</label>
-                <InputCheckbox type="radio" name="priorite_absolue" value={ "qualite" } />
-                <label htmlFor="budget">Budget</label>
-                <InputCheckbox type="radio" name="priorite_absolue" value={ "eleve" } />
-            </div><br />
-            <div>
-                <label htmlFor="format_principale">Attente vis-à-vis de DirectoryFlow <Hourglass color='#9f9f29ff' /></label><br />
-                <label htmlFor="organisation">Organisation</label>
-                <InputCheckbox type="radio" name="attente" value={ "organisation" } />
-                <label htmlFor="anticipation">Anticipation</label>
-                <InputCheckbox type="radio" name="attente" value={ "anticipation" } />
-                <label htmlFor="assistance">Assistance</label>
-                <InputCheckbox type="radio" name="attente" value={ "assistance" } />
-            </div><br /><br />
+                <fieldset className="form-field">
+                    <legend>Priorité absolue <Flag color='#ff0000' /></legend>
+                    <label htmlFor="priorite-temps">Temps</label>
+                    <InputCheckbox id="priorite-temps" type="radio" name="priorite_absolue" value={ "temps" } />
+                    <label htmlFor="priorite-qualite">Qualité</label>
+                    <InputCheckbox id="priorite-qualite" type="radio" name="priorite_absolue" value={ "qualite" } />
+                    <label htmlFor="priorite-budget">Budget</label>
+                    <InputCheckbox id="priorite-budget" type="radio" name="priorite_absolue" value={ "eleve" } />
+                </fieldset>
 
-            <div>
-                <label htmlFor="format_principale">Autorise-tu l'IA à faire des suggestions <Lightbulb color='#f6ff00ff' size={ 35 } />?</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="suggestion_IA" value={ "oui" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="suggestion_IA" value={ "non" } />
-            </div><br />
+                <fieldset className="form-field">
+                    <legend>Autorise-tu l'IA à faire des suggestions <Lightbulb color='#f6ff00ff' size={ 35 } /></legend>
+                    <label htmlFor="ia-oui">Oui</label>
+                    <InputCheckbox id="ia-oui" type="radio" name="suggestion_IA" value={ "oui" } />
+                    <label htmlFor="ia-non">Non</label>
+                    <InputCheckbox id="ia-non" type="radio" name="suggestion_IA" value={ "non" } />
+                </fieldset>
 
-            <div className="nav-btn" style={ {
-                width: "600px"
-            } }>
-                <Link to={ '../step5' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
-                <BtnNextQuest type="submit">Suivant</BtnNextQuest>
-            </div>
-        </form>
+                <div className="nav-btn">
+                    <Link to={ '../step5' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
+                    <BtnNextQuest type="submit">Suivant</BtnNextQuest>
+                </div>
+            </form>
+        </section>
     )
 }
 

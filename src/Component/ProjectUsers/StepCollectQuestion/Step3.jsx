@@ -32,7 +32,6 @@ function Step3()
                 isPremierAD: formaData.get( 'oui_non' ),
                 methode_travaille: formaData.get( 'methode_travaille' ),
                 expEquipe: formaData.get( 'niveau' ),
-                outil_utilise: formaData.get( 'outils_utilise' ),
             }
         );
         // Navigation
@@ -40,64 +39,61 @@ function Step3()
     }
 
     return (
-        <form onSubmit={ handleSubmit }>
-            {/* Question 1 */ }
-            <div>
-                <label htmlFor="format_principale">1. Taille estimée de l'équipe</label><br />
-                <label htmlFor="1_5">1-5</label>
-                <InputCheckbox type="radio" name="taille_equipe" value={ "1_5" } />
-                <label htmlFor="6_15">6-15</label>
-                <InputCheckbox type="radio" name="taille_equipe" value={ "6_15" } />
-                <label htmlFor="16_30">16-30</label>
-                <InputCheckbox type="radio" name="taille_equipe" value={ "16_30" } />
-                <label htmlFor="30">+30</label>
-                <InputCheckbox type="radio" name="taille_equipe" value={ "30" } />
-            </div><br />
+        <section aria-labelledby="step3-title">
+            <h2 id="step3-title" className="sr-only">Équipe et méthodes</h2>
+            <form className="step-form" onSubmit={ handleSubmit }>
+                <fieldset className="form-field">
+                    <legend>1. Taille estimée de l'équipe</legend>
+                    <label htmlFor="taille-1_5">1-5</label>
+                    <InputCheckbox id="taille-1_5" type="radio" name="taille_equipe" value={ "1_5" } />
+                    <label htmlFor="taille-6_15">6-15</label>
+                    <InputCheckbox id="taille-6_15" type="radio" name="taille_equipe" value={ "6_15" } />
+                    <label htmlFor="taille-16_30">16-30</label>
+                    <InputCheckbox id="taille-16_30" type="radio" name="taille_equipe" value={ "16_30" } />
+                    <label htmlFor="taille-30">+30</label>
+                    <InputCheckbox id="taille-30" type="radio" name="taille_equipe" value={ "30" } />
+                </fieldset>
 
-            {/* Question 2 */ }
-            <div>
-                <label htmlFor="format_principale">2. Présence du directeur de production</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="non_oui" value={ "oui" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="non_oui" value={ "non" } />
-            </div><br />
+                <fieldset className="form-field">
+                    <legend>2. Présence du directeur de production</legend>
+                    <label htmlFor="dp-oui">Oui</label>
+                    <InputCheckbox id="dp-oui" type="radio" name="non_oui" value={ "oui" } />
+                    <label htmlFor="dp-non">Non</label>
+                    <InputCheckbox id="dp-non" type="radio" name="non_oui" value={ "non" } />
+                </fieldset>
 
-            {/* Question 3 */ }
-            <div>
-                <label htmlFor="format_principale">3. présence du 1er assistant réalisateur</label><br />
-                <label htmlFor="oui">Oui</label>
-                <InputCheckbox type="radio" name="oui_non" value={ "oui" } />
-                <label htmlFor="non">Non</label>
-                <InputCheckbox type="radio" name="oui_non" value={ "non" } />
-            </div><br />
+                <fieldset className="form-field">
+                    <legend>3. Présence du 1er assistant réalisateur</legend>
+                    <label htmlFor="ad-oui">Oui</label>
+                    <InputCheckbox id="ad-oui" type="radio" name="oui_non" value={ "oui" } />
+                    <label htmlFor="ad-non">Non</label>
+                    <InputCheckbox id="ad-non" type="radio" name="oui_non" value={ "non" } />
+                </fieldset>
 
-            {/* Quetion 4 */ }
-            <div>
-                <label htmlFor="format_principale">4. méthode de travaille actuelle </label><br />
-                <label htmlFor="papier">Papier</label>
-                <InputCheckbox type="radio" name="methode_travaille" value={ "papier" } />
-                <label htmlFor="exel">Exel</label>
-                <InputCheckbox type="radio" name="methode_travaille" value={ "exel" } />
-                <label htmlFor="whatsapp">WhatsApp</label>
-                <InputCheckbox type="radio" name="methode_travaille" value={ "whatsapp" } />
-                <label htmlFor="outils_numerique">Outils numériques</label>
-                <InputCheckbox type="radio" name="methode_travaille" value={ "outils_numerique" } />
-            </div><br />
+                <fieldset className="form-field">
+                    <legend>4. Méthode de travail actuelle</legend>
+                    <label htmlFor="methode-papier">Papier</label>
+                    <InputCheckbox id="methode-papier" type="radio" name="methode_travaille" value={ "papier" } />
+                    <label htmlFor="methode-exel">Exel</label>
+                    <InputCheckbox id="methode-exel" type="radio" name="methode_travaille" value={ "exel" } />
+                    <label htmlFor="methode-whatsapp">WhatsApp</label>
+                    <InputCheckbox id="methode-whatsapp" type="radio" name="methode_travaille" value={ "whatsapp" } />
+                    <label htmlFor="methode-outils">Outils numériques</label>
+                    <InputCheckbox id="methode-outils" type="radio" name="methode_travaille" value={ "outils_numerique" } />
+                </fieldset>
 
-            {/* Question 5 */ }
-            <div>
-                <label htmlFor="format_principale">5. Niveau d'expérience de l'équipe</label><br />
-                <label htmlFor="debutant">Débutant</label>
-                <InputCheckbox type="radio" name="niveau" value={ "debutant" } />
-                <label htmlFor="decors_reels">Expérimenté</label>
-                <InputCheckbox type="radio" name="niveau" value={ "expérimenté" } />
-                <label htmlFor="mixte">Mixte</label>
-                <InputCheckbox type="radio" name="niveau" value={ "mixte" } />
-            </div><br />
+                <fieldset className="form-field">
+                    <legend>5. Niveau d'expérience de l'équipe</legend>
+                    <label htmlFor="niveau-debutant">Débutant</label>
+                    <InputCheckbox id="niveau-debutant" type="radio" name="niveau" value={ "debutant" } />
+                    <label htmlFor="niveau-experimente">Expérimenté</label>
+                    <InputCheckbox id="niveau-experimente" type="radio" name="niveau" value={ "expérimenté" } />
+                    <label htmlFor="niveau-mixte">Mixte</label>
+                    <InputCheckbox id="niveau-mixte" type="radio" name="niveau" value={ "mixte" } />
+                </fieldset>
 
-            {/* Question 6 */ }
-            <div>
+                {/* Question 6 */ }
+                {/* <div>
                 <label htmlFor="format_principale">6. Outil déja utilisé (Si oui)</label><br />
                 <label htmlFor="aucun">Aucun</label>
                 <InputCheckbox type="radio" name="outils_utilise" value={ "aucun" } />
@@ -107,13 +103,14 @@ function Step3()
                 <InputCheckbox type="radio" name="outils_utilise" value={ "notion" } />
                 <label htmlFor="autre">Autre</label>
                 <InputCheckbox type="radio" name="outils_utilise" value={ "autre" } />
-            </div><br />
+            </div><br /> */}
 
-            <div className="nav-btn">
-                <Link to={ '../step2' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
-                <BtnNextQuest type="submit">Suivant</BtnNextQuest>
-            </div>
-        </form>
+                <div className="nav-btn">
+                    <Link to={ '../step2' }><BtnPrevQuest>Précédent</BtnPrevQuest></Link>
+                    <BtnNextQuest type="submit">Suivant</BtnNextQuest>
+                </div>
+            </form>
+        </section>
     )
 }
 

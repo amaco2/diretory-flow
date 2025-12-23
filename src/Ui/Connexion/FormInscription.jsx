@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bgImgConnexion from './Icon/premium_vector-1683140945544-89a75438d4f5.png';
 import iconDirectoryFlow from './Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg';
-import {
+import
+{
   breakPoint,
   media,
   mediaQueryForm,
@@ -22,11 +23,11 @@ const innerWidth = window.innerWidth;
 // divsion des infos UI
 const DivFormConnexion = styled.div`
   position: absolute;
-  background-image: url('${bgImgConnexion}');
+  background-image: url('${ bgImgConnexion }');
   background-repeat: no-repeat;
   background-size: cover;
   // background-position:center ;
-  mix-blend-mode: difference;
+  // mix-blend-mode: difference;
   color: #fff;
   filter: contrast(0.9);
   z-index: 999;
@@ -41,56 +42,56 @@ const DivFormConnexion = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // left: ${innerWidth / 95}svw;
+  // left: ${ innerWidth / 95 }svw;
   top: -0.1svh;
-  ${media.mobile('width:100%')})
+  ${ media.mobile( 'width:100%' ) })
 `;
 // <<Input>> des donnees de l'UI
-const InputEmail = styled.input.attrs({
+const InputEmail = styled.input.attrs( {
   type: 'text',
   id: 'email',
   name: 'email',
-})`
+} )`
   left: -10px;
   border: none;
-  ${styleGlobalInput};
+  ${ styleGlobalInput };
   width: 30svw;
   border-radius: 8px;
   &:focus {
     box-shadow: 0 0 10px #000;
   }
-  ${mediaQueryInput}
+  ${ mediaQueryInput }
 `;
-const InputNom = styled.input.attrs({ type: 'text', id: 'nom', name: 'nom' })`
+const InputNom = styled.input.attrs( { type: 'text', id: 'nom', name: 'nom' } )`
   left: -10px;
   width: 30svw;
-  ${styleGlobalInput};
+  ${ styleGlobalInput };
   border: none;
   border-radius: 8px;
   &:focus {
     box-shadow: 0 0 10px #000;
   }
-  ${mediaQueryInput}
+  ${ mediaQueryInput }
 `;
-const InputPrenom = styled.input.attrs({
+const InputPrenom = styled.input.attrs( {
   type: 'text',
   id: 'prenom',
   name: 'prenom',
-})`
+} )`
   left: -10px;
   width: 30svw;
-  ${styleGlobalInput}
+  ${ styleGlobalInput }
   border: none;
   border-radius: 8px;
   &:focus {
     box-shadow: 0 0 10px #000;
   }
-  ${mediaQueryInput}
+  ${ mediaQueryInput }
 `;
 /* Creation de l'element HTML <<img>> via st
 yledComponent qui servira de logo pour le HEADER*/
 
-const ImgLgoHeader = styled(ClapperboardIcon)`
+const ImgLgoHeader = styled( ClapperboardIcon )`
   object-fit: cover;
   width: 50px;
   height: 50px;
@@ -98,20 +99,20 @@ const ImgLgoHeader = styled(ClapperboardIcon)`
   margin-top: -15px;
 `;
 // Input des donnees de l'UI
-const InputPassword = styled.input.attrs({
+const InputPassword = styled.input.attrs( {
   type: 'password',
   id: 'password',
   name: 'password',
-})`
+} )`
   left: -10px;
   width: 30svw;
-  ${styleGlobalInput};
+  ${ styleGlobalInput };
   border: none;
   border-radius: 8px;
   &:focus {
     box-shadow: 0 0 10px #000;
   }
-  ${mediaQueryInput}
+  ${ mediaQueryInput }
 `;
 // Creation du text <<Directory-Flow>> depuis un span dans styled component
 
@@ -121,7 +122,7 @@ const SpanTextDF = styled.span`
   //  margin-top: 50px;
   color: #000;
   margin-left: 15px;
-  @media screen and (max-width: ${breakPoint.mobile}) {
+  @media screen and (max-width: ${ breakPoint.mobile }) {
     font-size: 1.2em;
   }
 `;
@@ -142,7 +143,7 @@ const DivWrapperForm = styled.div`
   align-items: center;
   width: 40vw;
   height: 95svh;
-  ${mediaQueryForm}
+  ${ mediaQueryForm }
 `;
 // Lien en cas d'oublie du mot de passe
 const LinkObject = `
@@ -155,57 +156,67 @@ const LinkObject = `
   &: hover{
      text-decoration: underline;
   };
-  @media screen and (max-width: ${breakPoint.desktop}){
+  @media screen and (max-width: ${ breakPoint.desktop }){
     width: 250px;
     font-size: 1.2em;
     text-align: center;
   }
-  @media screen and (max-width: ${breakPoint.mobile}){
+  @media screen and (max-width: ${ breakPoint.mobile }){
     width: 200px;
     font-size: 1.1em;
     text-align: center;
   }`;
-const LinkConnexion = styled(Link)`
-  ${LinkObject};
+const LinkConnexion = styled( Link )`
+  ${ LinkObject };
 `;
-function FormInscription() {
+function FormInscription()
+{
   //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
-  const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState();
-  const [fullName, setFullName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [ isLoading, setIsLoading ] = useState( false );
+  const [ name, setName ] = useState();
+  const [ fullName, setFullName ] = useState();
+  const [ email, setEmail ] = useState();
+  const [ password, setPassword ] = useState();
 
-  const getEmail = (event) => {
+  const getEmail = ( event ) =>
+  {
     event.preventDefault();
-    if (event.target.value !== '') {
-      setEmail(event.target.value);
-    } else {
-      console.log('Se champ est obligatoire');
+    if ( event.target.value !== '' )
+    {
+      setEmail( event.target.value );
+    } else
+    {
+      console.log( 'Se champ est obligatoire' );
     }
   };
-  const getPassword = (event) => {
+  const getPassword = ( event ) =>
+  {
     event.preventDefault();
-    if (event.target.value !== '') {
-      setPassword(event.target.value);
+    if ( event.target.value !== '' )
+    {
+      setPassword( event.target.value );
     }
   };
-  const getfirstName = (event) => {
+  const getfirstName = ( event ) =>
+  {
     event.preventDefault();
-    if (event.target.value !== '') {
-      setName(event.target.value);
+    if ( event.target.value !== '' )
+    {
+      setName( event.target.value );
     }
   };
-  const getLastName = (event) => {
+  const getLastName = ( event ) =>
+  {
     event.preventDefault();
-    if (event.target.value !== '') {
-      setFullName(event.target.value);
+    if ( event.target.value !== '' )
+    {
+      setFullName( event.target.value );
     }
   };
 
   return (
     <div>
-      {/* On wrap les elements dans une <<div>> creee avec styled component */}
+      {/* On wrap les elements dans une <<div>> creee avec styled component */ }
       <DivFormConnexion>
         <DivWrapperForm>
           <DivWraper>
@@ -214,64 +225,65 @@ function FormInscription() {
             <br />
           </DivWraper>
           <br />
-          <Link to={'/'}>
-            <Homes size={30} color='#0c0c0cff' />
+          <Link to={ '/' }>
+            <Homes size={ 30 } color='#0c0c0cff' />
           </Link>
           <br />
           <label htmlFor='nom'>Nom</label>
           <InputNom
             placeholder='Ex: Jhon'
             required
-            size={50}
-            maxLength={50}
-            onChange={getfirstName}
+            size={ 50 }
+            maxLength={ 50 }
+            onChange={ getfirstName }
           />
           <br />
           <label htmlFor='prenom'>prenom</label>
           <InputPrenom
             placeholder='Ex: Doe'
             required
-            size={50}
-            maxLength={50}
-            onChange={getLastName}
+            size={ 50 }
+            maxLength={ 50 }
+            onChange={ getLastName }
           />
           <br />
           <label htmlFor='email'>
-            Adresse e-mail <Mail size={30} color='#fd3705ff' />
+            Adresse e-mail <Mail size={ 30 } color='#fd3705ff' />
           </label>
           <InputEmail
             required
             placeholder='EX: Jhondoe@gmail.com'
-            maxLength={50}
-            onChange={getEmail}
+            maxLength={ 50 }
+            onChange={ getEmail }
           />
           <br />
           <label htmlFor='password'>Mot de passe </label>
-          <InputPassword onChange={getPassword} required maxLength={50} />
+          <InputPassword onChange={ getPassword } required maxLength={ 50 } />
           <BtnInscription
-            onClick={(event) => {
+            onClick={ ( event ) =>
+            {
               event.stopPropagation();
-              setName(name + ' ' + fullName);
-              console.log(name, email, password);
-              registerUser(name + ' ' + fullName, email, password, setIsLoading);
-            }}
+              setName( name + ' ' + fullName );
+              console.log( name, email, password );
+              registerUser( name + ' ' + fullName, email, password, setIsLoading );
+            } }
           >
             Connexion
           </BtnInscription>
-          <LinkConnexion to={'/connexion'}>
+          <LinkConnexion to={ '/connexion' }>
             <span
-              style={{
+              style={ {
                 color: '#181616ff',
                 fontWeight: 'bold',
                 fontSize: '.8em',
-              }}
+              } }
             >
               Vous avez déja un compte?
-            </span>{' '}
+            </span>{ ' ' }
             Connectez-vous.
           </LinkConnexion>
         </DivWrapperForm>
-        {isLoading ? <p>Chargement....</p> : null}
+        { isLoading ? <p>Chargement....</p> : null }
       </DivFormConnexion>
     </div>
   );

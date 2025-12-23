@@ -124,7 +124,7 @@ function ProjectUser()
 
   return (
     <div className='addImgBg' ref={ refDivBgImg }>
-      <DivFormProjects>
+      <DivFormProjects className='div-form-project-grid'>
         <DivfonsScrool>
           <div >
             {/* Ici seront les images */ }
@@ -143,31 +143,23 @@ function ProjectUser()
         <div>
           {/* <form action=""> */ }
           <DivForm>
-            <p style={ { fontSize: "1em", color: "#000000" } }>text</p>
-            <ProjectUserContext.Provider
-              style={ {
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center"
-              } } value={ {
-                dataProject,
-                setDataProject,
-                formatOfProject,
-                setFormatOfProject,
-                dataStep3,
-                setDataStep3,
-                dataStep4,
-                setDataStep4,
-                dataStep5,
-                setDataStep5,
-                dataStep6,
-                setDataStep6
-              } }>
+            <ProjectUserContext.Provider value={ {
+              dataProject,
+              setDataProject,
+              formatOfProject,
+              setFormatOfProject,
+              dataStep3,
+              setDataStep3,
+              dataStep4,
+              setDataStep4,
+              dataStep5,
+              setDataStep5,
+              dataStep6,
+              setDataStep6
+            } }>
               <Outlet />
             </ProjectUserContext.Provider>
             {/* Lien de retour a la page d'accueil */ }
-            <Link to={ '/' }>Accueil</Link>
           </DivForm>
           {/* </form> */ }
         </div>
