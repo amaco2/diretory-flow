@@ -5,15 +5,16 @@
 
 /* Visually hidden for accessibility */
 .sr-only {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
+    /* position: absolute !important; */
+    /* height: 1px;
+    width: 1px; */
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
     white-space: nowrap;
     border: 0;
     padding: 0;
-    margin: -1px;
+    margin: 6px;
+    color: #ffffff;
 }
 
 /* Form layout */
@@ -31,15 +32,26 @@
     align-items: center;
 }
 
+.section {
+    background: linear-gradient(90deg, #162d38bc);
+    border-radius: 14px;
+    border: 3px dashed #800080;
+}
+
 .form-field {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background: linear-gradient(90deg, #298afa 30%, #ffffff);
+    border: none;
+    border-radius: 14px;
+    color: #000;
 }
 
 label {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1em;
+    /* color: #fff; */
+    font-weight: 800;
 }
 
 /* Navigation buttons */
@@ -63,6 +75,12 @@ input[type="checkbox"] {
     transform: scale(1.05);
 }
 
+legend {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
 @media screen and (max-width: 768px) {
     :root {
         --form-max-width: 92vw;
@@ -72,4 +90,8 @@ input[type="checkbox"] {
         max-width: 100%;
         flex-direction: row;
     }
+
+    /* .select {
+        width: 65vw;
+    } */
 }

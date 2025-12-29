@@ -34,24 +34,26 @@ const media = {
 };
 const mediaQueryInput = `
    @media screen and (max-width: ${ breakPoint.tablet }){
-       width: 45svw;
+       width: 65svw;
  };
  @media screen and (max-width: ${ breakPoint.desktop }){
-     width: 50svw;
- };
- @media screen and (max-width: ${ breakPoint.mobile }){
- width: 60svw;
- }`;
-const mediaQueryForm = `
-   @media screen and (max-width: ${ breakPoint.tablet }){
-       width: 58svw;
- };
- @media screen and (max-width: ${ breakPoint.desktop }){
-     width: 60svw;
+     width: 55svw;
  };
  @media screen and (max-width: ${ breakPoint.mobile }){
  width: 80svw;
- top: 7svw;
+ }`;
+const mediaQueryForm = `
+   @media screen and (max-width: ${ breakPoint.tablet }){
+       width: 88svw;
+ };
+ @media screen and (max-width: ${ breakPoint.desktop }){
+     width: 70svw;
+ };
+ @media screen and (max-width: ${ breakPoint.mobile }){
+      width: 100svw;
+      height: 100%;
+      border-radius: 0px;
+      top: 0svw;
  }`;
 
 export { breakPoint, media, mediaQueryInput, mediaQueryForm };

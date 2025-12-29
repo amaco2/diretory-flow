@@ -16,7 +16,10 @@ function ProfilUser()
   const intialUser = getInitials( iconeUser );
   const { username } = useContext( TContext )
   const bgColor = stringToColor( iconeUser );
-  console.log( 'iiii', iconeUser );
+
+
+
+
   return (
     <Fragment>
       <SettingUser
@@ -48,6 +51,7 @@ function ProfilUser()
           >
             Nouveau projet
           </Link>
+
         </ul>
       </SettingUser>
       <DivUser

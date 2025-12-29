@@ -25,7 +25,7 @@ const styleAllInput = `
        &:focus{ box-shadow: 0 0 0 3px rgba(0,123,255,0.18); }
 
        @media screen and (max-width: ${ breakPoint.tablet }) {
-         width: 90vw;
+         width: 78vw;
        }
      `;
 const InputText = styled.input`
@@ -49,8 +49,9 @@ const DivForm = styled.div`
 
   @media screen and (max-width: ${ breakPoint.tablet }) {
     padding: 16px;
-    background-color: transparent;
+    // background-color: transparent;
     box-shadow: none;
+    border-radius: 1px;
   }
 `;
 const InputDate = styled.input`
@@ -88,8 +89,8 @@ const BtnNextQuest = styled.button`
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
-    &:focus{ outline: 3px solid rgba(0,0,0,0.12); }
-    &:hover { background-color: #000; color: #fff; }
+    &:focus{ outline: 3px solid rgba(55, 253, 11, 0.3); }
+    &:hover { background-color: #3aec04ff; color: #fff; }
 `;
 const BtnPrevQuest = styled.button`
   width: auto;
@@ -102,8 +103,8 @@ const BtnPrevQuest = styled.button`
   font-weight: bold;
   font-size: 1em;
   cursor: pointer;
-  &:focus{ outline: 3px solid rgba(0,0,0,0.12); }
-  &:hover { background-color: #000; color: #fff; }
+  &:focus{ outline: 3px solid rgba(0, 198, 252, 0.12); }
+  &:hover { background-color: #00b3ffff; color: #fff; }
 `
 
 const InputCheckbox = styled.input`
@@ -134,7 +135,6 @@ function stringToColor( str )
   {
     return undefined;
   }
-  console.log( 'hsash', str );
   for ( let i = 0; i < str.length; i++ )
   {
     hash = str.charCodeAt( i ) + ( ( hash << 5 ) - hash );

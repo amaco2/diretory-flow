@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Bg_Img_Main from '../asset/1766161148404.png';
 import './style/Main.css';
 import { ArrowBigRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { TContext } from '../ThemeContext';
 // Image d'acceuil
@@ -115,6 +115,8 @@ function Main()
    * <Link to={isConnect?"projects":"connexion"}>
    */
   const { isConnect } = useContext( TContext );
+  const { wasProject, setWasProject, projectId, } = useContext( TContext );
+
   return (
     <div>
       <main>
@@ -125,15 +127,23 @@ function Main()
             audio-visuelle grace à notre application conçue et personalisée rien
             que pour vous
           </p>
-          <Link to={ isConnect ? 'projects' : 'connexion' }>
+          <Link to={ isConnect ?
+            'projects ' : 'connexion' }>
             <BtnGetStart className='btn--gets-Start'>
               <ArrowBigRight className='arrowRight' />
               Commencer
             </BtnGetStart>
           </Link>
         </Div_Img_Bg_Main>
+        <h2>Projet Recents</h2>
+        { console.log( projectId ) }
+        { wasProject && isConnect ?
+          projectId.map( ( item, index ) =>
+
+            <Link to={ `/project/:${ item.id }` } id='item-project'><li key={ index }>{ item.name }</li></Link>
+          ) : <li>Not Found</li> }
       </main>
-    </div>
+    </div >
   );
 }
 

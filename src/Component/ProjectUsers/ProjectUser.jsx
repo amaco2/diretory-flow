@@ -4,7 +4,7 @@ import
   DivForm,
   DivFormProjects,
 } from './style/styleComponent';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { itemslist } from './ComponentUser';
 import { useEffect, useRef, useState } from 'react';
 // Importation de notre feuille de style
@@ -21,63 +21,10 @@ function ProjectUser()
   const [ dataProject, setDataProject ] = useState( {
     title_project: "",
     type_production: "",
-    status: 'Préproduction',
+    status: "",
     description: ""
   } );
 
-  const [ formatOfProject, setFormatOfProject ] = useState(
-    {
-      format: '',
-      duree_estimer: '',
-      mode_diffusion: '',
-      niveau_complexite: '',
-      tournage_prevu: '',
-      existance_scenario: '',
-    }
-  )
-  const [ dataStep3, setDataStep3 ] = useState(
-    {
-      taille_equipe: '',
-      isDirecteurProduction: '',
-      isPremierAD: '',
-      methode_travaille: '',
-      expEquipe: '',
-      outil_utilise: '',
-    }
-  )
-
-  const [ dataStep4, setDataStep4 ] = useState(
-    {
-      date_Debut: "",
-      date_Fin: "",
-      nbr_Jour_tournage: '',
-      contrainte: '',
-      niveauPression: '',
-      flexibilitePlanning: '',
-    }
-  )
-
-  const [ dataStep5, setDataStep5 ] = useState(
-    {
-      satusEquipe: '',
-      budget: '',
-      materiel: '',
-      tele_travail: '',
-      nbr_Lieux_Principaux: '',
-      risque: '',
-    }
-  );
-
-  const [ dataStep6, setDataStep6 ] = useState(
-    {
-      objectif: '',
-      crainte: '',
-      blockage: '',
-      priorite: '',
-      attente: '',
-      autoriserIA: '',
-    }
-  )
 
 
   /** Dans la suite nous declarons des variables qui
@@ -86,6 +33,9 @@ function ProjectUser()
   const refDivInpuit = useRef( null );
   const refDivBgImg = useRef( null );
   const description = useRef( null );
+
+  // Id du projet
+  const { project_id } = useParams();
 
   // on place un tableau de dependence vide pour charger les donnes pendant chaque rendu
   useEffect( () =>
@@ -105,7 +55,7 @@ function ProjectUser()
       {
         const set = setInterval( () =>
         {
-          refDivBgImg.current.style.backgroundImage = `url(${ itemslist[ i ].img })`;
+          // refDivBgImg.current.style.backgroundImage = `url(${ itemslist[ i ].img })`;
           refDivBgImg.current.style.transition = 'all';
           description.current.textContent = itemslist[ i ].description;
           const get = getDivInput();
@@ -121,7 +71,6 @@ function ProjectUser()
     };
     getDivBgImg();
   }, [] );
-
   return (
     <div className='addImgBg' ref={ refDivBgImg }>
       <DivFormProjects className='div-form-project-grid'>
@@ -146,18 +95,8 @@ function ProjectUser()
             <ProjectUserContext.Provider value={ {
               dataProject,
               setDataProject,
-              formatOfProject,
-              setFormatOfProject,
-              dataStep3,
-              setDataStep3,
-              dataStep4,
-              setDataStep4,
-              dataStep5,
-              setDataStep5,
-              dataStep6,
-              setDataStep6
             } }>
-              <Outlet />
+              <Outlet context={ { project_id } } />
             </ProjectUserContext.Provider>
             {/* Lien de retour a la page d'accueil */ }
           </DivForm>

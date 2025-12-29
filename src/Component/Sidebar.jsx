@@ -7,7 +7,8 @@ import
     IconUsers,
     IconFolder,
     IconRobot,
-    IconMessage
+    IconMessage,
+    IconQuestionMark
 } from "@tabler/icons-react";
 import { NavLink as RouterLink } from "react-router-dom";
 
@@ -15,55 +16,62 @@ function Sidebar()
 {
 
     return (
-        <Stack>
+        <Stack style={ { color: '#fff' } }>
             <NavLink
                 component={ RouterLink }
                 to="overview"
                 label="overview"
                 leftSection={ <IconLayoutDashboard /> }
-                __size={ 18 }
+                __size={ 20 }
+            />
+            <NavLink
+                component={ RouterLink }
+                to="./step2"
+                label="questionnaire"
+                leftSection={ <IconQuestionMark /> }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="kanban"
                 label="kanban"
                 leftSection={ <IconColumns /> }
-                __size={ 18 }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="timeline"
                 label="Planning"
                 leftSection={ <IconCalendar /> }
-                __size={ 18 }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="team"
                 label="Equipe"
                 leftSection={ <IconUsers /> }
-                __size={ 18 }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="documents"
                 label="Documents"
                 leftSection={ <IconFolder /> }
-                __size={ 18 }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="ai"
                 label="Assistant IA"
                 leftSection={ <IconRobot /> }
-                __size={ 18 }
+                __size={ 20 }
             />
             <NavLink
                 component={ RouterLink }
                 to="chat"
                 label="Chat"
                 leftSection={ <IconMessage /> }
-                __size={ 18 }
+                __size={ 20 }
                 target="blank"
             />
         </Stack>

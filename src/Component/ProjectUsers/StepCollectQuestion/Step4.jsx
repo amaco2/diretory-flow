@@ -18,7 +18,7 @@ import
 import { Link, useNavigate } from 'react-router-dom';
 import "./Steps.css"
 import { useContext } from 'react';
-import { ProjectUserContext } from '../../../ThemeContext';
+import { DashboardContext, ProjectUserContext } from '../../../ThemeContext';
 
 
 // Planning & contrainte
@@ -31,7 +31,7 @@ import { ProjectUserContext } from '../../../ThemeContext';
 
 function Step4()
 {
-    const { dataStep4, setDataStep4 } = useContext( ProjectUserContext )
+    const { dataStep4, setDataStep4 } = useContext( DashboardContext )
     // Variable de navigation
     const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ function Step4()
     }
 
     return (
-        <section aria-labelledby="step4-title">
+        <section aria-labelledby="step4-title" className="section">
             <h2 id="step4-title" className="sr-only">Planning et contraintes</h2>
             <form className="step-form center-column" onSubmit={ handleSubmit }>
                 <div className="form-field">

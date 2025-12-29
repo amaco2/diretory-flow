@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Hegarty&family=Matemasie&display=swap');
+
 .summary {
-    padding: 24px
+    padding: 24px;
+    color: #fff;
+    background: linear-gradient(20deg, #2a3987, #ffffffb4, #563b17);
+    border-radius: 14px;
 }
 
 .header-summary {
@@ -27,7 +32,10 @@
     padding: 14px;
     border-radius: 8px;
     color: #fff;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5)
+    box-shadow: 0 6px 18px rgba(248, 247, 247, 0.5);
+    font-family: "BBH Hegarty", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .recap-summary h2 {
@@ -37,8 +45,12 @@
 }
 
 .recap-summary span {
-    color: #e6e6e6;
-    font-size: 0.95rem
+    color: #03c4ff;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: "BBH Hegarty", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 /* Cinema palette background */

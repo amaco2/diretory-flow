@@ -3,7 +3,7 @@ import { BtnNextQuest, BtnPrevQuest, InputCheckbox, InputDate } from "../style/s
 import "./Steps.css"
 import { Columns4 } from "lucide-react";
 import { useContext } from "react";
-import { ProjectUserContext } from "../../../ThemeContext";
+import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
 
 
 // Equipes et moyens
@@ -14,7 +14,7 @@ import { ProjectUserContext } from "../../../ThemeContext";
 
 function Step5()
 {
-    const { dataStep5, setDataStep5 } = useContext( ProjectUserContext );
+    const { dataStep5, setDataStep5 } = useContext( DashboardContext );
 
     // Variable de navigation
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ function Step5()
     }
 
     return (
-        <section aria-labelledby="step5-title">
+        <section aria-labelledby="step5-title" className="section">
             <h2 id="step5-title" className="sr-only">Équipes et moyens</h2>
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">

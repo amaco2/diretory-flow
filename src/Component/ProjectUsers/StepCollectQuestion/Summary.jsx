@@ -6,14 +6,15 @@
 // On stock ici le recap des question pooser a l'utilisateur dans <<Summary>>
 
 import { useContext } from "react";
-import { ProjectUserContext } from "../../../ThemeContext";
+import { DashboardContext, ProjectUserContext, TContext } from "../../../ThemeContext";
 import './Summary.css'
+import { BtnNextQuest } from "../style/styleComponent";
+import { contextProject, createProject } from "../CreatePrject";
+import { useOutletContext } from "react-router-dom";
 
 function Summary()
 {
     const {
-        dataProject,
-        setDataProject,
         formatOfProject,
         setFormatOfProject,
         dataStep3,
@@ -24,7 +25,33 @@ function Summary()
         setDataStep5,
         dataStep6,
         setDataStep6
-    } = useContext( ProjectUserContext )
+    } = useContext( DashboardContext );
+
+    // Recuperation de L'ID de l'utilisateur
+    const { projectId } = useContext( TContext );
+
+    // Id d'un projet
+    const { ID_Project } = useOutletContext();
+
+
+    console.log( ID_Project[ 1 ] )
+    // Fonction de creation de projet suite a un evenement <<onclick>>
+    const handleSendData = ( e ) =>
+    {
+        e.preventDefault();
+
+        // Envoi des step aux backend pour la config de L'IA
+        contextProject(
+            formatOfProject,
+            dataStep3,
+            dataStep4,
+            dataStep5,
+            dataStep6,
+            Number( ID_Project[ 1 ] ),
+        );
+    }
+
+
     return (
         <div className="summary">
             <div className="header-summary">
@@ -33,19 +60,9 @@ function Summary()
             <section className="recap-summary">
                 <ul>
                     <li>
-                        <h2>Titre du projet</h2>
-                        <span>{ dataProject?.title_project
-                            ? dataProject.title_project :
-                            "Pas mentioné" }</span>
-                    </li>
-                    <li>
                         <h2>Fomat du projet</h2>
                         <span>{ formatOfProject?.format ?
                             formatOfProject.format : "Pas mentioné" }</span>
-                    </li>
-                    <li>
-                        <h2>Durée estimé</h2>
-                        <span>{ dataProject?.duree_estimer ? dataProject.duree_estimer : "Pas mentioné" }</span>
                     </li>
                     <li>
                         <h2>Niveau de complexité</h2>
@@ -103,6 +120,7 @@ function Summary()
                     </li>
                 </ul>
             </section>
+            <BtnNextQuest onClick={ handleSendData }>Valider</BtnNextQuest>
         </div>
     )
 }

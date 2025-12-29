@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BtnNextQuest, BtnPrevQuest, InputCheckbox } from "../style/styleComponent";
 import "./Steps.css"
 import { useContext } from "react";
-import { ProjectUserContext } from "../../../ThemeContext";
+import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
 
 
 // Nature et format du projet(QCM)
@@ -12,7 +12,7 @@ import { ProjectUserContext } from "../../../ThemeContext";
 
 function Step2()
 {
-    const { formatOfProject, setFormatOfProject } = useContext( ProjectUserContext )
+    const { formatOfProject, setFormatOfProject } = useContext( DashboardContext )
 
     // Variable de navigation
     const navigate = useNavigate();
@@ -37,11 +37,11 @@ function Step2()
 
 
     return (
-        <section aria-labelledby="step2-title">
+        <section aria-labelledby="step2-title" className="section">
             <h2 id="step2-title" className="sr-only">Nature et format du projet</h2>
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">
-                    <legend>1. Format principal</legend>
+                    <legend> Format principal</legend>
                     <label htmlFor="format-fiction">fiction</label>
                     <InputCheckbox id="format-fiction" type="radio" name="format" value={ "fiction" } />
                     <label htmlFor="format-documentaire">Documentaire</label>
@@ -53,7 +53,7 @@ function Step2()
                 </fieldset>
 
                 <fieldset className="form-field">
-                    <legend>4. Niveau de complexité perçu</legend>
+                    <legend> Niveau de complexité perçu</legend>
                     <label htmlFor="complexite-simple">Simple</label>
                     <InputCheckbox id="complexite-simple" type="radio" name="complexite" value={ "simple" } />
                     <label htmlFor="complexite-moyen">Moyen</label>

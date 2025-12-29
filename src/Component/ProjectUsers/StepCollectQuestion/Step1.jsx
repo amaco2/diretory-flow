@@ -15,8 +15,9 @@ import
 } from '../style/styleComponent';
 import { IconStatusChange } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { startTransition, useContext, useOptimistic } from 'react';
 import { ProjectUserContext } from '../../../ThemeContext';
+import { createProject } from '../CreatePrject';
 
 
 
@@ -30,21 +31,61 @@ function Step1()
     const navigate = useNavigate();
 
     // Fonction de mise a jour des donnees
-    const updateData = ( partial ) => setDataProject( ( prev ) => ( { ...prev, ...partial } ) );
+    const [ optisticState, updateData ] = useOptimistic( {}, ( prev, partial ) => ( { ...prev, ...partial } ) )
 
+    const handleChange = async ( e ) =>
+    {
+        e.preventDefault();
+    }
     const handleSubmit = ( e ) =>
     {
         e.preventDefault();
-        const formaData = new FormData( e.target );
-        // Recuperation des donnees du formualire depuis <<FrromData>>
-        updateData( {
-            title_project: formaData.get( 'titre' ),
-            type_production: formaData.get( 'type_production' ),
-            status: formaData.get( 'satut' ),
-            description: formaData.get( 'description' ) || null,
+
+        // Recuperation des donnees du formualire depuis <<FormData>>
+        const formaData = new FormData( e.currentTarget );
+
+        // Mise a jour optimiste
+        // setDataProject(
+        //     {
+        //         type_production: formaData.get( 'type_production' ),
+        //         titre: formaData.get( 'titre' ),
+        //         description: formaData.get( 'description' ),
+        //         status: formaData.get( 'status' )
+        //     }
+        // )
+        const type_production = formaData.get( 'type_production' );
+        const titre = formaData.get( 'titre' );
+        const description = formaData.get( 'description' );
+        const status = formaData.get( 'status' );
+
+        startTransition( () =>
+        {
+            // Mise a jour optimiste 🔥 cle valeur
+            updateData( dataProject )
+
         } );
-        // Navigation
-        navigate( './step2' );
+
+        console.log( formaData );
+
+
+        if ( !type_production ||
+            !titre ||
+            !description ||
+            !status
+        ) return console.log( "Champs Manquants" );
+
+        // Phase de creation du projet
+        createProject( type_production,
+            titre,
+            description,
+            status );
+
+
+    };
+
+    const handleSendData = ( e ) =>
+    {
+
     }
 
     return (
@@ -67,7 +108,7 @@ function Step1()
                     <label htmlFor='type_production'>
                         Type de production : <Film size={ 25 } />{ ' ' }
                     </label>
-                    <InputTypeProductyion id='type_production' name='type_production' required>
+                    <InputTypeProductyion id='type_production' name='type_production' required >
                         <option value=''>--------</option>
                         <option value='film'>Film</option>
                         <option value="court_metrage">Court-métrage</option>
@@ -80,8 +121,8 @@ function Step1()
                     </InputTypeProductyion>
                 </div>
                 <div className="form-field">
-                    <label htmlFor="satut">Statut actuel <IconStatusChange color='#0000ff' /></label>
-                    <InputTypeProductyion id='satut' name='satut' required>
+                    <label htmlFor="status">Statut actuel <IconStatusChange color='#0000ff' /></label>
+                    <InputTypeProductyion id='status' name='status' required>
                         <option value="">---------</option>
                         <option value="idee">idée</option>
                         <option value="preproduction">Préproduction</option>
@@ -93,15 +134,16 @@ function Step1()
                     <label htmlFor='description'>
                         Description : <Text />
                     </label>
-                    <InputDescription id='description' name='description' required></InputDescription>
+                    <InputDescription id='description' name='description' required ></InputDescription>
                 </div>
                 <div className="form-actions">
-                    <BtnNextQuest type='submit'>Suivant</BtnNextQuest>
+                    <BtnNextQuest type='submit' onClick={ handleSendData }>Suivant</BtnNextQuest>
                 </div>
             </form>
         </section>
     )
 }
+
 
 
 export { Step1 };

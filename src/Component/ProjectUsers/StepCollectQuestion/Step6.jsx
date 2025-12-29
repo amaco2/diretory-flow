@@ -25,7 +25,7 @@ import
 import { Link, useNavigate } from 'react-router-dom';
 import "./Steps.css"
 import { useContext } from 'react';
-import { ProjectUserContext } from '../../../ThemeContext';
+import { DashboardContext, ProjectUserContext } from '../../../ThemeContext';
 
 
 // Vision risque & attente
@@ -38,7 +38,7 @@ import { ProjectUserContext } from '../../../ThemeContext';
 
 function Step6()
 {
-    const { dataStep6, setDataStep6 } = useContext( ProjectUserContext );
+    const { dataStep6, setDataStep6 } = useContext( DashboardContext );
     // Variable de navigation
     const navigate = useNavigate();
 
@@ -62,14 +62,14 @@ function Step6()
     }
 
     return (
-        <section aria-labelledby="step6-title">
+        <section aria-labelledby="step6-title" className="section">
             <h2 id="step6-title" className="sr-only">Vision, risques et attentes</h2>
             <form className="step-form center-column" onSubmit={ handleSubmit }>
                 <div className="form-field">
                     <label htmlFor='type_production'>
                         Objectif principal du projet : <Briefcase size={ 25 } />{ ' ' }
                     </label>
-                    <InputTypeProductyion id='type_production' name='type_production'>
+                    <InputTypeProductyion id='type_production' name='type_production' className='select'>
                         <option value=''>--------</option>
                         <option value='artistique'>Artistique</option>
                         <option value="commercial">Commercial</option>

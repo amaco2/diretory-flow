@@ -1,0 +1,290 @@
+:root {
+    --all-color-red: #ff0000;
+    --all-color-white: #fff;
+    --all-color-black: #000;
+}
+
+.span-text-errors {
+    font-size: 1.2em;
+    color: var(--all-color-red);
+    font-weight: bolder;
+}
+
+.drop-zone {
+    border: 2px dashed #6366f1;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(155, 218, 243, 0.757);
+}
+
+.drop-zone:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #4f46e5;
+}
+
+.drop-zone input {
+    display: none;
+}
+
+.drop-content p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4f46e5;
+    margin-bottom: 8px;
+}
+
+.drop-content span {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.form-upload-script {
+    color: var(--all-color-black);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 22svw;
+    max-width: none;
+    padding: 36px;
+    background: linear-gradient(180deg, #f8fbff, #eaf6ff);
+    border: none;
+    border-radius: 16px;
+    margin: 0;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.div-upload-script {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 28px;
+    align-items: start;
+    padding: 24px;
+    margin: 16px 0;
+}
+
+.infos-upload {
+    color: var(--all-color-white);
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(79, 70, 229, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 0vh;
+    min-height: 45vh;
+    align-items: stretch;
+}
+
+.form-upload-script .btn-send-file {
+    border: none;
+    width: 220px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+    color: var(--all-color-white);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+.form-upload-script .btn-send-file:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.18);
+}
+
+/* .drop-zone {
+    backdrop-filter: blur(6px);
+} */
+
+@media (max-width: 900px) {
+    .div-upload-script {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .infos-upload {
+        order: 2;
+        width: 100%;
+    }
+
+    .form-upload-script {
+        order: 1;
+        padding: 28px;
+    }
+}
+
+/* Steps block below upload */
+.upload-steps {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+    background: linear-gradient(40deg, #aacbf4, #0669d4);
+    align-items: stretch;
+    border-radius: 10px;
+}
+
+.upload-steps .step {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    font-weight: bolder;
+    color: #d0d61a;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+}
+
+.step-num {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #06b6d4, #4f46e5);
+    /* color: #fff; */
+    display: flex;
+    color: #d0d61a;
+    color: #d0d61a;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.step-body h4 {
+    margin: 0 0 6px 0;
+    font-size: 0.98rem;
+    color: #fff;
+    /* color: #d0d61a; */
+}
+
+.step-body p {
+    margin: 0;
+    font-size: 1em;
+    /* color: rgba(255, 255, 255, 0.9); */
+    color: #dfecf4;
+    line-height: 1.2;
+}
+
+@media (max-width: 1100px) {
+    .upload-steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+    .upload-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-steps .step {
+        flex-direction: row;
+    }
+}
+
+/* Carousel styles for aside */
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    min-height: 240px;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.12);
+}
+
+.carousel-dots {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.carousel-dots .dot.active {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+/* Small utility to ensure aside takes its column height */
+.infos-upload .carousel {
+    min-height: 240px;
+    max-height: 480px;
+}
+
+.carousel-caption {
+    margin-top: 30px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    padding: 10px 12px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.18));
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.18);
+}
+
+@media (max-width: 900px) {
+    .div-upload-script {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .infos-upload {
+        order: 2;
+        width: 100%;
+    }
+
+    .form-upload-script {
+        order: 1;
+        padding: 28px;
+    }
+}
+
+/* Autoplay handled in component via JS */

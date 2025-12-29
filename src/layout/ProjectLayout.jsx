@@ -19,12 +19,13 @@ function ProjectLayout( { children } )
             } }
             header={ { height: 65 } }
             padding={ "md" }
+            bg={ "#000" }
         >
-            <AppShell.Navbar>
+            <AppShell.Navbar bg={ '#000000ff' } color="#fff">
                 <Sidebar />
             </AppShell.Navbar>
 
-            <AppShell.Header>
+            <AppShell.Header bg={ "#000" } color="#fff">
                 <Topbar
                     toogleSidebar={ setOpened }
                     opened={ opened } />

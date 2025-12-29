@@ -1,6 +1,7 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 const TContext = createContext();
 const ProjectUserContext = createContext();
+const DashboardContext = createContext();
 
-export { TContext, ProjectUserContext };
+export { TContext, ProjectUserContext, DashboardContext };

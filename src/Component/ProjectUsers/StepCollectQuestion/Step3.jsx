@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BtnNextQuest, BtnPrevQuest, InputCheckbox } from "../style/styleComponent";
 import "./Steps.css"
 import { useContext } from "react";
-import { ProjectUserContext } from "../../../ThemeContext";
+import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
 
 
 // Nature et format du projet(QCM)
@@ -13,7 +13,7 @@ import { ProjectUserContext } from "../../../ThemeContext";
 function Step3()
 {
 
-    const { dataStep3, setDataStep3 } = useContext( ProjectUserContext );
+    const { dataStep3, setDataStep3 } = useContext( DashboardContext );
     // Variable de navigation
     const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function Step3()
     }
 
     return (
-        <section aria-labelledby="step3-title">
+        <section aria-labelledby="step3-title" className="section">
             <h2 id="step3-title" className="sr-only">Équipe et méthodes</h2>
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">

@@ -15,6 +15,9 @@ import { Step4 } from './Component/ProjectUsers/StepCollectQuestion/Step4.jsx';
 import { Step5 } from './Component/ProjectUsers/StepCollectQuestion/Step5.jsx';
 import { Step6 } from './Component/ProjectUsers/StepCollectQuestion/Step6.jsx';
 import Summary from './Component/ProjectUsers/StepCollectQuestion/Summary.jsx';
+import { useAllProjects } from './getProject.js';
+import LayoutProject from './Component/ProjectUsers/LayoutProjects.js';
+import ScriptUpload from './pages/AI/ScriptUpload.js';
 
 // Cette position est temporaire
 const colors = {
@@ -63,6 +66,14 @@ function WrapperComponent()
   const [username, setUsername] = useState<String>('');
   // Activation et desactivation du profil utilisateur
   const [isShowProfil, setIsShowProfil] = useState<Boolean>(true);
+
+  // Recuperation de tous les projets d'un utilisateur
+  const [projectId, setProjectId] = useState<Object>();
+
+  // On test si l'utilisateur a bien un projet
+  const [wasProject, setWasProject] = useState<boolean>(false);
+
+
   // Connextion en utlisant les cookies
   useEffect(() =>
   {
@@ -74,6 +85,7 @@ function WrapperComponent()
       {
         setIconeUser(res.data.message.email);
         setUsername(res.data.message.username + "");
+
         setIsConnect(true);
       })
       .catch((error) =>
@@ -81,6 +93,8 @@ function WrapperComponent()
         setIsConnect(false);
         console.error(error);
       });
+
+    useAllProjects(setProjectId, setWasProject);
   }, []);
   return (
     <div>
@@ -93,6 +107,9 @@ function WrapperComponent()
           setIconeUser,
           username,
           setUsername,
+          projectId,
+          wasProject,
+          setWasProject
         }}
       >
         <HiddenProfil
@@ -107,22 +124,24 @@ function WrapperComponent()
           <Route path='/connexion' element={<FormConnexion />} />
           <Route path='/inscription' element={<FormInscription />} />
           <Route path='/projects/' element={<ProjectUser />} >
-            <Route index element={<Step1 />} />
+            <Route index element={<LayoutProject />} />
+            <Route path='createproject' element={<Step1 />} />
+            {/* <Route path='step2' element={<Step2 />} /> */}
+          </Route>
+          <Route index path='/' element={<Home />} />
+          <Route path='/project/:projectid' element={<ProjectDashboar />} >
             <Route path='step2' element={<Step2 />} />
+            {/* <Route path='overview' element={ <OverView /> } /> */}
+            {/* <Route path='kanban' element={ <Kanban /> } /> */}
+            {/* <Route path='timeline' element={ <Timeline /> } /> */}
+            <Route path='ai' element={<ScriptUpload />} />
+            {/* <Route path='documents' element={ <Documents /> } /> */}
+            {/* <Route path='team' element={ <Team /> } /> */}
             <Route path='step3' element={<Step3 />} />
             <Route path='step4' element={<Step4 />} />
             <Route path='step5' element={<Step5 />} />
             <Route path='step6' element={<Step6 />} />
             <Route path='summary' element={<Summary />} />
-          </Route>
-          <Route index path='/' element={<Home />} />
-          <Route path='/project/' element={<ProjectDashboar />} >
-            {/* <Route path='overview' element={ <OverView /> } /> */}
-            {/* <Route path='kanban' element={ <Kanban /> } /> */}
-            {/* <Route path='timeline' element={ <Timeline /> } /> */}
-            {/* <Route path='ai' element={ <AI /> } /> */}
-            {/* <Route path='documents' element={ <Documents /> } /> */}
-            {/* <Route path='team' element={ <Team /> } /> */}
           </Route>
         </Routes>
       </TContext.Provider>

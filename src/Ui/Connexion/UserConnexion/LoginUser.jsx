@@ -16,7 +16,7 @@ const useAxioToLogin = async ( email, password ) =>
     return response.data;
   } catch ( error )
   {
-    console.error( 'Erreur axios de amang :', error.response?.data || error.message );
+    console.error( 'Erreur axios :', error.response?.data || error.message );
   }
 };
 export { useAxioToLogin };
