@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Hegarty&family=Matemasie&display=swap');
+
+:root {
+  --all-color-white: #fff || #0000;
+}
+
+.main--bg-img-p {
+  font-size: 1.6em;
+  font-weight: bold;
+  position: relative;
+  top: 13svw;
+  width: 50svw;
+  /* color: #00eeaa; */
+  color: #a1e0e9;
+  /* color: #131925; */
+  left: 25svw;
+  font-family: "Matemasie", sans-serif;
+  font-weight: 400;
+  font-style: oblique;
+  /* font-family: "BBH Bartle", sans-serif;
+  font-weight: 400;
+  font-style: normal; */
+  /* font-family: "BBH Hegarty", sans-serif;
+  font-weight: 400;
+  font-style: normal; */
+  transition: font-size all color ease-in-out;
+}
+
+main {
+  background: linear-gradient(135deg, #2E005C, #0B132B);
+  color: #F8F8FF;
+}
+
+.main--bg-img-p:hover {
+  font-size: 1.8em;
+  cursor: pointer;
+  color: #fff
+}
+
+.btn--gets-Start:hover .arrowRight {
+  fill: rgb(0, 0, 0);
+}
+
+/* main--problems */
+
+.main--problems {
+  width: 85svw;
+  min-height: 17svw;
+  position: relative;
+  left: 6svw;
+  border-radius: 5px;
+  columns: auto;
+  color: #000;
+  background-color: var(--all-color-white);
+  box-shadow: inset 2px 2px 30px #a0aec0;
+}
+
+.main--problems ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.main--problems ul li {
+  list-style-type: none;
+  /* line-height: 3px; */
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: monospace;
+  gap: 20px;
+}
+
+.main--problems ul li p {
+  width: 250px;
+}
+
+.main--solve-problems .main-solve-problems__h2 {
+  text-align: center;
+}
+
+.main--problems ul li .icone-message-off,
+.icon-file-filled,
+.inco-user-off {
+  fill: #B4BCC7;
+  stroke: #a3b3ca;
+}
+
+/* *************************** END ******************************* */
+
+/* contenair-sass */
+.contenair-sass {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.contenair-sass {
+  .arrowRight {
+    color: #000;
+  }
+
+  .h2-main-contenair {
+    color: #cfd9dc;
+    text-align: center;
+    font-family: "Matemasie", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  ul {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-left: 5svw;
+    margin-top: 30px;
+  }
+
+  ul li {
+    list-style: none;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .img-infos img {
+    width: 48svw;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 1px solid red;
+    transition: 0.3s ease-in-out;
+  }
+
+  .main--intro__exemple {
+    grid-column: 1 / 4;
+    background: #4fd1c5;
+    margin-top: 10svw;
+    background-attachment: fixed;
+    height: 30vh;
+  }
+
+  .img-infos img:hover {
+    box-shadow: 2px 2px 30px #fff;
+    width: 40svw;
+    cursor: pointer;
+    border: 2px solid red;
+  }
+}
+
+/* ************************** END ************************************ */
+@media screen and (max-width: 1200px) {
+  .main--bg-img-p {
+    width: 50svw;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main--bg-img-p {
+    width: 60svw;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main--bg-img-p {
+    font-size: 1.1em;
+    width: 80svw;
+    left: 15svw;
+    top: 35svw;
+  }
+
+  .main--bg-img-p:hover {
+    font-size: 1.1em;
+  }
+}

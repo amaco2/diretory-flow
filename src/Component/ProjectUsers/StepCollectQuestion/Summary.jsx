@@ -120,7 +120,7 @@ function Summary()
                     </li>
                 </ul>
             </section>
-            <BtnNextQuest onClick={ handleSendData }>Valider</BtnNextQuest>
+            <BtnNextQuest onClick={ handleSendData } className="btn-summary">Valider</BtnNextQuest>
         </div>
     )
 }

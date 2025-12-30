@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=BBH+Hegarty&family=Matemasie&display=swap');
+
 :root {
     --form-max-width: 800px;
     --input-gap: 12px;
@@ -26,6 +28,9 @@
     flex-direction: column;
     gap: calc(var(--input-gap) * 1.5);
     box-sizing: border-box;
+    font-family: "Matemasie", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .center-column {
@@ -33,16 +38,16 @@
 }
 
 .section {
-    background: linear-gradient(90deg, #162d38bc);
+    /* background: linear-gradient(90deg, #4c4a4aab); */
     border-radius: 14px;
-    border: 3px dashed #800080;
+    border: 3px dashed #00d0ff;
 }
 
 .form-field {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: linear-gradient(90deg, #298afa 30%, #ffffff);
+    background: linear-gradient(90deg, #ffffff, #e6f4fae1 30%);
     border: none;
     border-radius: 14px;
     color: #000;
@@ -50,7 +55,7 @@
 
 label {
     font-size: 1em;
-    /* color: #fff; */
+    color: #0956f0;
     font-weight: 800;
 }
 
@@ -75,10 +80,41 @@ input[type="checkbox"] {
     transform: scale(1.05);
 }
 
+input[type="radio"] {
+    position: relative;
+    left: 20svw;
+    top: -20px;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: #ffffff;
+}
+
+input[type="radio"]:checked {
+    box-shadow: 0 0 10px #049faa;
+    background-color: hsl(33, 87%, 44%);
+    transition: 0.3s ease-in-out;
+}
+
+input[type="radio"]:checked::after {
+    content: "\2714";
+    /*Symbole de coche*/
+    accent-color: hsl(33, 87%, 44%);
+    font-size: 35px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    /** ou \2717, \25CF, \25CB, \25C9, \2714 */
+}
+
+
+
 legend {
-    font-size: 1.1em;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    color: #4fd1c5;
 }
 
 @media screen and (max-width: 768px) {

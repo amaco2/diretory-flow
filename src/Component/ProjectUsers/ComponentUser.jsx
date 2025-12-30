@@ -33,6 +33,18 @@ const itemslist = [
       'Structurez vos données et la gestion de tache grace au Dashboard',
     img: img4,
   },
+  {
+    id: 4,
+    description:
+      'Structurez vos données et la gestion de tache grace au Dashboard',
+    img: img4,
+  },
+  {
+    id: 4,
+    description:
+      'Structurez vos données et la gestion de tache grace au Dashboard',
+    img: img4,
+  },
 ];
 
 export { itemslist };

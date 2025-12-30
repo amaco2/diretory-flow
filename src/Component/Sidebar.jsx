@@ -74,7 +74,7 @@ function Sidebar()
                 __size={ 20 }
                 target="blank"
             />
-        </Stack>
+        </Stack >
     )
 }
 

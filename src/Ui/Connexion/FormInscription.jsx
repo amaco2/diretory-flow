@@ -221,7 +221,7 @@ function FormInscription()
         <DivWrapperForm>
           <DivWraper>
             <ImgLgoHeader color='#7ecef5ff' />
-            <SpanTextDF>DirectoryFlow</SpanTextDF>
+            <SpanTextDF>Bienvenu à DirectoryFlow</SpanTextDF>
             <br />
           </DivWraper>
           <br />

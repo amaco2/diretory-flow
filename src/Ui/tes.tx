@@ -1,0 +1,237 @@
+import styled from 'styled-components';
+import Bg_Img_Main from '../asset/1766161148404.png';
+import './style/Main.css';
+import { ArrowBigRight, CheckCheck } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { TContext } from '../ThemeContext';
+import { IconArrowGuide, IconFileUploadFilled, IconMessageOff, IconUserOff } from '@tabler/icons-react';
+import img_infos from "../UI_ASSET/1767128404958.jpg";
+// Image d'acceuil
+const Div_Img_Bg_Main = styled.div`
+  width: 100%;
+  height: 550px;
+  margin-top: 65px;
+  background-image: url('${ Bg_Img_Main }');
+  background-repeat: no-repeat;
+  // filter: contrast(80%);
+  // box-shadow: inset 20px 20px 100px 950px #15161662;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  border: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-attachment: fixed;
+  background-clip: padding-box;
+  //   animation: animate 20s infinite linear;
+
+  @keyframes animate {
+    to {
+      background-position-x: -300px;
+      transform: scale(1);
+    }
+  }
+    @media screen and (max-width: 480px){
+       height: 380px;
+    }
+`;
+/** Bouton d'orientation de redirection de l'utilisateur vers la
+ * creation de projet ou de compte si pas deja cree */
+
+const BtnGetStart = styled.button`
+  width: 20svw;
+  height: 70px;
+  font-size: 2em;
+  position: relative;
+  top: 15svw;
+  left: 40svw;
+  font-weight: bold;
+  padding-top: -30px;
+  font-family: 'Roboto', Times, serif;
+  cursor: pointer;
+  color: #000000ff;
+  background-color: #00ffb7ff;
+  border: none;
+  border-radius: 10px;
+
+  &:hover {
+    color: #00eaffff;
+    background-color: #000000ff;
+  }
+
+  @media screen and (max-width: 960px){
+        font-size: 1.4em;
+        height: 60px;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 768px){
+        font-size: 1.1em;
+        height: 60px;
+        width: 25svw;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 480px){
+        font-size: 1em;
+        height: 60px;
+        width: 55svw;
+        top: 35svw;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+  @media screen and (max-width: 210px){
+        font-size: 1em;
+        height: 60px;
+        width: 60svw;
+        left: 30svw;
+
+        &:hover{
+        background-color: #fff;
+        font-weight: bolder;
+        }
+  }
+`;
+
+/**Ameliorer votre productivite et votre influance en production cinemetographisque grace a notre application
+ * concue personalise rein que pour vous
+ */
+const Check = () => <CheckCheck fill='#006dfcff' size={ 25 } />;
+const tab_infos_service = [
+  {
+    fonctionalite: "Gestion des équipes",
+  },
+  {
+    fonctionalite: "Planning & tableau de taches",
+  },
+  {
+    fonctionalite: "Feuilles de services",
+  },
+  {
+    fonctionalite: "Chat d'équipe",
+  },
+  {
+    fonctionalite: "IA de dépouillement",
+  },
+  {
+    fonctionalite: "IA de gestion & d'organisation de taches",
+  },
+  {
+    fonctionalite: "Worklow assisté"
+  }
+]
+
+function FuntionalityHome()
+{
+
+  return (
+    <section className='main--intro'>
+      <div className="contenair-sass">
+        <div className='main-infos'>
+          <div className="h2-main-contenair">
+            <h2>Les fonctionalités principales</h2>
+          </div>
+          <ul>
+            { tab_infos_service.map( ( itemslist, index ) =>
+            {
+              return <li key={ index }><Check />{ itemslist.fonctionalite }</li>
+            } ) }
+          </ul>
+        </div>
+        <div className='img-infos'>
+          <img src={ img_infos } alt="Image des presentation de directoryFlow " />
+        </div>
+        <div className='main--intro__exemple'>
+          <h2>Laisé vous guider <IconArrowGuide /></h2>
+          <p>Produiser sans limite et soyez toujours plus créatif. Film, série, pub,
+            court métrage... decouvrez la nouvelle expérience imergente et automatisé de
+            flux de travail. grâce à  notre application vous serez toujours plus creatif
+            et en avance sur la concurrence. vous serez suivi de la pré-production à la postproduction
+            dans une harmonie et une structure cohérent et logique. Remplissez le formulaire
+            après la creation de votre projet pour rendre notre IA plus efficace et plus apte à
+            vous accompagner.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Main()
+{
+  /**
+   * @param {isConnect} Stockage de l'etat de connexion de l'utilisateur pour decider de se reidrection en
+   * fonction de si <<isConnect>> est a <<true> ou <<false>>
+   * @Component
+   * @example
+   * <Link to={isConnect?"projects":"connexion"}>
+   */
+  const { isConnect } = useContext( TContext );
+  const { wasProject, setWasProject, projectId, } = useContext( TContext );
+
+  return (
+    <div>
+      <main>
+        <Div_Img_Bg_Main>
+          <p className='main--bg-img-p'>
+            { ' ' }
+            Améliorer votre productivité et votre influance en production
+            audio-visuelle grace à notre application conçue et personalisée rien
+            que pour vous
+          </p>
+          <Link to={ isConnect ?
+            'projects ' : 'connexion' }>
+            <BtnGetStart className='btn--gets-Start'>
+              <ArrowBigRight className='arrowRight' />
+              Commencer
+            </BtnGetStart>
+          </Link>
+        </Div_Img_Bg_Main>
+        <h2>Projet Recents</h2>
+        { console.log( projectId ) }
+        { wasProject && isConnect ?
+          projectId.map( ( item, index ) =>
+
+            <Link to={ `/project/:${ item.id }` } id='item-project'><li key={ index }>{ item.name }</li></Link>
+          ) : <li>Not Found</li> }
+        {/* COMPNENT */ }
+        <div className="sass">
+          <h2>La plateforme IA de gestion de production</h2>
+          <p>Pour planifier, organiser et collaborer
+            efficacement sur tous vos projets audiovisuelss</p>
+        </div>
+        <FuntionalityHome />
+        <div className="main--solve-problems">
+          <h2 className='main-solve-problems__h2'>Les Problemes qu'on résout</h2>
+          <div className="main--problems">
+            <ul>
+              <li>
+                <IconUserOff className="inco-user-off" size={ 100 } />
+                <p>Désorganisation des équipes</p>
+              </li>
+              <li>
+                <IconFileUploadFilled className="icon-file-filled" size={ 100 } />
+                <p>Perte des feuilles de service</p>
+              </li>
+              <li>
+                <IconMessageOff className="icone-message-off" size={ 100 } />
+                <p>Mauvaise communication</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div >
+  );
+}
+
+export default Main;

@@ -1,8 +1,10 @@
-import { useState, type ChangeEvent, type FormEvent, useEffect } from "react";
+import { useState, type ChangeEvent, type FormEvent, useEffect, useContext } from "react";
 import { useOutletContext } from "react-router-dom"
 import axio from "../../config/axiosConfig";
 import './style/style.css'
-import { File } from "lucide-react";
+import { File, FileArchive } from "lucide-react";
+import { itemslist } from "../../Component/ProjectUsers/ComponentUser";
+import { TContext } from "../../ThemeContext";
 
 
 type RouteParams = {
@@ -14,6 +16,7 @@ function ScriptUpload()
 {
     const { ID_Project } = useOutletContext<RouteParams>();
 
+    const { projectId } = useContext<Record<string, number> | Record<string, string>>(TContext)
     const [file, setFile] = useState<File | null>();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -100,7 +103,7 @@ function ScriptUpload()
     return (
 
         <div className="div-upload-script">
-            <form onSubmit={handleSubmit} className="form-upload-script">
+            {/* <form onSubmit={handleSubmit} className="form-upload-script">
                 <label className="drop-zone">
                     <input type="file" accept=".pdf, .doc, .docx, .txt"
                         title="Ajouter un fichier" id="input-file" onChange={handleFileChange} />
@@ -111,7 +114,7 @@ function ScriptUpload()
                 </label>
                 <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
                     {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
-            </form>
+            </form> */}
             <aside className="infos-upload">
                 <div className="carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
                     {images.map((src, idx) => (
@@ -124,9 +127,26 @@ function ScriptUpload()
                             <button key={idx} className={"dot" + (idx === current ? ' active' : '')} onClick={() => setCurrent(idx)} aria-label={`Voir image ${idx + 1}`} />
                         ))}
                     </div>
-                    <div className="carousel-caption" aria-live="polite">{captions[current]}</div>
+                    <div className="carousel-caption" aria-live="polite">{itemslist[current]?.description}</div>
                 </div>
             </aside>
+            <form onSubmit={handleSubmit} className="form-upload-script">
+                <div className="boot-ai-img">
+                    {/* <img src={AI_boot} alt="AI boot style image " /> */}
+                    {/* <h2>Film: {projectId}</h2> */}
+                </div>
+                <label className="drop-zone">
+                    <input type="file" accept=".pdf, .doc, .docx, .txt"
+                        title="Ajouter un fichier" id="input-file" onChange={handleFileChange} />
+                    {error && <span className="span-text-errors">{error}</span>}
+                    <div className="drop-content">
+                        <p><File color="#000" /> Glisser le scénario ici</p>
+                    </div>
+                </label>
+                <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
+                    {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
+            </form >
+
             <section className="upload-steps" aria-label="Étapes d'envoi et de dépouillement">
                 {steps.map((s, i) => (
                     <div className="step" key={i}>
@@ -138,7 +158,7 @@ function ScriptUpload()
                     </div>
                 ))}
             </section>
-        </div>
+        </div >
 
     )
 }

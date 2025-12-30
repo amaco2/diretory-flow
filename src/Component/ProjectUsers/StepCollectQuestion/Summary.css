@@ -3,8 +3,25 @@
 .summary {
     padding: 24px;
     color: #fff;
-    background: linear-gradient(20deg, #2a3987, #ffffffb4, #563b17);
+    background: linear-gradient(90deg, #000000);
     border-radius: 14px;
+    min-height: 40vw;
+    border: 5px dotted #ffffff;
+    gap: 20px;
+}
+
+.summary .btn-summary {
+    position: relative;
+    width: 25svw;
+    top: 1svw;
+    min-height: 7svh;
+    left: 15svw;
+    min-block-size: 40px;
+    font-size: 1.3em;
+    font-weight: bold;
+    background-color: #01d0ff;
+    border: none;
+    clip-path: margin-box;
 }
 
 .header-summary {
@@ -45,11 +62,11 @@
 }
 
 .recap-summary span {
-    color: #03c4ff;
+    color: #d65f82;
     font-size: 1rem;
     font-weight: 600;
     font-family: "BBH Hegarty", sans-serif;
-    font-weight: 400;
+    font-weight: 800;
     font-style: normal;
 }
 
@@ -66,6 +83,17 @@ body {
 
 @media screen and (max-width:768px) {
     .summary {
-        padding: 12px
+        padding: 12px;
+        min-height: 95svh;
+        max-width: auto;
+        width: 100%;
+    }
+
+    .summary .btn-summary {
+        font-size: 1.1em;
+        top: 1svw;
+        min-height: 20px;
+        width: 35svw;
+        left: 25svw
     }
 }

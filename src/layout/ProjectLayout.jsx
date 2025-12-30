@@ -3,6 +3,7 @@ import Sidebar from "../Component/Sidebar";
 import Topbar from "../Component/TopBar";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import "./style/style.css"
 
 function ProjectLayout( { children } )
 {
@@ -19,19 +20,20 @@ function ProjectLayout( { children } )
             } }
             header={ { height: 65 } }
             padding={ "md" }
-            bg={ "#000" }
+            bg={ "#ffffffff" }
+            className="bg-img-layout-main"
         >
-            <AppShell.Navbar bg={ '#000000ff' } color="#fff">
+            <AppShell.Navbar bg={ '#40A1C4' } color="#fff" __size="30">
                 <Sidebar />
             </AppShell.Navbar>
 
-            <AppShell.Header bg={ "#000" } color="#fff">
+            <AppShell.Header bg={ "#40A1C4" } color="#fff">
                 <Topbar
                     toogleSidebar={ setOpened }
                     opened={ opened } />
             </AppShell.Header>
 
-            <AppShell.Main>
+            <AppShell.Main >
                 { children }
             </AppShell.Main>
 

@@ -196,7 +196,7 @@ function FormConnexion()
         <DivWrapperForm>
           <DivWraper>
             <ImgLgoHeader color='#7ecef5ff' />
-            <SpanTextDF>DirectoryFlow</SpanTextDF>
+            <SpanTextDF>Connectez-vous à DirectoryFlow</SpanTextDF>
             <br />
           </DivWraper>
           <br />
