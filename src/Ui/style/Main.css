@@ -89,7 +89,7 @@ main {
 /* contenair-sass */
 .contenair-sass {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   margin-top: 50px;
   gap: 20px;
 }
@@ -110,7 +110,7 @@ main {
   ul {
     font-weight: bold;
     font-size: 1.3em;
-    margin-left: 5svw;
+    margin-left: 3svw;
     margin-top: 30px;
   }
 
@@ -120,16 +120,23 @@ main {
   }
 
   .img-infos img {
-    width: 48svw;
+    width: 50svw;
     object-fit: cover;
+    margin-left: -3svw;
     border-radius: 30px;
     border: 1px solid red;
     transition: 0.3s ease-in-out;
   }
 
+  .img-infos {
+    width: 50svw;
+    border: none;
+    transition: 0.3s ease-in-out;
+  }
+
   .main--intro__exemple {
-    grid-column: 1 / 4;
     background: #4fd1c5;
+    width: 99vw;
     margin-top: 10svw;
     background-attachment: fixed;
     height: 30vh;
@@ -300,6 +307,7 @@ main {
 
 /* Carousel */
 .carousel {
+  margin-top: 3rem;
   padding: 50px 20px;
   background-color: #f8f9fa;
   text-align: center;
@@ -328,7 +336,7 @@ main {
 }
 
 .carousel-slide img {
-  width: 100%;
+  width: 100px;
   height: 400px;
   object-fit: cover;
   display: block;
@@ -380,16 +388,50 @@ main {
     font-size: 1.5em;
   }
 
+  .main--intro__exemple {
+    grid-column: 0;
+  }
+
   .testimonials h2,
   .cta h2,
   .carousel h2 {
     font-size: 2em;
+  }
+
+  .contenair-sass .img-infos img {
+    position: relative;
+    height: 40svw;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 1px solid red;
+    transition: 0.3s ease-in-out;
+  }
+
+}
+
+@media screen and (max-width: 930px) {
+  .contenair-sass .img-infos img {
+    position: relative;
+    width: 90svw;
+    height: 40svw;
+    left: 6svw;
   }
 }
 
 @media screen and (max-width: 768px) {
   .main--bg-img-p {
     width: 60svw;
+  }
+
+  .contenair-sass .img-infos img {
+    position: relative;
+    width: 90svw;
+    height: 40svw;
+    left: 6svw;
+  }
+
+  .contenair-sass {
+    grid-template-columns: 1fr;
   }
 
   .main--bg-img-p:hover {
@@ -411,6 +453,10 @@ main {
 
   .social-links {
     justify-content: center;
+  }
+
+  .contenair-sass.contenair-sass {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -442,5 +488,12 @@ main {
   .cta-button {
     font-size: 1em;
     padding: 12px 24px;
+  }
+
+  .contenair-sass .img-infos img {
+    position: relative;
+    width: 90svw;
+    height: 50svw;
+    left: 5svw;
   }
 }
