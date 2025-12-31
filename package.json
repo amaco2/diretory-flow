@@ -25,6 +25,7 @@
     "@tabler/icons-react": "^3.36.0",
     "axios": "^1.11.0",
     "directoryflow-fonts": "file:../directoryflow-fonts",
+    "framer-motion": "^12.23.26",
     "lucide-react": "^0.555.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

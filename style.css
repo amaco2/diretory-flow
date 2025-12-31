@@ -2,7 +2,17 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
   font-family: sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .load {
@@ -38,3 +48,14 @@
 /* background: linear-gradient(380deg, hsl(181, 75%, 55%), #17395d); */
 /* height: 120vh; */
 /* } */
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+  }
+}

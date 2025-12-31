@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import Bg_Img_Main from '../asset/1766161148404.png';
+import Bg_Img_Main from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
+import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
 import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { TContext } from '../ThemeContext';
 import { IconArrowGuide, IconFileUploadFilled, IconMessageOff, IconUserOff } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
@@ -11,6 +12,7 @@ import carouselImg1 from '../asset/1764788331391.jpeg';
 import carouselImg2 from '../asset/1764788331386.jpeg';
 import carouselImg3 from '../asset/asso-myron-qEJDyG4sRS4-unsplash.jpg';
 import carouselImg4 from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
+import { AnimatedBloc } from '../Component/Scroll';
 
 // Image d'accueil
 const Div_Img_Bg_Main = styled.div`
@@ -23,8 +25,8 @@ const Div_Img_Bg_Main = styled.div`
   background-position: center;
   object-fit: cover;
   border: none;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   background-attachment: fixed;
   background-clip: padding-box;
 
@@ -234,10 +236,64 @@ function Footer()
   );
 }
 
+
+function InfoLayout()
+{
+  // Stockage des  images dans getImage
+  const getImage = import.meta.glob( "../UI_ASSET/*.{jpg,jpeg,png}", { eager: true } );
+  console.log( getImage );
+  const entries = Object.entries( getImage ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) ).slice( 2 );
+  const images = entries.map( ( [ k, v ] ) => v.default || v );
+  images.pop()
+  const captions = entries.map( ( [ k ] ) =>
+  {
+    const name = k.split( '/' ).pop()?.replace( /\.[^/.]+$/, '' ) || 'Image';
+    const pretty = name.replace( /[-_]/g, ' ' ).replace( /\b\w/g, ( c ) => c.toUpperCase() );
+    return `${ pretty } — Production cinématographique`;
+  } );
+  const { scrollY } = useScroll();
+
+  const opacity = useTransform( scrollY, [ 200, 350 ], [ 0, 1 ] );
+  const y = useTransform( scrollY, [ 200, 850 ], [ 40, 0 ] );
+  const ref = useRef( null );
+
+  const { scrollYProgress } = useScroll( {
+    target: ref,
+    offset: [ "start end", "end start" ],
+  } );
+
+  // Déplacement lent de l’image
+  const z = useTransform( scrollYProgress, [ 0, 1 ], [ "-15%", "15%" ] );
+
+  return (
+    <motion.section style={ { z, y, opacity } }
+      initial={ { opacity: 0 } }
+      animate={ { opacity: 1, calcMode: 2 } }
+      exit={ { opacity: 0 } }
+      transition={ { duration: 0.3 } }
+      whileInView={ { opacity: 1, y: 0 } }
+      viewport={ {
+        once: true,   // une seule fois
+        amount: 0.4,  // 40% visible avant déclenchement
+      } } className="main--intro__image-slides"
+      ref={ ref }>
+      {
+        images.map( ( src, index ) =>
+        (
+          <div className="image-slides-contenair">
+            <img src={ src } />
+          </div>
+        ) )
+      }
+    </motion.section>
+  )
+}
+
 function FunctionalityHome()
 {
   return (
-    <section id="functionalities" aria-labelledby="functionalities-title" className='main--intro'>
+    <AnimatedBloc
+      id="functionalities" aria-labelledby="functionalities-title" className='main--intro'>
       <div className="contenair-sass">
         <div className='main-infos'>
           <div className="h2-main-contenair">
@@ -262,9 +318,12 @@ function FunctionalityHome()
             dans une harmonie et une structure cohérente et logique. Remplissez le formulaire
             après la création de votre projet pour rendre notre IA plus efficace et plus apte à
             vous accompagner.</p>
+
+          <InfoLayout />
+
         </div>
       </div>
-    </section>
+    </AnimatedBloc>
   );
 }
 
@@ -281,17 +340,34 @@ function Carousel()
 
   const prevSlide = () =>
   {
-    setCurrentIndex( ( prevIndex ) => ( prevIndex - 1 + images.length ) % images.length );
+    setCurrentIndex( ( prevIndex ) => ( prevIndex - 1 ) % images.length );
   };
 
+  useEffect( () =>
+  {
+    if ( images.length === 0 ) return;
+    const id = setInterval( () =>
+    {
+      setCurrentIndex( ( i ) => ( i + 1 ) % images.length )
+    }, 5000 )
+
+    return () => clearInterval( id )
+  }, [ currentIndex, images.length ] )
+
   return (
-    <section id="carousel" aria-labelledby="carousel-title" className="carousel">
+    <motion.section
+      initial={ { opacity: 0 } }
+      animate={ { opacity: 1, calcMode: 2 } }
+      exit={ { opacity: 0 } }
+      transition={ { duration: 0.3 } }
+
+      id="carousel" aria-labelledby="carousel-title" className="carousel">
       <h2 id="carousel-title">Découvrez nos projets audiovisuels</h2>
       <div className="carousel-container">
         <button className="carousel-btn prev" onClick={ prevSlide } aria-label="Image précédente">
           <ChevronLeft size={ 24 } />
         </button>
-        <div className="carousel-slide">
+        <div className="carousel-slides">
           <img src={ images[ currentIndex ] } alt={ `Projet audiovisuel ${ currentIndex + 1 }` } />
         </div>
         <button className="carousel-btn next" onClick={ nextSlide } aria-label="Image suivante">
@@ -308,7 +384,7 @@ function Carousel()
           />
         ) ) }
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -325,7 +401,12 @@ function Main()
   const { wasProject, setWasProject, projectId, } = useContext( TContext );
 
   return (
-    <main role="main">
+    <motion.main
+      initial={ { opacity: 0 } }
+      animate={ { opacity: 1 } }
+      exit={ { opacity: 0 } }
+      transition={ { duration: 0.3 } }
+      role="main">
       <header>
         <Div_Img_Bg_Main>
           <BtnGetStart>
@@ -374,8 +455,10 @@ function Main()
       <Testimonials />
       <CallToAction />
       <Footer />
-    </main>
+    </motion.main>
   );
 }
 
 export default Main;
+
+
