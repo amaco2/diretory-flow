@@ -158,7 +158,6 @@ main {
 
 .img-infos img:hover {
   box-shadow: 2px 2px 30px #fff;
-  width: 40svw;
   cursor: pointer;
   border: 2px solid red;
 }

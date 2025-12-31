@@ -253,8 +253,8 @@ function InfoLayout()
   } );
   const { scrollY } = useScroll();
 
-  const opacity = useTransform( scrollY, [ 200, 350 ], [ 0, 1 ] );
-  const y = useTransform( scrollY, [ 200, 850 ], [ 40, 0 ] );
+  const opacity = useTransform( scrollY, [ 300, 850 ], [ 1, 2 ] );
+  const y = useTransform( scrollY, [ 300, 850 ], [ 50, 1 ] );
   const ref = useRef( null );
 
   const { scrollYProgress } = useScroll( {
@@ -266,7 +266,7 @@ function InfoLayout()
   const z = useTransform( scrollYProgress, [ 0, 1 ], [ "-15%", "15%" ] );
 
   return (
-    <motion.section style={ { z, y, opacity } }
+    <motion.section style={ { opacity, y } }
       initial={ { opacity: 0 } }
       animate={ { opacity: 1, calcMode: 2 } }
       exit={ { opacity: 0 } }
