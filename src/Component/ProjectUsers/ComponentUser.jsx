@@ -34,15 +34,15 @@ const itemslist = [
     img: img4,
   },
   {
-    id: 4,
+    id: 5,
     description:
-      'Structurez vos données et la gestion de tache grace au Dashboard',
+      'Initiez-vous à l\'intélligence artificielle en production grace a nos modèle d\'IA personnalisé',
     img: img4,
   },
   {
-    id: 4,
+    id: 6,
     description:
-      'Structurez vos données et la gestion de tache grace au Dashboard',
+      'Communiquer et collaborer en toute sécurité',
     img: img4,
   },
 ];

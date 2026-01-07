@@ -5,10 +5,12 @@ import './style/style.css'
 import { File, FileArchive } from "lucide-react";
 import { itemslist } from "../../Component/ProjectUsers/ComponentUser";
 import { TContext } from "../../ThemeContext";
+import { Footer } from "../../Ui/Main";
+import SaveScriptUpload from "./SaveScriptUpload";
 
 
 type RouteParams = {
-    ID_Project: Array<string>;
+    ID_Project: number;
 };
 
 
@@ -18,12 +20,14 @@ function ScriptUpload()
 
     const { projectId } = useContext<Record<string, number> | Record<string, string>>(TContext)
     const [file, setFile] = useState<File | null>();
+    const [checkHandlesending, setCheckHandleSending] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [dataScript, setDataScript] = useState<Object | any>({ longText: '' });
     // Dynamically import all images from the asset folder (Vite)
     // @ts-ignore
-    const modules = import.meta.glob('../../asset/*.{jpg,jpeg,png}', { eager: true }) as Record<string, any>;
-    const entries = Object.entries(modules).sort((a, b) => a[0].localeCompare(b[0])).slice(0, 7);
+    const modules = import.meta.glob('../../IA_asset/*.{jpg,jpeg,png}', { eager: true }) as Record<string, any>;
+    const entries = Object.entries(modules).sort((a, b) => a[0].localeCompare(b[0]));
     const images = entries.map(([k, v]) => v.default || v);
     const captions = entries.map(([k]) =>
     {
@@ -75,6 +79,7 @@ function ScriptUpload()
         setError(null);
         setLoading(true);
 
+        console.log("id du projet", projectId)
 
         try
         {
@@ -82,13 +87,21 @@ function ScriptUpload()
             formaData.append("script", file);
 
             setLoading(true);
-            console.log(ID_Project[1]);
-            const response: any = await axio.post(`/api/depouillement/projects/${ID_Project[1]}/analyse`,
+            console.log(ID_Project);
+            const response: any = await axio.post(`/api/depouillement/projects/${ID_Project}/analyse`,
                 formaData,
                 { withCredentials: true },
             );
+
+            // Recuperation de response dans data
+            const formaResponse = new FormData();
+            formaResponse.append("data", response.data?.aiOutPout);
+
+            setDataScript((prev: any) => ({ ...prev, longText: formaResponse }));
+            console.log("script :", dataScript);
             console.log(response.data?.aiOutpout);
             alert('Scénario envoyé avec succè');
+            setCheckHandleSending(() => true);
         } catch (err: any)
         {
             setError(
@@ -96,9 +109,11 @@ function ScriptUpload()
             );
         } finally
         {
-            setLoading(false)
+            setLoading(false);
+            // setCheckHandleSending(() => false);
         }
     }
+    console.log("data script :", dataScript);
 
     return (
 
@@ -116,7 +131,7 @@ function ScriptUpload()
                     {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
             </form> */}
             <aside className="infos-upload">
-                <div className="carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+                <div className="carousell-aside" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
                     {images.map((src, idx) => (
                         <div key={idx} className={"carousel-slide" + (idx === current ? ' active' : '')}>
                             <img src={src} alt={`Production cinématographique ${idx + 1}`} />
@@ -138,9 +153,9 @@ function ScriptUpload()
                 <label className="drop-zone">
                     <input type="file" accept=".pdf, .doc, .docx, .txt"
                         title="Ajouter un fichier" id="input-file" onChange={handleFileChange} />
-                    {error && <span className="span-text-errors">{error}</span>}
+                    {error && <span className="span-text-errors">{error}</span>}<br />
                     <div className="drop-content">
-                        <p><File color="#000" /> Glisser le scénario ici</p>
+                        <p><File color="#000" /> Glisser le scénario ici et laisser votre assistant faire le travail</p>
                     </div>
                 </label>
                 <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
@@ -158,6 +173,10 @@ function ScriptUpload()
                     </div>
                 ))}
             </section>
+            {!checkHandlesending && !error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depoullement"
+                checkHandlesending={setCheckHandleSending}
+                projectId={ID_Project}
+            /> : ""}
         </div >
 
     )

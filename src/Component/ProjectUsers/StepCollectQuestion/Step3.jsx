@@ -3,6 +3,7 @@ import { BtnNextQuest, BtnPrevQuest, InputCheckbox } from "../style/styleCompone
 import "./Steps.css"
 import { useContext } from "react";
 import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
+import { ProgressBar } from "./ProgressBar";
 
 
 // Nature et format du projet(QCM)
@@ -41,6 +42,7 @@ function Step3()
     return (
         <section aria-labelledby="step3-title" className="section">
             <h2 id="step3-title" className="sr-only">Équipe et méthodes</h2>
+            <ProgressBar />
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">
                     <legend>1. Taille estimée de l'équipe</legend>

@@ -90,7 +90,7 @@
     flex-direction: column;
     gap: 14px;
     height: 0vh;
-    min-height: 45vh;
+    min-height: 65vh;
     align-items: stretch;
 }
 
@@ -204,7 +204,7 @@
 }
 
 /* Carousel styles for aside */
-.carousel {
+.carousell-aside {
     width: 100%;
     height: 100%;
     position: relative;
@@ -237,6 +237,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    size: cover;
     border-radius: 8px;
     box-shadow: 0 8px 24px rgba(2, 6, 23, 0.12);
 }

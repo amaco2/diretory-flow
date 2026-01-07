@@ -2,22 +2,22 @@ import styled from 'styled-components';
 import Bg_Img_Main from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { TContext } from '../ThemeContext';
-import { IconArrowGuide, IconFileUploadFilled, IconMessageOff, IconUserOff } from '@tabler/icons-react';
+import { IconArrowGuide } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
-import carouselImg1 from '../asset/1764788331391.jpeg';
-import carouselImg2 from '../asset/1764788331386.jpeg';
-import carouselImg3 from '../asset/asso-myron-qEJDyG4sRS4-unsplash.jpg';
-import carouselImg4 from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
+import carouselImg1 from '../asset/CarroselAnimation/etienne-girardet-QyFDgLRjaiU-unsplash.jpg';
+import carouselImg2 from '../asset/CarroselAnimation/premium_photo-1683120963435-6f9355d4a776.avif';
+import carouselImg3 from '../asset/CarroselAnimation/premium_photo-1710961232728-1bd418c4081d.avif';
+import carouselImg4 from '../asset/gr-stocks-q8P8YoR6erg-unsplash.jpg';
 import { AnimatedBloc } from '../Component/Scroll';
 
 // Image d'accueil
 const Div_Img_Bg_Main = styled.div`
   width: 100%;
-  height: 550px;
+  height: 650px;
   margin-top: 65px;
   background-image: url('${ Bg_Img_Main }');
   background-repeat: no-repeat;
@@ -25,38 +25,71 @@ const Div_Img_Bg_Main = styled.div`
   background-position: center;
   object-fit: cover;
   border: none;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 10%; 
+  border-top-left-radius: 5%;
+  border-bottom-right-radius: 10%;
+  border-top-right-radius: 5%;
   background-attachment: fixed;
   background-clip: padding-box;
+  animation: bgAnimation linear 20s infinite;
+  transition: animation 2s ease;
+
+
+  @keyframes bgAnimation{
+      10%{
+        background-image: url('${ carouselImg1 }');
+      }
+      40%{
+        background-image: url('${ carouselImg2 }');
+      }
+      70%{
+        background-image: url('${ carouselImg3 }');
+      }
+      100%{
+        background-image: url('${ carouselImg4 }');
+      }
+    }
 
   @media screen and (max-width: 480px){
     height: 380px;
   }
+    @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+    transition: none !important;
+}
 `;
 
 /** Bouton d'orientation de redirection de l'utilisateur vers la
  * creation de projet ou de compte si pas deja cree */
-const BtnGetStart = styled.button`
+const BtnGetStarts = styled.button`
   width: 20svw;
-  height: 70px;
-  font-size: 2em;
+  height: 80px;
+  font-size: 2.2em;
   position: relative;
-  top: 15svw;
+  top: 20svw;
   left: 40svw;
   font-weight: bold;
   padding-top: -30px;
-  font-family: 'Roboto', Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
-  color: #000000ff;
-  background-color: #00ffb7ff;
+  color: #000000;
+  background-color: #ffffffff;
   border: none;
   border-radius: 10px;
+  animation: btnAnimation linear 10s infinite;
 
   &:hover {
-    color: #00eaffff;
+    color: #b4ba18ff;
     background-color: #000000ff;
   }
+    @keyframes btnAnimation{
+      to{
+         background-color: #bbd3e1ff;
+      }
+      from{
+         background-color: #ffffffff;
+        }
+    }
 
   @media screen and (max-width: 960px){
     font-size: 1.4em;
@@ -103,6 +136,10 @@ const BtnGetStart = styled.button`
 
 /**Améliorer votre productivité et votre influence en production cinématographique grâce à notre application
  * conçue personnalisée rien que pour vous
+ */
+/**
+ * 
+ * @returns 
  */
 const Check = () => <CheckCheck fill='#006dfcff' size={ 25 } />;
 const tab_infos_service = [
@@ -266,16 +303,8 @@ function InfoLayout()
   const z = useTransform( scrollYProgress, [ 0, 1 ], [ "-15%", "15%" ] );
 
   return (
-    <motion.section style={ { opacity, y } }
-      initial={ { opacity: 0 } }
-      animate={ { opacity: 1, calcMode: 2 } }
-      exit={ { opacity: 0 } }
-      transition={ { duration: 0.3 } }
-      whileInView={ { opacity: 1, y: 0 } }
-      viewport={ {
-        once: true,   // une seule fois
-        amount: 0.4,  // 40% visible avant déclenchement
-      } } className="main--intro__image-slides"
+    <section
+      className="main--intro__image-slides"
       ref={ ref }>
       {
         images.map( ( src, index ) =>
@@ -285,7 +314,7 @@ function InfoLayout()
           </div>
         ) )
       }
-    </motion.section>
+    </section>
   )
 }
 
@@ -331,8 +360,9 @@ function FunctionalityHome()
 function Carousel()
 {
   const [ currentIndex, setCurrentIndex ] = useState( 0 );
-  const images = [ carouselImg1, carouselImg2, carouselImg3, carouselImg4 ];
-
+  const modules = import.meta.glob( './CarroselHome/*.{jpg,jpeg,png}', { eager: true } );
+  const entries = Object.entries( modules ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) );
+  const images = entries.map( ( [ k, v ] ) => v.default || v );
   const nextSlide = () =>
   {
     setCurrentIndex( ( prevIndex ) => ( prevIndex + 1 ) % images.length );
@@ -353,7 +383,7 @@ function Carousel()
 
     return () => clearInterval( id )
   }, [ currentIndex, images.length ] )
-
+  console.log( "images", images )
   return (
     <motion.section
       initial={ { opacity: 0 } }
@@ -367,9 +397,11 @@ function Carousel()
         <button className="carousel-btn prev" onClick={ prevSlide } aria-label="Image précédente">
           <ChevronLeft size={ 24 } />
         </button>
-        <div className="carousel-slides">
-          <img src={ images[ currentIndex ] } alt={ `Projet audiovisuel ${ currentIndex + 1 }` } />
-        </div>
+        { images.map( ( src, idx ) => (
+          <div key={ idx } className={ "carousel-slides" + ( idx === currentIndex ? ' active' : '' ) }>
+            <img src={ src } alt={ `Production cinématographique ${ idx + 1 }` } />
+          </div>
+        ) ) }
         <button className="carousel-btn next" onClick={ nextSlide } aria-label="Image suivante">
           <ChevronRight size={ 24 } />
         </button>
@@ -399,6 +431,7 @@ function Main()
    */
   const { isConnect } = useContext( TContext );
   const { wasProject, setWasProject, projectId, } = useContext( TContext );
+  const navigate = useNavigate();
 
   return (
     <motion.main
@@ -409,12 +442,14 @@ function Main()
       role="main">
       <header>
         <Div_Img_Bg_Main>
-          <BtnGetStart>
-            <Link to={ isConnect ? 'projects' : 'connexion' }>
-              <ArrowBigRight className='arrowRight' />
-              Commencer
-            </Link>
-          </BtnGetStart>
+          <BtnGetStarts onClick={ ( e ) =>
+          {
+            e.stopPropagation();
+            navigate( isConnect ? 'projects' : 'connexion' );
+          } }>
+            <HandCoins size={ 30 } className='arrowRight' />
+            Commencer
+          </BtnGetStarts>
         </Div_Img_Bg_Main>
       </header>
 
@@ -460,5 +495,4 @@ function Main()
 }
 
 export default Main;
-
-
+export { Footer };

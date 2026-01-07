@@ -7,8 +7,7 @@ function ProjectDashboar()
 {
     const { projectid } = useParams();
 
-    console.log( projectid.split( ":" ) )
-    const ID_Project = projectid.split( ":" );
+    const ID_Project = projectid.split( ":" )[ 0 ];
 
     const [ formatOfProject, setFormatOfProject ] = useState(
         {

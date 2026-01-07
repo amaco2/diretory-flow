@@ -4,6 +4,7 @@ import "./Steps.css"
 import { Columns4 } from "lucide-react";
 import { useContext } from "react";
 import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
+import { ProgressBar } from './ProgressBar';
 
 
 // Equipes et moyens
@@ -40,6 +41,7 @@ function Step5()
     return (
         <section aria-labelledby="step5-title" className="section">
             <h2 id="step5-title" className="sr-only">Équipes et moyens</h2>
+            <ProgressBar />
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">
                     <legend>2. Budget Global estimé</legend>

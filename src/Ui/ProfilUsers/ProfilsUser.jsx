@@ -33,6 +33,12 @@ function ProfilUser()
               <DivUser
                 className='pp-user-img'
                 style={ { backgroundColor: `${ bgColor }`, marginLeft: '55px', } }
+
+                onClick={ ( e ) =>
+                {
+                  e.stopPropagation();
+                  setIsShowProfil( s => !s )
+                } }
               >
                 { intialUser }
                 <DivImgPpUser />
@@ -58,7 +64,7 @@ function ProfilUser()
         onClick={ ( event ) =>
         {
           event.stopPropagation();
-          setIsShowProfil( isShowProfil ? false : true );
+          setIsShowProfil( o => !o );
         } }
         style={ { backgroundColor: `${ bgColor }` } }
         className='pp-user-img'

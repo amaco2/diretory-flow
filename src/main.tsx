@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { useState } from 'react';
-import ReactDom from 'react-dom/client';
+import React, { useState, type ReactElement } from 'react';
+import ReactDom, { type Container } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import WrapperComponent from './WrapperComponents.js';
+import WrapperComponent from './App.js';
 import "@mantine/core/styles.css";
-// import "react-grid-layout/css/styles.css";
-// import "react-resizable/css/styles.css";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 import { MantineProvider } from "@mantine/core";
 
 // Recperation de la route grace createRoot
-const root = ReactDom.createRoot(document.getElementById('root')) as HTMLElement;
+const root = ReactDom.createRoot(document.getElementById('root'));
 
 const isLoad = document.querySelector('.load');
 

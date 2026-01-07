@@ -32,7 +32,7 @@
 }
 
 main {
-  background: linear-gradient(135deg, #2E005C, #0B132B);
+  background: linear-gradient(135deg, #110023, #0a0d13);
   color: #F8F8FF;
 }
 
@@ -42,9 +42,9 @@ main {
   color: #fff
 }
 
-.btn--gets-Start:hover .arrowRight {
+/* .btn--gets-Start:hover .arrowRight {
   fill: rgb(0, 0, 0);
-}
+} */
 
 /* main--problems */
 
@@ -367,18 +367,39 @@ main {
 
 .carousel-slides {
   flex: 1;
-  overflow: hidden;
-  border-radius: 10%;
+  overflow: auto;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* opacity: 0; */
+  transform: scale(1.02);
+  border-radius: 10px;
+  transition: 0.6s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.carousel-slides.active {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+  display: flex;
+  transform: skewX(3deg)
 }
 
 .carousel-slides img {
-  width: 50svw;
-  height: 400px;
-  border-radius: 10%;
+  width: 70svw;
+  height: 30svw;
+  border-radius: 10px;
   object-fit: cover;
-  display: block;
   transition: all 0.3s ease-in-out;
+}
+
+.carousel-slides:hover {
+  border: 2px solid cyan;
+  cursor: pointer;
 }
 
 .carousel-btn {
@@ -416,6 +437,11 @@ main {
 .indicator.active {
   background-color: #00ffb7;
 }
+
+/* recent-projects */
+/* #recent-projects {
+  border-top-left-radius: 20%;
+} */
 
 /* Responsive Design */
 @media screen and (max-width: 1200px) {

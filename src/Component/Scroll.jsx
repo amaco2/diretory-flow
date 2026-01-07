@@ -43,8 +43,8 @@ export function AnimatedBloc( { children } )
 {
     const { scrollY } = useScroll();
 
-    const opacity = useTransform( scrollY, [ 200, 350 ], [ 0, 1 ] );
-    const y = useTransform( scrollY, [ 100, 250 ], [ 40, 0 ] );
+    const opacity = useTransform( scrollY, [ 200, 550 ], [ 0, 1 ] );
+    const y = useTransform( scrollY, [ 300, 550 ], [ 40, 0 ] );
 
     return (
         <motion.section style={ { opacity, y } }

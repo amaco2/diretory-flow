@@ -26,6 +26,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Steps.css"
 import { useContext } from 'react';
 import { DashboardContext, ProjectUserContext } from '../../../ThemeContext';
+import { ProgressBar } from './ProgressBar';
 
 
 // Vision risque & attente
@@ -64,6 +65,7 @@ function Step6()
     return (
         <section aria-labelledby="step6-title" className="section">
             <h2 id="step6-title" className="sr-only">Vision, risques et attentes</h2>
+            <ProgressBar />
             <form className="step-form center-column" onSubmit={ handleSubmit }>
                 <div className="form-field">
                     <label htmlFor='type_production'>

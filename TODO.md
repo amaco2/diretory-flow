@@ -19,9 +19,9 @@
 - [ ] Refactor JSX in Main.jsx for readability.
 - [ ] Add comments to code.
 - [ ] Remove console.log statements.
-- [ ] Ensure accessibility (ARIA attributes, etc.).
+- [x] Ensure accessibility (ARIA attributes, etc.) - Modernized Steps.css with focus states, high contrast support, and reduced motion preferences.
 
 ## 5. Testing and Validation
-- [ ] Run build to check for errors.
+- [x] Run build to check for errors - Build completed successfully without errors.
 - [ ] Check linting.
 - [ ] Test responsiveness and functionality.

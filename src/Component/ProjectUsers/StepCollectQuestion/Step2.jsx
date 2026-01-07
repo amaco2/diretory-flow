@@ -3,6 +3,7 @@ import { BtnNextQuest, BtnPrevQuest, InputCheckbox } from "../style/styleCompone
 import "./Steps.css"
 import { useContext } from "react";
 import { DashboardContext, ProjectUserContext } from "../../../ThemeContext";
+import { ProgressBar } from "./ProgressBar";
 
 
 // Nature et format du projet(QCM)
@@ -39,6 +40,8 @@ function Step2()
     return (
         <section aria-labelledby="step2-title" className="section">
             <h2 id="step2-title" className="sr-only">Nature et format du projet</h2>
+            <ProgressBar />
+
             <form className="step-form" onSubmit={ handleSubmit }>
                 <fieldset className="form-field">
                     <legend> Format principal</legend>

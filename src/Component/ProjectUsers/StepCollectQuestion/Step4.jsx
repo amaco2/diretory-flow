@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Steps.css"
 import { useContext } from 'react';
 import { DashboardContext, ProjectUserContext } from '../../../ThemeContext';
+import { ProgressBar } from './ProgressBar';
 
 
 // Planning & contrainte
@@ -56,6 +57,7 @@ function Step4()
     return (
         <section aria-labelledby="step4-title" className="section">
             <h2 id="step4-title" className="sr-only">Planning et contraintes</h2>
+            <ProgressBar />
             <form className="step-form center-column" onSubmit={ handleSubmit }>
                 <div className="form-field">
                     <label htmlFor='date_debut'>
