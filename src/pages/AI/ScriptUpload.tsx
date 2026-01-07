@@ -113,7 +113,7 @@ function ScriptUpload()
             // setCheckHandleSending(() => false);
         }
     }
-    console.log("data script :", dataScript);
+    console.log("data scripts :", dataScript);
 
     return (
 
