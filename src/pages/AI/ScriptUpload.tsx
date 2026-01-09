@@ -93,11 +93,10 @@ function ScriptUpload()
                 { withCredentials: true },
             );
 
-            // Recuperation de response dans data
-            const formaResponse = new FormData();
-            formaResponse.append("data", response.data?.aiOutPout);
-
-            setDataScript((prev: any) => ({ ...prev, longText: formaResponse }));
+            // Recuperation de response dans le localstorage
+            localStorage.setItem("aiOutput", true + "");
+            console.log("localstorage :", localStorage.getItem("aiOutput"));
+            setDataScript((prev: any) => ({ ...prev, longText: localStorage.getItem("aiOutput") }));
             console.log("script :", dataScript);
             console.log(response.data?.aiOutpout);
             alert('Scénario envoyé avec succè');
@@ -173,10 +172,11 @@ function ScriptUpload()
                     </div>
                 ))}
             </section>
-            {!checkHandlesending && !error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depoullement"
+            {checkHandlesending && !error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depoullement"
                 checkHandlesending={setCheckHandleSending}
                 projectId={ID_Project}
             /> : ""}
+            <Footer />
         </div >
 
     )

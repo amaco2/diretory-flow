@@ -15,6 +15,8 @@ import { BtnInscription } from '../Button';
 import './Connexion.css';
 import { registerUser } from './UserConnexion/RegisterUser';
 import { Homes, styleGlobalInput } from './ComponentStyledForm/Styled';
+import { Footer } from '../Main';
+import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
 
 // stockage de la hauteur et de la largeur de la fenetre d'affichege
 
@@ -87,17 +89,10 @@ const InputPrenom = styled.input.attrs( {
     box-shadow: 0 0 10px #000;
   }
   ${ mediaQueryInput }
+import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
 `;
-/* Creation de l'element HTML <<img>> via st
-yledComponent qui servira de logo pour le HEADER*/
+/* Logo DirectoryFlow personnalisé */
 
-const ImgLgoHeader = styled( ClapperboardIcon )`
-  object-fit: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 55px;
-  margin-top: -15px;
-`;
 // Input des donnees de l'UI
 const InputPassword = styled.input.attrs( {
   type: 'password',
@@ -220,7 +215,7 @@ function FormInscription()
       <DivFormConnexion>
         <DivWrapperForm>
           <DivWraper>
-            <ImgLgoHeader color='#7ecef5ff' />
+            <DirectoryFlowLogo size={ 50 } color="#0d47a1" />
             <SpanTextDF>Bienvenu à DirectoryFlow</SpanTextDF>
             <br />
           </DivWraper>
@@ -285,6 +280,7 @@ function FormInscription()
         </DivWrapperForm>
         { isLoading ? <p>Chargement....</p> : null }
       </DivFormConnexion>
+      <Footer />
     </div>
   );
 }

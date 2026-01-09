@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import Bg_Img_Main from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins } from 'lucide-react';
+import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
+import axio from '../config/axiosConfig';
 import { TContext } from '../ThemeContext';
 import { IconArrowGuide } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
@@ -25,10 +26,6 @@ const Div_Img_Bg_Main = styled.div`
   background-position: center;
   object-fit: cover;
   border: none;
-  border-bottom-left-radius: 10%; 
-  border-top-left-radius: 5%;
-  border-bottom-right-radius: 10%;
-  border-top-right-radius: 5%;
   background-attachment: fixed;
   background-clip: padding-box;
   animation: bgAnimation linear 20s infinite;
@@ -62,75 +59,66 @@ const Div_Img_Bg_Main = styled.div`
 /** Bouton d'orientation de redirection de l'utilisateur vers la
  * creation de projet ou de compte si pas deja cree */
 const BtnGetStarts = styled.button`
-  width: 20svw;
-  height: 80px;
-  font-size: 2.2em;
-  position: relative;
-  top: 20svw;
-  left: 40svw;
-  font-weight: bold;
-  padding-top: -30px;
-  font-family: 'Times New Roman', Times, serif;
-  cursor: pointer;
-  color: #000000;
-  background-color: #ffffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  min-width: 220px;
+  height: auto;
+  font-size: 1.05rem;
+  font-weight: 800;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(90deg, #ff7a18 0%, #ff3d81 50%, #7a00ff 100%);
   border: none;
-  border-radius: 10px;
-  animation: btnAnimation linear 10s infinite;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 -4px 12px rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
+  overflow: hidden;
+
+  .arrowRight {
+    transform: translateX(0);
+    transition: transform 200ms ease;
+  }
 
   &:hover {
-    color: #b4ba18ff;
-    background-color: #000000ff;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
   }
-    @keyframes btnAnimation{
-      to{
-         background-color: #bbd3e1ff;
-      }
-      from{
-         background-color: #ffffffff;
-        }
-    }
 
-  @media screen and (max-width: 960px){
-    font-size: 1.4em;
-    height: 60px;
-
-    &:hover{
-      background-color: #fff;
-      font-weight: bolder;
-    }
+  &:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.14);
+    outline-offset: 3px;
   }
-  @media screen and (max-width: 768px){
-    font-size: 1.1em;
-    height: 60px;
-    width: 25svw;
 
-    &:hover{
-      background-color: #fff;
-      font-weight: bolder;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    left: -40%;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+    transform: skewX(-20deg);
+    transition: left 600ms ease;
   }
-  @media screen and (max-width: 480px){
-    font-size: 1em;
-    height: 60px;
-    width: 55svw;
-    top: 35svw;
 
-    &:hover{
-      background-color: #fff;
-      font-weight: bolder;
-    }
+  &:hover::before {
+    left: 120%;
   }
-  @media screen and (max-width: 210px){
-    font-size: 1em;
-    height: 60px;
-    width: 60svw;
-    left: 30svw;
 
-    &:hover{
-      background-color: #fff;
-      font-weight: bolder;
-    }
+  @media screen and (max-width: 960px) {
+    min-width: 180px;
+    padding: 12px 22px;
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 72%;
+    min-width: unset;
+    padding: 10px 18px;
+    font-size: 0.95rem;
   }
 `;
 
@@ -309,13 +297,88 @@ function InfoLayout()
       {
         images.map( ( src, index ) =>
         (
-          <div className="image-slides-contenair">
-            <img src={ src } />
-          </div>
+          <figure className="image-slides-contenair" key={ index }>
+            <img src={ src } alt={ captions[ index ] } />
+            <figcaption className="image-info-card">
+              <h3>{ captions[ index ] }</h3>
+              <p className="image-tagline">{ `Capturez l'essence de ${ captions[ index ].split( ' — ' )[ 0 ] } et structurez votre production.` }</p>
+              <p className="image-rationale"><strong>Rationnel :</strong> { `Cette image illustre une scène/type de production qui aide à définir le ton, les ressources et les étapes nécessaires.` }</p>
+              <p className="image-logic"><strong>Usage :</strong> { `Utilisez cette référence pour créer les tâches, assigner l'équipe et planifier les livrables.` }</p>
+            </figcaption>
+          </figure>
         ) )
       }
     </section>
   )
+}
+
+// Component ProjectCard: manages thumbnail preview and upload to backend
+function ProjectCard( { project } )
+{
+  const [ preview, setPreview ] = useState( project.thumbnail || null );
+  const [ uploading, setUploading ] = useState( false );
+  const inputRef = useRef( null );
+
+  const handleFileChange = async ( e ) =>
+  {
+    const file = e.target.files && e.target.files[ 0 ];
+    if ( !file ) return;
+    // preview locally
+    const url = URL.createObjectURL( file );
+    setPreview( url );
+
+    // upload to backend
+    try
+    {
+      setUploading( true );
+      const form = new FormData();
+      form.append( 'thumbnail', file );
+      const res = await axio.post( `/api/projects/${ project.id }/thumbnail`, form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      } );
+      // expected response contains url
+      if ( res?.data?.url ) setPreview( res.data.url );
+    } catch ( err )
+    {
+      console.error( 'Upload error', err );
+      // keep local preview but you could show error to user
+    } finally
+    {
+      setUploading( false );
+    }
+  };
+
+  return (
+    <article className="project-card" key={ project.id }>
+      <div className="project-card-media">
+        { preview ? (
+          <img className="project-thumbnail" src={ preview } alt={ `${ project.name } thumbnail` } />
+        ) : (
+          <div className="project-media-upload">
+            <label className="upload-label">
+              <input
+                ref={ inputRef }
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                onChange={ handleFileChange }
+              />
+              <button type="button" className="upload-btn">Ajouter une image</button>
+            </label>
+          </div>
+        ) }
+      </div>
+      <div className="project-card-body">
+        <h3 className="project-card-title">{ project.name }</h3>
+        <p className="project-card-desc">{ project.description || 'Aucun descriptif disponible — ajoutez une courte description pour mieux organiser votre projet.' }</p>
+        <div className="project-card-meta">
+          <span className="project-id">ID: { project.id }</span>
+          <Link to={ `/project/${ project.id }` } className="project-cta">Ouvrir</Link>
+        </div>
+        { uploading && <small>Envoi de l'image…</small> }
+      </div>
+    </article>
+  );
 }
 
 function FunctionalityHome()
@@ -446,25 +509,26 @@ function Main()
           {
             e.stopPropagation();
             navigate( isConnect ? 'projects' : 'connexion' );
-          } }>
-            <HandCoins size={ 30 } className='arrowRight' />
-            Commencer
+          } } aria-label="Démarrer l'aventure">
+            <Clapperboard size={ 30 } className='arrowRight' />
+            Démarrer l'aventure
           </BtnGetStarts>
         </Div_Img_Bg_Main>
       </header>
 
       <section id="recent-projects" aria-labelledby="recent-projects-title">
         <h2 id="recent-projects-title">Projets récents</h2>
-        { wasProject && projectId ? (
-          <ul>
+        { wasProject && projectId && projectId.length > 0 ? (
+          <div className="projects-grid">
             { projectId.map( ( project, index ) => (
-              <li key={ index }>
-                <Link to={ `/project/${ project.id }` }>{ project.name }</Link>
-              </li>
+              <ProjectCard project={ project } key={ project.id || index } />
             ) ) }
-          </ul>
+          </div>
         ) : (
-          <p>Aucun projet récent trouvé</p>
+          <div className="no-projects">
+            <p>Aucun projet récent trouvé</p>
+            <Link to={ isConnect ? 'projects/createproject' : 'inscription' } className="create-first">Créer un projet</Link>
+          </div>
         ) }
       </section>
 

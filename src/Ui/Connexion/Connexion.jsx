@@ -2,6 +2,7 @@
 import './Connexion.css';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Footer } from '../Main';
 
 const DivFormConnexion = styled.div`
   background-color: #000;
@@ -15,7 +16,8 @@ const DivFormConnexion = styled.div`
   justify-content: center;
 `;
 
-function Connexion() {
+function Connexion()
+{
   return (
     <div>
       <DivFormConnexion>
@@ -23,6 +25,7 @@ function Connexion() {
           <p>Mon nouveau formulaire</p>
         </form>
       </DivFormConnexion>
+      <Footer />
     </div>
   );
 }

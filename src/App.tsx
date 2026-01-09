@@ -16,8 +16,9 @@ import { Step5 } from './Component/ProjectUsers/StepCollectQuestion/Step5.jsx';
 import { Step6 } from './Component/ProjectUsers/StepCollectQuestion/Step6.jsx';
 import Summary from './Component/ProjectUsers/StepCollectQuestion/Summary.jsx';
 import { useAllProjects } from './getProject.js';
-import LayoutProject from './Component/ProjectUsers/LayoutProjects.js';
+import { LayoutProject } from './Component/ProjectUsers/LayoutProjects';
 import ScriptUpload from './pages/AI/ScriptUpload.js';
+import KanbanBoard from './pages/KanbanBoard.js';
 
 // Cette position est temporaire
 const colors = {
@@ -132,7 +133,7 @@ function WrapperComponent()
           <Route path='/project/:projectid' element={<ProjectDashboar />} >
             <Route path='step2' element={<Step2 />} />
             {/* <Route path='overview' element={ <OverView /> } /> */}
-            {/* <Route path='kanban' element={ <Kanban /> } /> */}
+            <Route path='kanban' element={<KanbanBoard />} />
             {/* <Route path='timeline' element={ <Timeline /> } /> */}
             <Route path='ai' element={<ScriptUpload />} />
             {/* <Route path='documents' element={ <Documents /> } /> */}

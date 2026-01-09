@@ -33,7 +33,7 @@ function Sidebar()
             />
             <NavLink
                 component={ RouterLink }
-                to="kanban"
+                to="./kanban"
                 label="kanban"
                 leftSection={ <IconColumns /> }
                 __size={ 20 }

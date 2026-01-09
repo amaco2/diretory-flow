@@ -1,20 +1,20 @@
 import
 {
-  Clapperboard,
   Contact2,
   HelpCircle,
   History,
   Home,
   User2Icon,
   Workflow,
+  X,
 } from 'lucide-react';
 import styled from 'styled-components';
 // Importation des fichier contenant les dimension des <<MediaQuery>>
 import { breakPoint } from './MediaQuery/MediaQuery.jsx';
-// Importation de l'icone de directoryflow pour le header
+// Importation de l'icone personnalisée de directoryflow
 import './style/Header.css';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TContext } from '../ThemeContext.jsx';
 import ProfilUser from './ProfilUsers/ProfilsUser.jsx';
 import
@@ -24,13 +24,14 @@ import
 } from '../Component/ProjectUsers/style/styleComponent.jsx';
 import { IconUsers } from '@tabler/icons-react';
 import { Burger } from '@mantine/core';
+import DirectoryFlowLogo from '../Icon/DirectoryFlowLogo.jsx';
 
-/* Creation de l'element HTML <<img>> via st
-yledComponent qui servira de logo pour le HEADER*/
+/* Creation du logo DirectoryFlow personnalisé */
 
-const ImgLgoHeader = styled( Clapperboard )`
-  object-fit: cover;
-  // border-radius: 50px;
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 `;
 // Bouton de connextion et d'inscription dans directoryFlow
 
@@ -103,40 +104,54 @@ function Headers()
   const { iconeUser, setIconeUser } = useContext( TContext );
   const intialUser = getInitials( iconeUser );
   const bgColor = stringToColor( iconeUser );
+  const [ mobileMenuOpen, setMobileMenuOpen ] = useState( false );
+
+  const navMenuItems = [
+    { label: 'Accueil', icon: Home, href: '/' },
+    { label: 'Contact', icon: Contact2, href: '#' },
+    { label: 'Aide', icon: HelpCircle, href: '#' },
+    { label: 'Workflow', icon: Workflow, href: '#' },
+    { label: 'Historique', icon: History, href: '#' },
+  ];
+
   return (
     <div>
       <header className='header'>
         <div className='navbar--header'>
           <div className='navbar--header__logo-df'>
-            <ImgLgoHeader fill='#419aa4ff' color='#fff' size={ 70 } />
+            <DirectoryFlowLogo size={ 60 } color="#0d47a1" />
             <SpanTextDF className='icon-text1 flex:true'>
               Directory-Flow
             </SpanTextDF>
           </div>
-          <div
-            style={ {
-              marginTop: '40px',
-              marginLeft: '-200px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'space-evenly',
-            } }
+
+          {/* Desktop Navigation */ }
+          <nav className='navbar--header__nav-desktop'>
+            { navMenuItems.map( ( item ) =>
+            {
+              const Icon = item.icon;
+              return (
+                <Link key={ item.label } to={ item.href } className='nav-item'>
+                  <Icon size={ 22 } color={ bgColor } />
+                  <span>{ item.label }</span>
+                </Link>
+              );
+            } ) }
+          </nav>
+
+          {/* Mobile Burger Button */ }
+          <button
+            className='navbar--header__burger-btn'
+            onClick={ () => setMobileMenuOpen( !mobileMenuOpen ) }
+            aria-label={ mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu' }
           >
-            <Burger
-              hiddenFrom="mm"
-              size={ "sm" }
-            />
-            Accueil
-            <Home size={ 30 } color={ bgColor } />
-            Contact
-            <Contact2 size={ 30 } color={ bgColor } />
-            Aide
-            <HelpCircle size={ 30 } color={ bgColor } />
-            Worklow
-            <Workflow size={ 30 } color={ bgColor } />
-            Historique
-            <History color={ bgColor } />
-          </div>
+            { mobileMenuOpen ? (
+              <X size={ 28 } color='#333' />
+            ) : (
+              <Burger size='sm' opened={ mobileMenuOpen } />
+            ) }
+          </button>
+
           <div className='navbar--header__connexion-backend'>
             { isConnect ? (
               <ProfilUser />
@@ -155,6 +170,27 @@ function Headers()
             ) }
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */ }
+        { mobileMenuOpen && (
+          <nav className='navbar--header__nav-mobile'>
+            { navMenuItems.map( ( item ) =>
+            {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={ item.label }
+                  to={ item.href }
+                  className='nav-item-mobile'
+                  onClick={ () => setMobileMenuOpen( false ) }
+                >
+                  <Icon size={ 20 } color={ bgColor } />
+                  <span>{ item.label }</span>
+                </Link>
+              );
+            } ) }
+          </nav>
+        ) }
       </header>
     </div>
   );

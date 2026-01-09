@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { TContext } from "../ThemeContext";
 import { getInitials, stringToColor } from "./ProjectUsers/style/styleComponent";
 import { useContext } from "react";
+import DirectoryFlowLogo from "../Icon/DirectoryFlowLogo";
 
 function Topbar( { toogleSidebar, opened } )
 {
@@ -22,9 +23,11 @@ function Topbar( { toogleSidebar, opened } )
                 } }
                 hiddenFrom="mm"
                 size={ "sm" }
-                bg={ "#fff" }
             />
-            <Text fw={ 600 } style={ { marginTop: '20px', fontSize: '1.2em', color: "#fff" } }>DirectoryFlow</Text>
+            <div style={ { display: 'flex', alignItems: 'center', gap: '0.8rem' } }>
+                <DirectoryFlowLogo size={ 40 } color="#fff" />
+                <Text fw={ 600 } style={ { marginTop: '0', fontSize: '1em', color: "#fff" } }>DF</Text>
+            </div>
             <Avatar radius={ "xl" } bg={ bgColor } color="#fff" fz={ 20 }>{ intialUser }</Avatar>
             <Link to={ "/" } style={ { marginTop: '20px' } }><HomeIcon color="#fff" /></Link>
             {/* </Group> */ }

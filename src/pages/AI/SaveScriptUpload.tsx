@@ -75,7 +75,7 @@ const SaveScriptUpload = ({ aiOuput, URL_version, checkHandlesending, projectId 
                     <BtnRemoveUpload onClick={(e) =>
                     {
                         e.stopPropagation();
-                        checkHandlesending(() => true);
+                        checkHandlesending(() => !true);
                     }}>Annuler</BtnRemoveUpload>
                     <BtnSaveUpload
                         onClick={(e) =>
@@ -88,7 +88,7 @@ const SaveScriptUpload = ({ aiOuput, URL_version, checkHandlesending, projectId 
                         }}>Sauvegarder</BtnSaveUpload>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
