@@ -11,7 +11,7 @@ import { IconArrowGuide } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
 import carouselImg1 from '../asset/CarroselAnimation/etienne-girardet-QyFDgLRjaiU-unsplash.jpg';
 import carouselImg2 from '../asset/CarroselAnimation/premium_photo-1683120963435-6f9355d4a776.avif';
-import carouselImg3 from '../asset/CarroselAnimation/premium_photo-1710961232728-1bd418c4081d.avif';
+import carouselImg3 from '../asset/CarroselAnimation/rubaitul-azad-DBQcVVvv1YE-unsplash.jpg';
 import carouselImg4 from '../asset/gr-stocks-q8P8YoR6erg-unsplash.jpg';
 import { AnimatedBloc } from '../Component/Scroll';
 
@@ -33,17 +33,11 @@ const Div_Img_Bg_Main = styled.div`
 
 
   @keyframes bgAnimation{
-      10%{
-        background-image: url('${ carouselImg1 }');
-      }
-      40%{
+      50%{
         background-image: url('${ carouselImg2 }');
       }
-      70%{
-        background-image: url('${ carouselImg3 }');
-      }
       100%{
-        background-image: url('${ carouselImg4 }');
+        background-image: url('${ carouselImg3 }');
       }
     }
 
