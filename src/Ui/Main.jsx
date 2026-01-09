@@ -63,11 +63,11 @@ const BtnGetStarts = styled.button`
   align-items: center;
   gap: 12px;
   padding: 14px 28px;
-  min-width: 220px;
-  height: auto;
+  min-width: 20svw;
+  height: 7svw;
   font-size: 1.05rem;
   font-weight: 800;
-  border-radius: 999px;
+  border-radius: 15px;
   color: #fff;
   background: linear-gradient(90deg, #ff7a18 0%, #ff3d81 50%, #7a00ff 100%);
   border: none;
@@ -76,6 +76,8 @@ const BtnGetStarts = styled.button`
   transition: transform 180ms ease, box-shadow 180ms ease;
   position: relative;
   overflow: hidden;
+  left: 40%;
+  top: 40%;
 
   .arrowRight {
     transform: translateX(0);
@@ -112,6 +114,8 @@ const BtnGetStarts = styled.button`
     min-width: 180px;
     padding: 12px 22px;
     font-size: 1rem;
+    left: 20%;
+    height: 10svw;
   }
 
   @media screen and (max-width: 480px) {
@@ -119,6 +123,7 @@ const BtnGetStarts = styled.button`
     min-width: unset;
     padding: 10px 18px;
     font-size: 0.95rem;
+    height: 20svw;
   }
 `;
 
