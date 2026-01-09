@@ -42,7 +42,7 @@ const Div_Img_Bg_Main = styled.div`
     }
 
   @media screen and (max-width: 480px){
-    height: 380px;
+    height: 680px;
   }
     @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
