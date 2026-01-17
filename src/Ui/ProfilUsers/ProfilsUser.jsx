@@ -32,7 +32,7 @@ function ProfilUser()
             <div className='pp-user'>
               <DivUser
                 className='pp-user-img'
-                style={ { backgroundColor: `${ bgColor }`, marginLeft: '55px', } }
+                style={ { backgroundColor: `${ bgColor }`, marginLeft: '55px', top: "30px" } }
 
                 onClick={ ( e ) =>
                 {

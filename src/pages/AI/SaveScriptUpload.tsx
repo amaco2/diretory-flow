@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import type { ChangeEvent, ReactElement } from "react";
+import { useRef, useState, type ChangeEvent, type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import './style/SaveScript.css';
@@ -13,37 +13,40 @@ const globalStyleBtn = `
       cursor: pointer;
       border-radius: 15px;
       font-weight: bold;
+      transition: 0.3s all ease;
       `
 // const button de sauvegarde
 const BtnSaveUpload = styled.button`
      ${globalStyleBtn}
-     background: linear-gradient(360deg, #000000ff);
+     background: linear-gradient(360deg, #00aaeb, #00ffeb);
      color: #fff;
-     transition: 0.4s ease;
 
      &:hover{
+     transform: translateX(-1px);
      margin-top: -3px;  
+     box-shadow: 0 -5px 10px #304d4b;
      }
 `
 const BtnRemoveUpload = styled.button`
        ${globalStyleBtn}
-       background: linear-gradient(360deg, #ff0000);
-        transition: 0.4s ease;
+       background: linear-gradient(360deg, #ff0000, #ff9500);
 
      &:hover{
      margin-top: 3px;  
+     box-shadow: 0 5px 10px #935d13;
      }
 `
 const saveScript = async (projectId: number, aiResult: any) =>
 {
-    if (!aiResult.longText)
+    if (!aiResult)
     {
         console.error("Aucun texte à sauvegarder.");
         return;
     }
-    aiResult = aiResult.longText;
+    alert(aiResult);
     try
     {
+        console.log(aiResult)
         const response = await axio.post(`/api/breakdowns/ai/${projectId}`,
             { projectId, aiResult }
         );
@@ -58,24 +61,38 @@ const handleClick = (projectId: number, aiOuput: any) =>
     // Appel de la fonction de sauvegarde de donnees
     saveScript(projectId, aiOuput)
 }
-const SaveScriptUpload = ({ aiOuput, URL_version, checkHandlesending, projectId }: Record<string, any>): ReactElement =>
+const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, projectId, checkHandlesending }: Record<string, any>): ReactElement =>
 {
     // extrait du deouillement
     const sliceSrciptUpload: Array<Object> = aiOuput;
-    console.log(aiOuput);
+    const object: string | null | Object = localStorage.getItem("aiOutput");
+    const [checkHandlesend, setCheckHandleSend] = useState<boolean>(checkHandlesending)
+    // ref
+    const setDialogue = useRef<any>(null);
+
+    if (setDialogue.current || checkHandlesend)
+    {
+        setDialogue.current.showModal();
+    } if (checkHandlesend === false && setDialogue.current)
+    {
+        setDialogue.current.close();
+    }
+
+
     return (
-        <div className="div-save-script">
+        <dialog className="div-save-script" ref={setDialogue}>
             <div className="div-save-script--text">
                 <p>
-                    depouillement Terminé! veuillez le sauvegarder pour la suite
-                    du projet ou le consulter ici <ArrowRight /> <Link to={''}>{URL_version}</Link> au risque de perdre
-                    ces information.
+                    Félicitation votre depouillement c'est <em>Terminé</em> avec succè! <b>Veuillez le sauvegarder</b> pour la suite
+                    du projet ou le consulter ici <Link to={''}>{URL_version}</Link> au risque de perdre
+                    ses informations.
                 </p>
                 <div className="div-save-script-btn">
                     <BtnRemoveUpload onClick={(e) =>
                     {
                         e.stopPropagation();
-                        checkHandlesending(() => !true);
+                        // console.log("localstorage :", ((localStorage.getItem("aiOutput"))));
+                        setCheckHandleSend(o => !o);
                     }}>Annuler</BtnRemoveUpload>
                     <BtnSaveUpload
                         onClick={(e) =>
@@ -83,12 +100,13 @@ const SaveScriptUpload = ({ aiOuput, URL_version, checkHandlesending, projectId 
                             e.stopPropagation();
                             if (projectId && aiOuput)
                             {
+                                console.log(aiOuput);
                                 handleClick(projectId, aiOuput);
                             }
                         }}>Sauvegarder</BtnSaveUpload>
                 </div>
             </div>
-        </div >
+        </dialog >
     )
 }
 

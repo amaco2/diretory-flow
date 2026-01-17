@@ -11,7 +11,7 @@ const DivUser = styled.div`
   border-radius: 100px;
   z-index: 1;
   left: -30px;
-  top: 25px;
+  // top: 30px;
   cursor: pointer;
 `;
 //    Parametre profil

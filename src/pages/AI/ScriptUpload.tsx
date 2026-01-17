@@ -23,7 +23,7 @@ function ScriptUpload()
     const [checkHandlesending, setCheckHandleSending] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [dataScript, setDataScript] = useState<Object | any>({ longText: '' });
+    const [dataScript, setDataScript] = useState<any>(null);
     // Dynamically import all images from the asset folder (Vite)
     // @ts-ignore
     const modules = import.meta.glob('../../IA_asset/*.{jpg,jpeg,png}', { eager: true }) as Record<string, any>;
@@ -93,12 +93,46 @@ function ScriptUpload()
                 { withCredentials: true },
             );
 
-            // Recuperation de response dans le localstorage
-            localStorage.setItem("aiOutput", true + "");
-            console.log("localstorage :", localStorage.getItem("aiOutput"));
-            setDataScript((prev: any) => ({ ...prev, longText: localStorage.getItem("aiOutput") }));
-            console.log("script :", dataScript);
-            console.log(response.data?.aiOutpout);
+            // Récupération propre de la donnée AI (gestion des variantes de clé)
+            const raw = response.data?.aiOutput ?? response.data?.aiOutpout ?? null;
+
+            // Préparer une chaîne JSON fiable pour le localStorage
+            let jsonString: string | null = null;
+            if (raw === null || raw === undefined)
+            {
+                jsonString = JSON.stringify({});
+            } else if (typeof raw === 'string')
+            {
+                // raw peut déjà être une chaîne JSON ou du texte brut
+                try
+                {
+                    // si c'est une chaîne JSON valide, on la normalise
+                    const parsed = JSON.parse(raw);
+                    jsonString = JSON.stringify(parsed);
+                } catch (e)
+                {
+                    // texte brut -> on enveloppe dans un objet
+                    jsonString = JSON.stringify({ text: raw });
+                }
+            } else
+            {
+                // objet -> stringify
+                jsonString = JSON.stringify(raw);
+            }
+
+            // Stocker uniquement du JSON dans localStorage
+            localStorage.setItem("aiOutput", jsonString);
+
+            // Stocker l'objet parsé dans le state (setDataScript)
+            try
+            {
+                const parsed = JSON.parse(jsonString as string);
+                setDataScript(parsed);
+            } catch (e)
+            {
+                // fallback: stocker objet vide
+                setDataScript({});
+            }
             alert('Scénario envoyé avec succè');
             setCheckHandleSending(() => true);
         } catch (err: any)
@@ -112,7 +146,6 @@ function ScriptUpload()
             // setCheckHandleSending(() => false);
         }
     }
-    console.log("data scripts :", dataScript);
 
     return (
 
@@ -160,7 +193,6 @@ function ScriptUpload()
                 <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
                     {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
             </form >
-
             <section className="upload-steps" aria-label="Étapes d'envoi et de dépouillement">
                 {steps.map((s, i) => (
                     <div className="step" key={i}>
@@ -172,11 +204,12 @@ function ScriptUpload()
                     </div>
                 ))}
             </section>
-            {checkHandlesending && !error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depoullement"
-                checkHandlesending={setCheckHandleSending}
+            {!error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depouillement"
+                setCheckHandleSending={setCheckHandleSending}
                 projectId={ID_Project}
+                checkHandlesending={checkHandlesending}
             /> : ""}
-            <Footer />
+            {/* <Footer /> */}
         </div >
 
     )

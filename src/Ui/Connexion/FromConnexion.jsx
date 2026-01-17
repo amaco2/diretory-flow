@@ -15,6 +15,7 @@ import { BtnConnexion } from '../Button';
 import { Homes, styleGlobalInput } from './ComponentStyledForm/Styled';
 import { useAxioToLogin } from './UserConnexion/LoginUser';
 import { TContext } from '../../ThemeContext';
+import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
 
 // stockage de la hauteur et de la largeur de la fenetre d'affichege
 
@@ -84,7 +85,7 @@ const InputPassword = styled.input.attrs( { id: 'password', name: 'password' } )
 const SpanTextDF = styled.span`
   font-size: 1.5em;
   font-weight: bold;
-  margin-top: 50px;
+  margin-top: 5px;
   color: #000;
   margin-left: 5px;
   @media screen and (max-width: ${ breakPoint.mobile }) {
@@ -163,6 +164,8 @@ function FormConnexion()
   //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
   const [ email, setEmail ] = useState( '' ); // On laisse vide pour eviter d'avoir les email par defaut
   const [ password, setPassword ] = useState( '' );
+  const [ isLoading, setIsLoading ] = useState( false );
+  const [ errorMessage, setErrorMessage ] = useState( '' );
 
   // Configuration de la naviagation
   const naviagte = useNavigate();
@@ -195,7 +198,7 @@ function FormConnexion()
       <DivFormConnexion>
         <DivWrapperForm>
           <DivWraper>
-            <ImgLgoHeader color='#7ecef5ff' />
+            <DirectoryFlowLogo size={ 50 } color='#0d47a1' />
             <SpanTextDF>Connectez-vous à DirectoryFlow</SpanTextDF>
             <br />
           </DivWraper>
@@ -254,15 +257,36 @@ function FormConnexion()
           <LinkForgetPassword>Mot de passe Oublié?</LinkForgetPassword>
 
           <BtnConnexion
+            disabled={ isLoading }
             onClick={ ( event ) =>
             {
               event.stopPropagation();
-              useAxioToLogin( email || nul, password || null );
+              setErrorMessage( '' );
+
+              if ( !email || !password )
+              {
+                setErrorMessage( 'Veuillez remplir tous les champs' );
+                return;
+              }
+
+              setIsLoading( true );
+              useAxioToLogin( email, password )
+                .then( ( response ) =>
+                {
+                  setIsLoading( false );
+                  naviagte( '../' );
+                } )
+                .catch( ( error ) =>
+                {
+                  setIsLoading( false );
+                  setErrorMessage( error.response?.data?.message || 'Erreur de connexion. Veuillez réessayer.' );
+                } );
+
               setIsSeeEye( false );
-              naviagte( '../' );
             } }
+            style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
           >
-            Connexion
+            { isLoading ? 'Chargement...' : 'Connexion' }
           </BtnConnexion>
           <LinkCreateAcount to={ '/inscription' }>
             <span
@@ -276,6 +300,11 @@ function FormConnexion()
             </span>
             Céez en un.
           </LinkCreateAcount>
+          { errorMessage && (
+            <div style={ { color: 'red', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
+              { errorMessage }
+            </div>
+          ) }
         </DivWrapperForm>
       </DivFormConnexion>
     </div>

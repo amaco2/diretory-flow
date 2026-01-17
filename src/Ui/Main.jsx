@@ -126,9 +126,10 @@ const BtnGetStarts = styled.button`
  */
 /**
  * 
- * @returns 
+ * @returns (ReactElement)
  */
 const Check = () => <CheckCheck fill='#006dfcff' size={ 25 } />;
+
 const tab_infos_service = [
   {
     fonctionnalite: "Gestion des équipes",
@@ -185,7 +186,7 @@ function Testimonials()
           <div key={ index } className="testimonial-card">
             <div className="rating">
               { [ ...Array( testimonial.rating ) ].map( ( _, i ) => (
-                <Star key={ i } fill="#00ffb7" size={ 20 } />
+                <Star key={ i } fill="#00ffb7" color='#00ffb7' size={ 20 } />
               ) ) }
             </div>
             <p className="review">"{ testimonial.review }"</p>
@@ -254,7 +255,7 @@ function Footer()
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 DirectoryFlow. Tous droits réservés.</p>
+        <p>&copy; 2026 DirectoryFlow. Tous droits réservés.</p>
       </div>
     </footer>
   );
@@ -455,13 +456,13 @@ function Carousel()
 
       id="carousel" aria-labelledby="carousel-title" className="carousel">
       <h2 id="carousel-title">Découvrez nos projets audiovisuels</h2>
-      <div className="carousel-container">
+      <div className="carousel-containers">
         <button className="carousel-btn prev" onClick={ prevSlide } aria-label="Image précédente">
           <ChevronLeft size={ 24 } />
         </button>
         { images.map( ( src, idx ) => (
           <div key={ idx } className={ "carousel-slides" + ( idx === currentIndex ? ' active' : '' ) }>
-            <img src={ src } alt={ `Production cinématographique ${ idx + 1 }` } />
+            <img src={ src } alt={ `Production cinématographique ${ idx + 1 }` } id='img' />
           </div>
         ) ) }
         <button className="carousel-btn next" onClick={ nextSlide } aria-label="Image suivante">

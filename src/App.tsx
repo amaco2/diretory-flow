@@ -19,6 +19,7 @@ import { useAllProjects } from './getProject.js';
 import { LayoutProject } from './Component/ProjectUsers/LayoutProjects';
 import ScriptUpload from './pages/AI/ScriptUpload.js';
 import KanbanBoard from './pages/KanbanBoard.js';
+import ProjectOverview from './Component/Dashboard/ProjectOverview.jsx';
 
 // Cette position est temporaire
 const colors = {
@@ -87,11 +88,11 @@ function WrapperComponent()
         setIconeUser(res.data.message.email);
         setUsername(res.data.message.username + "");
 
-        setIsConnect(true);
+        setIsConnect((o) => true);
       })
       .catch((error) =>
       {
-        setIsConnect(false);
+        setIsConnect((o) => false);
         console.error(error);
       });
 
@@ -131,6 +132,7 @@ function WrapperComponent()
           </Route>
           <Route index path='/' element={<Home />} />
           <Route path='/project/:projectid' element={<ProjectDashboar />} >
+            <Route index element={<ProjectOverview />} />
             <Route path='step2' element={<Step2 />} />
             {/* <Route path='overview' element={ <OverView /> } /> */}
             <Route path='kanban' element={<KanbanBoard />} />

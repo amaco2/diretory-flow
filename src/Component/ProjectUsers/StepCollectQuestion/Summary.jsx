@@ -34,7 +34,6 @@ function Summary()
     const { ID_Project } = useOutletContext();
 
 
-    console.log( ID_Project[ 1 ] )
     // Fonction de creation de projet suite a un evenement <<onclick>>
     const handleSendData = ( e ) =>
     {
@@ -47,7 +46,7 @@ function Summary()
             dataStep4,
             dataStep5,
             dataStep6,
-            Number( ID_Project[ 1 ] ),
+            Number( ID_Project ),
         );
     }
 

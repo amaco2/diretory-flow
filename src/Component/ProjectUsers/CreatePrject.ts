@@ -3,7 +3,9 @@ import axio from "../../config/axiosConfig";
 const createProject = async (type_production: string,
     titre: string,
     description: string,
-    status: string) =>
+    status: string,
+    setErrorMessage: any,
+    setIsLoading: any) =>
 {
     const dataProject: Object = { type_production, titre, description, status }
     try
@@ -12,11 +14,15 @@ const createProject = async (type_production: string,
             { dataProject }
         );
         console.log(res.data);
+        setIsLoading(false);
 
         return res.data;
     } catch (err: any)
     {
         console.error(err?.response.data?.messages || err.message);
+        setIsLoading(false);
+        setErrorMessage(err.response?.data?.message || 'Erreur lors de la création du projet. Veuillez réessayer.');
+
         throw err;
     }
 }

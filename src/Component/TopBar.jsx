@@ -23,6 +23,8 @@ function Topbar( { toogleSidebar, opened } )
                 } }
                 hiddenFrom="mm"
                 size={ "sm" }
+                color="#fff"
+                __size="30"
             />
             <div style={ { display: 'flex', alignItems: 'center', gap: '0.8rem' } }>
                 <DirectoryFlowLogo size={ 40 } color="#fff" />

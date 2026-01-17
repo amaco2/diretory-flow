@@ -10,7 +10,7 @@ import
   mediaQueryForm,
   mediaQueryInput,
 } from '../MediaQuery/MediaQuery';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BtnInscription } from '../Button';
 import './Connexion.css';
 import { registerUser } from './UserConnexion/RegisterUser';
@@ -39,7 +39,6 @@ const DivFormConnexion = styled.div`
   width: 100%;
   // color:#fff;
   font-weight: bold;
-  border-radius: 10px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -114,7 +113,7 @@ const InputPassword = styled.input.attrs( {
 const SpanTextDF = styled.span`
   font-size: 1.5em;
   font-weight: bold;
-  //  margin-top: 50px;
+   margin-top: 5px;
   color: #000;
   margin-left: 15px;
   @media screen and (max-width: ${ breakPoint.mobile }) {
@@ -168,10 +167,14 @@ function FormInscription()
 {
   //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
   const [ isLoading, setIsLoading ] = useState( false );
+  const [ errorMessage, setErrorMessage ] = useState( '' );
+  const [ successMessage, setSuccessMessage ] = useState( '' );
   const [ name, setName ] = useState();
   const [ fullName, setFullName ] = useState();
   const [ email, setEmail ] = useState();
   const [ password, setPassword ] = useState();
+
+  const navigate = useNavigate();
 
   const getEmail = ( event ) =>
   {
@@ -255,15 +258,27 @@ function FormInscription()
           <label htmlFor='password'>Mot de passe </label>
           <InputPassword onChange={ getPassword } required maxLength={ 50 } />
           <BtnInscription
+            disabled={ isLoading }
             onClick={ ( event ) =>
             {
               event.stopPropagation();
-              setName( name + ' ' + fullName );
-              console.log( name, email, password );
-              registerUser( name + ' ' + fullName, email, password, setIsLoading );
+              setErrorMessage( '' );
+              setSuccessMessage( '' );
+
+              if ( !name || !fullName || !email || !password )
+              {
+                setErrorMessage( 'Veuillez remplir tous les champs' );
+                return;
+              }
+
+              const fullNameCombined = name + ' ' + fullName;
+              console.log( fullNameCombined, email, password );
+
+              registerUser( fullNameCombined, email, password, setIsLoading, setErrorMessage, setSuccessMessage, navigate );
             } }
+            style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
           >
-            Connexion
+            { isLoading ? 'Chargement...' : 'Inscription' }
           </BtnInscription>
           <LinkConnexion to={ '/connexion' }>
             <span
@@ -277,8 +292,18 @@ function FormInscription()
             </span>{ ' ' }
             Connectez-vous.
           </LinkConnexion>
+          { errorMessage && (
+            <div style={ { color: '#ff0000', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
+              { errorMessage }
+            </div>
+          ) }
+          { successMessage && (
+            <div style={ { color: '#00cc00', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
+              { successMessage }
+            </div>
+          ) }
         </DivWrapperForm>
-        { isLoading ? <p>Chargement....</p> : null }
+        { isLoading ? <p style={ { textAlign: 'center', marginTop: '20px', fontSize: '1.1em' } }>Inscription en cours....</p> : null }
       </DivFormConnexion>
       <Footer />
     </div>

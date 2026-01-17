@@ -1,5 +1,5 @@
 .div-save-script {
-    background-color: #fff;
+    background-color: #ffffff;
     width: 50vw;
     border: none;
     border-radius: 20px;
@@ -7,13 +7,22 @@
     top: 15svw;
     left: 24svw;
     box-shadow: 0 0 1000px 1000px #00000077;
-    z-index: 99999;
-    height: 2px;
-    min-height: 250px;
-    color: #000 !important
+    z-index: 999999;
+    height: 0px;
+    min-height: 15svw;
+}
+
+.div-save-script--text p {
+    width: 45svw;
+    margin-left: 50px;
+    margin-top: 10px;
+    color: #000000;
+    font-weight: bold;
+    font-size: 1em;
 }
 
 .div-save-script-btn {
     display: flex;
     justify-content: space-around;
+    margin-top: 3svw;
 }

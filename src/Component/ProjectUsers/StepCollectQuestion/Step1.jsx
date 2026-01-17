@@ -15,7 +15,7 @@ import
 } from '../style/styleComponent';
 import { IconStatusChange } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { startTransition, useContext, useOptimistic } from 'react';
+import { startTransition, useContext, useOptimistic, useState } from 'react';
 import { ProjectUserContext } from '../../../ThemeContext';
 import { createProject } from '../CreatePrject';
 import { ProgressBar } from './ProgressBar';
@@ -33,6 +33,10 @@ function Step1()
 
     // Fonction de mise a jour des donnees
     const [ optisticState, updateData ] = useOptimistic( {}, ( prev, partial ) => ( { ...prev, ...partial } ) )
+
+    // États pour le loading et les erreurs
+    const [ isLoading, setIsLoading ] = useState( false );
+    const [ errorMessage, setErrorMessage ] = useState( '' );
 
     const handleChange = async ( e ) =>
     {
@@ -59,6 +63,16 @@ function Step1()
         const description = formaData.get( 'description' );
         const status = formaData.get( 'status' );
 
+        if ( !type_production ||
+            !titre ||
+            !description ||
+            !status
+        )
+        {
+            setErrorMessage( "Tous les champs sont obligatoires" );
+            return;
+        }
+
         startTransition( () =>
         {
             // Mise a jour optimiste 🔥 cle valeur
@@ -66,20 +80,18 @@ function Step1()
 
         } );
 
-        console.log( formaData );
-
-
-        if ( !type_production ||
-            !titre ||
-            !description ||
-            !status
-        ) return console.log( "Champs Manquants" );
+        setErrorMessage( '' );
+        setIsLoading( true );
 
         // Phase de creation du projet
         createProject( type_production,
             titre,
             description,
-            status );
+            status,
+            setErrorMessage );
+
+        // Redirection vers l'étape suivante après succès
+        if ( isLoading && !errorMessage ) navigate( '/' );
 
 
     };
@@ -90,7 +102,7 @@ function Step1()
     }
 
     return (
-        <section aria-labelledby="step1-title">
+        <section aria-labelledby="step1-title" className='section'>
             <h2 id="step1-title" className="sr-only">Informations générales</h2>
             <form className="step-form center-column" onSubmit={ handleSubmit }>
                 <div className="form-field">
@@ -138,7 +150,20 @@ function Step1()
                     <InputDescription id='description' name='description' required ></InputDescription>
                 </div>
                 <div className="form-actions">
-                    <BtnNextQuest type='submit' onClick={ handleSendData }>Suivant</BtnNextQuest>
+
+                    <BtnNextQuest
+                        type='submit'
+                        onClick={ handleSendData }
+                        disabled={ isLoading }
+                        style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
+                    >
+                        { isLoading ? 'Création en cours...' : 'Suivant' }
+                    </BtnNextQuest>
+                    { errorMessage && (
+                        <div style={ { color: '#ff0000', marginTop: '10px', textAlign: 'center', fontSize: '0.9em' } }>
+                            { errorMessage }
+                        </div>
+                    ) }
                 </div>
             </form>
         </section>
