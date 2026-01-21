@@ -75,7 +75,7 @@ const HeaderSection = styled.div`
 const ProgressContainer = styled.div`
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid rgba(255, 255, 255, 0.3) ;
 
   h3 {
     margin: 0 0 15px 0;
