@@ -14,16 +14,19 @@ const createProject = async (type_production: string,
             { dataProject }
         );
         console.log(res.data);
-        setIsLoading(false);
+        setIsLoading(true);
 
         return res.data;
     } catch (err: any)
     {
         console.error(err?.response.data?.messages || err.message);
-        setIsLoading(false);
         setErrorMessage(err.response?.data?.message || 'Erreur lors de la création du projet. Veuillez réessayer.');
 
         throw err;
+    } finally
+    {
+        setIsLoading(false);
+
     }
 }
 

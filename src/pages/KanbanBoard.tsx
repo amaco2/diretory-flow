@@ -19,11 +19,23 @@ interface Props
     ID_Project: number;
 }
 
+interface Project
+{
+    id: number;
+    name: string
+}
+
 const KanbanBoard: React.FC = () =>
 {
     const [columns, setColumns] = useState<Column[]>([]);
     const [tasks, setTasks] = useState<Task[]>([]);
     const { ID_Project } = useOutletContext<Props>();
+    const { projectId } = useContext<any>(TContext);
+
+    console.log(projectId);
+    console.log(ID_Project);
+    // const projectContext: Project = projectId.find((item: Project) => (Number(item.id) === Number(ID_Project)));
+    // console.log("Context du projet", projectContext);
 
     useEffect(() =>
     {
@@ -70,6 +82,7 @@ const KanbanBoard: React.FC = () =>
             <header className="seo-header">
                 <h1>Tableau de production – DirectoryFlow</h1>
                 <p>Kanban intelligent pour la production audiovisuelle</p>
+                <button>Genere les taches</button>
             </header>
 
             <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>

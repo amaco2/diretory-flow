@@ -1,7 +1,6 @@
-import { ClapperboardIcon, Eye, EyeOff, Mail } from 'lucide-react';
-import { useContext, useState } from 'react';
+import { Eye, EyeOff, Mail } from 'lucide-react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import iconDirectoryFlow from './Icon/iconedf.jpg';
 import bgImgConnexion from './Icon/premium_vector-1683140945544-89a75438d4f5.png';
 import
 {
@@ -14,300 +13,417 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BtnConnexion } from '../Button';
 import { Homes, styleGlobalInput } from './ComponentStyledForm/Styled';
 import { useAxioToLogin } from './UserConnexion/LoginUser';
-import { TContext } from '../../ThemeContext';
 import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
+import { Loader } from '../../App.tsx';
+import Footer from './ComponentStyledForm/Footer';
+import InfosConnexionSaas from './ComponentStyledForm/InfosConnexionSaas';
 
-// stockage de la hauteur et de la largeur de la fenetre d'affichege
+const breakPoints = {
+  mobile: '768px',
+  tablet: '1024px',
+  desktop: '1440px',
+};
 
-const innerWidth = window.innerWidth;
-
-// divsion des infos UI
+// Main container
 const DivFormConnexion = styled.div`
-  position: absolute;
-  z-index: 999;
-  font-family: 'Open Sans';
   background-image: url('${ bgImgConnexion }');
   background-repeat: no-repeat;
   background-size: cover;
-  // background-position-x: -100px;
-  // mix-blend-mode: difference;
+  background-attachment: fixed;
+  background-position: center;
   color: #fff;
   filter: contrast(0.9);
   border: none;
-  font-weight: bold;
+  background-color: #000000ff;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  top: 0;
-  ${ media.mobile( 'width:100%' ) })
-`;
+  justify-content: center;
+  padding: 40px 20px;
 
-// Input des donnees de l'UI
-const InputEmail = styled.input.attrs( {
-  type: 'text',
-  id: 'email',
-  name: 'email',
-} )`
-  left: -10px;
-  width: 30svw;
-  ${ styleGlobalInput };
-  border-radius: 10px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
-  }
-  ${ mediaQueryInput }
-`;
-/* Creation de l'element HTML <<img>> via st
-yledComponent qui servira de logo pour le HEADER*/
-
-const ImgLgoHeader = styled( ClapperboardIcon )`
-  object-fit: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  margin-top: 30px;
-`;
-// Input des donnees de l'UI
-const InputPassword = styled.input.attrs( { id: 'password', name: 'password' } )`
-  left: -10px;
-  width: 30svw;
-  ${ styleGlobalInput };
-  border-radius: 10px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
-  }
-  ${ mediaQueryInput }
-`;
-// Creation du text <<Directory-Flow>> depuis un span dans styled component
-
-const SpanTextDF = styled.span`
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 5px;
-  color: #000;
-  margin-left: 5px;
-  @media screen and (max-width: ${ breakPoint.mobile }) {
-    font-size: 1.2em;
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    padding: 30px 15px;
+    background-attachment: scroll;
   }
 `;
-const DivWraper = styled.div`
-  display: flex;
-  margin-left: -3svw;
-`;
 
+// Form wrapper
 const DivWrapperForm = styled.div`
   box-shadow: 0 0 50px #363c3cff;
   border: none;
   border-radius: 10px;
   display: flex;
-  position: absolute;
-  top: 5svw;
   background-color: #fff;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40vw;
-  height: 75svh;
-  ${ mediaQueryForm }
+  width: 100%;
+  max-width: 750px;
+  padding: 40px;
+  gap: 15px;
+
+  @media screen and (max-width: ${ breakPoints.tablet }) {
+    max-width: 100%;
+    width: 100%;
+    padding: 30px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    max-width: 100%;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+  }
 `;
-// Lien en cas d'oublie du mot de passe
-const LinkObject = `
-  position: relative;
- top: 10px;
- font-weight: bold;
- font-size: 1.4em;
- text-decoration: none;
- color: #2f08f4ff;
-  &: hover{
-     text-decoration: underline;
-  };
-  @media screen and (max-width: ${ breakPoint.desktop }){
-    width: 250px;
+
+// Input fields
+const InputEmail = styled.input.attrs( {
+  type: 'email',
+  id: 'email',
+  name: 'email',
+} )`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const InputPassword = styled.input.attrs( {
+  id: 'password',
+  name: 'password',
+} )`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const SpanTextDF = styled.span`
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000;
+  margin-left: 15px;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
     font-size: 1.2em;
-    text-align: center;
-  };
-    @media screen and (max-width: ${ breakPoint.mobile }){
-    width: 170px;
-    font-size: 1.1em;
-    text-align: center;
-  }`;
+    margin-left: 10px;
+  }
+`;
+
+const DivWraper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+const LinkObject = `
+  font-weight: 700;
+  font-size: 1em;
+  text-decoration: none;
+  color: #2f08f4ff;
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid #2f08f4;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+  }
+`;
+
 const LinkForgetPassword = styled( Link )`
   ${ LinkObject };
 `;
-// Lien pour la creation du compte
+
 const LinkCreateAcount = styled( Link )`
-  ${ LinkObject }
+  ${ LinkObject };
 `;
-// Span for see or not see password
-const SpamSeeOrNotSee = styled.span`
-  cursor: pointer;
+
+const PasswordWrapper = styled.div`
   position: relative;
-  // z-index: 888;
-  left: 13svw;
+  width: 100%;
+`;
+
+const EyeButton = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  margin: 0;
-  padding: 0;
-  top: -33px;
-  @media screen and (max-width: ${ breakPoint.desktop }) {
-    left: 22svw;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #0d47a1;
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    right: 10px;
   }
 `;
+
+const Label = styled.label`
+  font-weight: 700;
+  font-size: 1em;
+  color: #000;
+  margin-bottom: 5px;
+  display: block;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d32f2f;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: rgba(211, 47, 47, 0.1);
+  border: 1px solid #d32f2f;
+  border-radius: 8px;
+  font-size: 0.95em;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+    padding: 10px;
+  }
+`;
+
+const LinkHome = styled( Link )`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+`;
+
+const RequiredText = styled.span`
+  color: #d32f2f;
+  font-weight: 700;
+`;
+
 function FormConnexion()
 {
-  // On accede a l'etat de connexion de l'utilisateur pour le rediriger vers le menu principale
-  const { isConnect } = useContext( TContext );
-  //  State pour afficher ou cacher le mot de passe
   const [ isSeePassword, setIsSeePassword ] = useState( true );
-  const [ isSeeEye, setIsSeeEye ] = useState( false );
-  //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
-  const [ email, setEmail ] = useState( '' ); // On laisse vide pour eviter d'avoir les email par defaut
+  const [ email, setEmail ] = useState( '' );
   const [ password, setPassword ] = useState( '' );
   const [ isLoading, setIsLoading ] = useState( false );
   const [ errorMessage, setErrorMessage ] = useState( '' );
+  const navigate = useNavigate();
 
-  // Configuration de la naviagation
-  const naviagte = useNavigate();
-
-  /** Les fonction suivante recupere les valeurs des in
-    puts pour les envoyer au backend et faire l'authentificatiion*/
   const getEmail = ( event ) =>
   {
-    event.preventDefault();
     if ( event.target.value !== '' )
     {
       setEmail( event.target.value );
     } else
     {
-      console.log( 'Se champ est obligatoire' );
+      setEmail( '' );
     }
   };
+
   const getPassword = ( event ) =>
   {
-    event.preventDefault();
     if ( event.target.value !== '' )
     {
       setPassword( event.target.value );
+    } else
+    {
+      setPassword( '' );
     }
   };
 
+  const handleSubmit = ( event ) =>
+  {
+    event.stopPropagation();
+    setErrorMessage( '' );
+
+    if ( !email || !password )
+    {
+      setErrorMessage( 'Veuillez remplir tous les champs' );
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if ( !emailRegex.test( email ) )
+    {
+      setErrorMessage( 'Veuillez entrer une adresse email valide' );
+      return;
+    }
+
+    setIsLoading( true );
+    useAxioToLogin( email, password )
+      .then( ( response ) =>
+      {
+        setIsLoading( false );
+        navigate( '../' );
+      } )
+      .catch( ( error ) =>
+      {
+        setIsLoading( false );
+        setErrorMessage(
+          error.response?.data?.message || 'Erreur de connexion. Veuillez réessayer.'
+        );
+      } );
+  };
+
   return (
-    <div>
-      {/* On wrap les elements dans une <<div>> creee avec styled component */ }
+    <main>
       <DivFormConnexion>
         <DivWrapperForm>
           <DivWraper>
-            <DirectoryFlowLogo size={ 50 } color='#0d47a1' />
-            <SpanTextDF>Connectez-vous à DirectoryFlow</SpanTextDF>
-            <br />
+            <DirectoryFlowLogo size={ 50 } color="#0d47a1" />
+            <SpanTextDF>Connectez-vous</SpanTextDF>
           </DivWraper>
-          <br />
-          <Link to={ '/' }>
-            <Homes size={ 30 } color='#0f0f0eff' />
-          </Link>
-          <br />
-          <label htmlFor='email'>
-            Adresse e-mail <Mail size={ 15 } color='4ffd05ff' />
-          </label>
-          <InputEmail
-            placeholder='EX: Jhondoe@gmail.com'
-            maxLength={ 50 }
-            onChange={ ( event ) =>
-            {
-              event.preventDefault();
-              getEmail( event );
-            } }
-          />
-          <br />
-          <label htmlFor='password'>Mot de passe </label>
 
-          <InputPassword
-            type={ isSeePassword ? 'password' : 'text' }
-            maxLength={ 50 }
-            onChange={ ( event ) =>
-            {
-              event.preventDefault();
-              getPassword( event );
-              if ( event.target.value !== '' )
-              {
-                setIsSeeEye( true );
-              } else
-              {
-                setIsSeeEye( false );
-              }
-            } }
+          <LinkHome to="/" title="Retour à l'accueil">
+            <Homes size={ 30 } color="#0f0f0eff" />
+          </LinkHome>
+
+          <InfosConnexionSaas />
+
+          <Label htmlFor="email">
+            Adresse email <RequiredText>*</RequiredText>{ ' ' }
+            <Mail size={ 16 } color="4ffd05ff" />
+          </Label>
+          <InputEmail
+            placeholder="exemple@email.com"
+            maxLength={ 100 }
+            onChange={ getEmail }
+            aria-label="Adresse email"
           />
-          <SpamSeeOrNotSee hidden={ isSeeEye ? false : true }>
-            { isSeePassword ? (
-              <EyeOff
-                onClick={ () => setIsSeePassword( false ) }
-                color='#0d0d0dff'
-              />
-            ) : (
-              <Eye
-                onClick={ () =>
-                {
-                  setIsSeePassword( true );
-                } }
-                color='#0f0e0eff'
-              />
-            ) }
-          </SpamSeeOrNotSee>
-          <LinkForgetPassword>Mot de passe Oublié?</LinkForgetPassword>
+
+          <Label htmlFor="password">
+            Mot de passe <RequiredText>*</RequiredText>
+          </Label>
+          <PasswordWrapper>
+            <InputPassword
+              type={ isSeePassword ? 'password' : 'text' }
+              maxLength={ 100 }
+              onChange={ getPassword }
+              placeholder="Votre mot de passe"
+              aria-label="Mot de passe"
+            />
+            <EyeButton
+              type="button"
+              onClick={ () => setIsSeePassword( !isSeePassword ) }
+              aria-label={ isSeePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe' }
+            >
+              { isSeePassword ? (
+                <EyeOff size={ 20 } />
+              ) : (
+                <Eye size={ 20 } />
+              ) }
+            </EyeButton>
+          </PasswordWrapper>
+
+          <LinkForgetPassword to="/mot-de-passe-oublie">
+            Mot de passe oublié?
+          </LinkForgetPassword>
 
           <BtnConnexion
             disabled={ isLoading }
-            onClick={ ( event ) =>
-            {
-              event.stopPropagation();
-              setErrorMessage( '' );
-
-              if ( !email || !password )
-              {
-                setErrorMessage( 'Veuillez remplir tous les champs' );
-                return;
-              }
-
-              setIsLoading( true );
-              useAxioToLogin( email, password )
-                .then( ( response ) =>
-                {
-                  setIsLoading( false );
-                  naviagte( '../' );
-                } )
-                .catch( ( error ) =>
-                {
-                  setIsLoading( false );
-                  setErrorMessage( error.response?.data?.message || 'Erreur de connexion. Veuillez réessayer.' );
-                } );
-
-              setIsSeeEye( false );
+            onClick={ handleSubmit }
+            style={ {
+              opacity: isLoading ? 0.6 : 1,
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              marginTop: '10px',
             } }
-            style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
+            aria-busy={ isLoading }
           >
-            { isLoading ? 'Chargement...' : 'Connexion' }
+            { isLoading ? <Loader /> : 'Se Connecter' }
           </BtnConnexion>
-          <LinkCreateAcount to={ '/inscription' }>
-            <span
-              style={ {
-                color: '#242222ff',
-                fontWeight: 'bold',
-                fontSize: '0.9em',
-              } }
-            >
-              Vous n'avez pas de compte?
-            </span>
-            Céez en un.
+
+          <LinkCreateAcount to="/inscription">
+            <span style={ { color: '#242222ff', fontWeight: 'bold' } }>
+              Pas de compte?
+            </span>{ ' ' }
+            Créez-en un maintenant.
           </LinkCreateAcount>
+
           { errorMessage && (
-            <div style={ { color: 'red', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
-              { errorMessage }
-            </div>
+            <ErrorMessage role="alert">
+              ⚠️ { errorMessage }
+            </ErrorMessage>
           ) }
         </DivWrapperForm>
       </DivFormConnexion>
-    </div>
+
+      <Footer />
+    </main>
   );
 }
 

@@ -153,7 +153,7 @@ function Headers()
           </button>
 
           <div className='navbar--header__connexion-backend'>
-            { isConnect ? (
+            { isConnect === true ? (
               <ProfilUser />
             ) : (
               <div>

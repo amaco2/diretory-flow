@@ -2,6 +2,8 @@ import Home from './Component/Home.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FormConnexion from './Ui/Connexion/FromConnexion.jsx';
 import FormInscription from './Ui/Connexion/FormInscription.jsx';
+import ForgotPasswordRequest from './Ui/Connexion/ForgotPasswordRequest.jsx';
+import ResetPassword from './Ui/Connexion/ResetPassword.jsx';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TContext } from './ThemeContext.jsx';
@@ -48,8 +50,8 @@ export const Loader = styled.div`
   border-bottom-color: transparent;
   border-radius: 100px;
   animation: ${rotate} 1s infinite linear;
-  height: 150px;
-  width: 150px;
+  height: 10px;
+  width: 10px;
 `;
 
 const HiddenProfil = styled.section`
@@ -63,7 +65,7 @@ const HiddenProfil = styled.section`
 function WrapperComponent()
 {
   // Etat de connexion de l'utilisateur
-  const [isConnect, setIsConnect] = useState(false);
+  const [isConnect, setIsConnect] = useState<Boolean>(false);
   const [iconeUser, setIconeUser] = useState();
   const [username, setUsername] = useState<String>('');
   // Activation et desactivation du profil utilisateur
@@ -88,16 +90,16 @@ function WrapperComponent()
         setIconeUser(res.data.message.email);
         setUsername(res.data.message.username + "");
 
-        setIsConnect((o) => true);
+        setIsConnect(true);
       })
       .catch((error) =>
       {
-        setIsConnect((o) => false);
         console.error(error);
       });
 
     useAllProjects(setProjectId, setWasProject);
-  }, [isConnect]);
+  }, [isConnect, wasProject, iconeUser]);
+
   return (
     <div>
       <TContext.Provider
@@ -125,6 +127,8 @@ function WrapperComponent()
         <Routes>
           <Route path='/connexion' element={<FormConnexion />} />
           <Route path='/inscription' element={<FormInscription />} />
+          <Route path='/mot-de-passe-oublie' element={<ForgotPasswordRequest />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/projects/' element={<ProjectUser />} >
             <Route index element={<LayoutProject />} />
             <Route path='createproject' element={<Step1 />} />

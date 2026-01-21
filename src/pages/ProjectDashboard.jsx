@@ -1,7 +1,8 @@
 import { Outlet, useParams } from "react-router-dom";
 import ProjectLayout from "../layout/ProjectLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DashboardContext } from "../ThemeContext";
+import { useGetInfosProjects } from "./GetInfosProjects";
 
 function ProjectDashboar()
 {
@@ -62,6 +63,18 @@ function ProjectDashboar()
             autoriserIA: '',
         }
     )
+
+    /**
+     * Appel des items du projet (phases, script ou breakdowns) 
+     * pour la gestion conforme de pahse du  projet celon un
+     *  depouillemnt precis concernant un projet
+     * L'appel par UseEfect sera fait pour le partage des donne du parent a l'enfant via useContext
+     */
+
+    useEffect( () =>
+    {
+        useGetInfosProjects( ID_Project );
+    } )
     return (
         <DashboardContext.Provider value={ {
             formatOfProject,

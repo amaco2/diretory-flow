@@ -697,7 +697,6 @@ p {
     height: 40svw;
     object-fit: cover;
     border-radius: 30px;
-    border: 1px solid red;
     transition: 0.3s ease-in-out;
   }
 

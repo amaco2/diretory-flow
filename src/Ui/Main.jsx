@@ -446,7 +446,7 @@ function Carousel()
 
     return () => clearInterval( id )
   }, [ currentIndex, images.length ] )
-  console.log( "images", images )
+
   return (
     <motion.section
       initial={ { opacity: 0 } }

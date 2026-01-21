@@ -1,8 +1,7 @@
-import { Mail, ClapperboardIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Mail, AlertCircle, Eye, EyeOff, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import bgImgConnexion from './Icon/premium_vector-1683140945544-89a75438d4f5.png';
-import iconDirectoryFlow from './Icon/irham-setyaki-k1V4pRaLjAU-unsplash.jpg';
 import
 {
   breakPoint,
@@ -15,298 +14,906 @@ import { BtnInscription } from '../Button';
 import './Connexion.css';
 import { registerUser } from './UserConnexion/RegisterUser';
 import { Homes, styleGlobalInput } from './ComponentStyledForm/Styled';
-import { Footer } from '../Main';
 import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
+import { Loader } from '../../App.tsx';
+import Footer from './ComponentStyledForm/Footer';
+import PolitiqueConfidentialiteModal from './ComponentStyledForm/PolitiqueConfidentialiteModal';
 
-// stockage de la hauteur et de la largeur de la fenetre d'affichege
+const breakPoints = {
+  mobile: '768px',
+  tablet: '1024px',
+  desktop: '1440px',
+};
 
-const innerWidth = window.innerWidth;
-
-// divsion des infos UI
+// Main container
 const DivFormConnexion = styled.div`
-  position: absolute;
   background-image: url('${ bgImgConnexion }');
   background-repeat: no-repeat;
   background-size: cover;
-  // background-position:center ;
-  // mix-blend-mode: difference;
+  background-attachment: fixed;
+  background-position: center;
   color: #fff;
   filter: contrast(0.9);
-  z-index: 999;
   border: none;
-  box-shadow: 1px 5px 100px 10000px #000;
   background-color: #000000ff;
   width: 100%;
-  // color:#fff;
-  font-weight: bold;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // left: ${ innerWidth / 95 }svw;
-  top: -0.1svh;
-  ${ media.mobile( 'width:100%' ) })
-`;
-// <<Input>> des donnees de l'UI
-const InputEmail = styled.input.attrs( {
-  type: 'text',
-  id: 'email',
-  name: 'email',
-} )`
-  left: -10px;
-  border: none;
-  ${ styleGlobalInput };
-  width: 30svw;
-  border-radius: 8px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
-  }
-  ${ mediaQueryInput }
-`;
-const InputNom = styled.input.attrs( { type: 'text', id: 'nom', name: 'nom' } )`
-  left: -10px;
-  width: 30svw;
-  ${ styleGlobalInput };
-  border: none;
-  border-radius: 8px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
-  }
-  ${ mediaQueryInput }
-`;
-const InputPrenom = styled.input.attrs( {
-  type: 'text',
-  id: 'prenom',
-  name: 'prenom',
-} )`
-  left: -10px;
-  width: 30svw;
-  ${ styleGlobalInput }
-  border: none;
-  border-radius: 8px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
-  }
-  ${ mediaQueryInput }
-import DirectoryFlowLogo from '../../Icon/DirectoryFlowLogo';
-`;
-/* Logo DirectoryFlow personnalisé */
+  justify-content: center;
+  padding: 40px 20px;
 
-// Input des donnees de l'UI
-const InputPassword = styled.input.attrs( {
-  type: 'password',
-  id: 'password',
-  name: 'password',
-} )`
-  left: -10px;
-  width: 30svw;
-  ${ styleGlobalInput };
-  border: none;
-  border-radius: 8px;
-  &:focus {
-    box-shadow: 0 0 10px #000;
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    padding: 30px 15px;
+    background-attachment: scroll;
   }
-  ${ mediaQueryInput }
 `;
-// Creation du text <<Directory-Flow>> depuis un span dans styled component
 
-const SpanTextDF = styled.span`
-  font-size: 1.5em;
-  font-weight: bold;
-   margin-top: 5px;
-  color: #000;
-  margin-left: 15px;
-  @media screen and (max-width: ${ breakPoint.mobile }) {
-    font-size: 1.2em;
-  }
-`;
-const DivWraper = styled.div`
-  display: flex;
-  margin-left: -3svw;
-`;
+// Form wrapper
 const DivWrapperForm = styled.div`
   box-shadow: 0 0 50px #363c3cff;
   border: none;
   border-radius: 10px;
   display: flex;
-  position: absolute;
-  top: 1svw;
   background-color: #fff;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40vw;
-  height: 95svh;
-  ${ mediaQueryForm }
-`;
-// Lien en cas d'oublie du mot de passe
-const LinkObject = `
- position: relative;
- top: 10px;
- font-weight: 700;
- font-size: 1.4em;
- text-decoration: none;
- color: #1900ffff;
-  &: hover{
-     text-decoration: underline;
-  };
-  @media screen and (max-width: ${ breakPoint.desktop }){
-    width: 250px;
-    font-size: 1.2em;
-    text-align: center;
+  width: 100%;
+  max-width: 750px;
+  padding: 40px;
+  gap: 15px;
+
+  @media screen and (max-width: ${ breakPoints.tablet }) {
+    max-width: 100%;
+    width: 100%;
+    padding: 30px;
   }
-  @media screen and (max-width: ${ breakPoint.mobile }){
-    width: 200px;
-    font-size: 1.1em;
-    text-align: center;
-  }`;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    max-width: 100%;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+  }
+`;
+
+// Input fields
+const InputEmail = styled.input.attrs( {
+  type: 'text',
+  id: 'email',
+  name: 'email',
+} )`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const InputNom = styled.input.attrs( {
+  type: 'text',
+  id: 'nom',
+  name: 'nom',
+} )`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const InputPrenom = styled.input.attrs( {
+  type: 'text',
+  id: 'prenom',
+  name: 'prenom',
+} )`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const InputPassword = styled.input`
+  width: 100%;
+  ${ styleGlobalInput };
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 45px 12px 12px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(13, 71, 161, 0.3);
+    border-color: #0d47a1;
+  }
+
+  &:hover {
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+    padding: 10px 40px 10px 10px;
+  }
+`;
+
+const SpanTextDF = styled.span`
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000;
+  margin-left: 15px;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 1.2em;
+    margin-left: 10px;
+  }
+`;
+
+const DivWraper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+const LinkObject = `
+  font-weight: 700;
+  font-size: 1em;
+  text-decoration: none;
+  color: #1900ffff;
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid #1900ff;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+  }
+`;
+
 const LinkConnexion = styled( Link )`
   ${ LinkObject };
 `;
+
+const LinkHome = styled( Link )`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+`;
+
+const Label = styled.label`
+  font-weight: 700;
+  font-size: 1em;
+  color: #000;
+  margin-bottom: 5px;
+  display: block;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.95em;
+  }
+`;
+
+const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 12px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+    border-color: #1565c0;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    padding: 10px;
+    margin: 12px 0;
+  }
+`;
+
+const CheckboxInput = styled.input.attrs( {
+  type: 'checkbox',
+} )`
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #0d47a1;
+  flex-shrink: 0;
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
+const CheckboxLabel = styled.label`
+  cursor: pointer;
+  font-size: 0.95em;
+  color: #333;
+  line-height: 1.4;
+  flex: 1;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+  }
+`;
+
+const CheckboxLink = styled.button`
+  background: none;
+  border: none;
+  color: #0d47a1;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+  padding: 0;
+  font-size: 0.95em;
+
+  &:hover {
+    color: #1565c0;
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d32f2f;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: rgba(211, 47, 47, 0.1);
+  border: 1px solid #d32f2f;
+  border-radius: 8px;
+  font-size: 0.95em;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+    padding: 10px;
+  }
+`;
+
+const SuccessMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #388e3c;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: rgba(56, 142, 60, 0.1);
+  border: 1px solid #388e3c;
+  border-radius: 8px;
+  font-size: 0.95em;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+    padding: 10px;
+  }
+`;
+
+const LoadingText = styled.p`
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1em;
+  color: #666;
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+  }
+`;
+
+const RequiredText = styled.span`
+  color: #d32f2f;
+  font-weight: 700;
+`;
+
+const PasswordWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+const EyeButton = styled.button`
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
+
+  &:hover {
+    color: #0d47a1;
+    background-color: rgba(13, 71, 161, 0.1);
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    right: 8px;
+  }
+`;
+
+const ValidationMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+  transition: all 0.3s ease;
+
+  &.valid {
+    color: #388e3c;
+    background-color: rgba(56, 142, 60, 0.08);
+    border-color: #388e3c;
+  }
+
+  &.invalid {
+    color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.08);
+    border-color: #d32f2f;
+  }
+
+  &.warning {
+    color: #f57c00;
+    background-color: rgba(245, 124, 0, 0.08);
+    border-color: #f57c00;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.85em;
+    padding: 6px 8px;
+  }
+`;
+
+const InformationBoxHeader = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #0d47a1;
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #1565c0;
+  }
+
+  &:focus {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.9em;
+  }
+`;
+
+const InformationBox = styled.div`
+  margin-top: 12px;
+  padding: 12px;
+  background-color: rgba(13, 71, 161, 0.05);
+  border: 1px solid rgba(13, 71, 161, 0.2);
+  border-radius: 8px;
+  font-size: 0.9em;
+  color: #333;
+  line-height: 1.6;
+
+  h4 {
+    margin: 0 0 8px 0;
+    color: #0d47a1;
+    font-size: 0.95em;
+    font-weight: 600;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+
+    li {
+      margin: 4px 0;
+      font-size: 0.9em;
+      color: #666;
+
+      &.valid {
+        color: #388e3c;
+      }
+
+      &.invalid {
+        color: #d32f2f;
+      }
+    }
+  }
+
+  @media screen and (max-width: ${ breakPoints.mobile }) {
+    font-size: 0.85em;
+    padding: 10px;
+
+    h4 {
+      font-size: 0.9em;
+    }
+
+    ul {
+      padding-left: 18px;
+
+      li {
+        font-size: 0.85em;
+      }
+    }
+  }
+`;
+
 function FormInscription()
 {
-  //  Declaration du state permetant de recuperer les infos de connexion lde l'utilisateur
   const [ isLoading, setIsLoading ] = useState( false );
   const [ errorMessage, setErrorMessage ] = useState( '' );
   const [ successMessage, setSuccessMessage ] = useState( '' );
-  const [ name, setName ] = useState();
-  const [ fullName, setFullName ] = useState();
-  const [ email, setEmail ] = useState();
-  const [ password, setPassword ] = useState();
-
+  const [ name, setName ] = useState( '' );
+  const [ fullName, setFullName ] = useState( '' );
+  const [ email, setEmail ] = useState( '' );
+  const [ password, setPassword ] = useState( '' );
+  const [ confirmPassword, setConfirmPassword ] = useState( '' );
+  const [ isSeePassword, setIsSeePassword ] = useState( true );
+  const [ isSeeConfirmPassword, setIsSeeConfirmPassword ] = useState( true );
+  const [ acceptesPolitique, setAcceptesPolitique ] = useState( false );
+  const [ acceptesNewsletter, setAcceptesNewsletter ] = useState( false );
+  const [ isPolitiqueOpen, setIsPolitiqueOpen ] = useState( false );
+  const [ showEmailInfo, setShowEmailInfo ] = useState( true );
+  const [ showPasswordInfo, setShowPasswordInfo ] = useState( true );
   const navigate = useNavigate();
+
+  // Validations en temps réel
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmailValid = email !== '' && emailRegex.test( email );
+
+  const hasMinLength = password.length >= 8;
+  const hasUpperCase = /[A-Z]/.test( password );
+  const hasLowerCase = /[a-z]/.test( password );
+  const hasNumber = /[0-9]/.test( password );
+  const hasSpecialChar = /[!@#$%^&*]/.test( password );
+  const isPasswordValid = hasMinLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+
+  const passwordsMatch = password !== '' && confirmPassword !== '' && password === confirmPassword;
+  const isConfirmPasswordValid = passwordsMatch;
 
   const getEmail = ( event ) =>
   {
-    event.preventDefault();
     if ( event.target.value !== '' )
     {
       setEmail( event.target.value );
-    } else
-    {
-      console.log( 'Se champ est obligatoire' );
     }
   };
+
   const getPassword = ( event ) =>
   {
-    event.preventDefault();
     if ( event.target.value !== '' )
     {
       setPassword( event.target.value );
     }
   };
-  const getfirstName = ( event ) =>
+
+  const getConfirmPassword = ( event ) =>
   {
-    event.preventDefault();
+    if ( event.target.value !== '' )
+    {
+      setConfirmPassword( event.target.value );
+    }
+  };
+
+  const getFirstName = ( event ) =>
+  {
     if ( event.target.value !== '' )
     {
       setName( event.target.value );
     }
   };
+
   const getLastName = ( event ) =>
   {
-    event.preventDefault();
     if ( event.target.value !== '' )
     {
       setFullName( event.target.value );
     }
   };
 
+  const handleSubmit = ( event ) =>
+  {
+    event.stopPropagation();
+    setErrorMessage( '' );
+    setSuccessMessage( '' );
+
+    // Validations
+    if ( !name || !fullName || !email || !password || !confirmPassword )
+    {
+      setErrorMessage( 'Veuillez remplir tous les champs' );
+      return;
+    }
+
+    if ( !acceptesPolitique )
+    {
+      setErrorMessage( 'Vous devez accepter la politique de confidentialité' );
+      return;
+    }
+
+    if ( password.length < 8 )
+    {
+      setErrorMessage( 'Le mot de passe doit contenir au moins 8 caractères' );
+      return;
+    }
+
+    if ( password !== confirmPassword )
+    {
+      setErrorMessage( 'Les mots de passe ne correspondent pas' );
+      return;
+    }
+
+    // Validation email basique
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if ( !emailRegex.test( email ) )
+    {
+      setErrorMessage( 'Veuillez entrer une adresse email valide' );
+      return;
+    }
+
+    const fullNameCombined = name + ' ' + fullName;
+
+    registerUser(
+      fullNameCombined,
+      email,
+      password,
+      setIsLoading,
+      setErrorMessage,
+      setSuccessMessage,
+      navigate
+    );
+  };
+
   return (
-    <div>
-      {/* On wrap les elements dans une <<div>> creee avec styled component */ }
+    <main>
+      <PolitiqueConfidentialiteModal
+        isOpen={ isPolitiqueOpen }
+        onClose={ () => setIsPolitiqueOpen( false ) }
+      />
       <DivFormConnexion>
         <DivWrapperForm>
           <DivWraper>
             <DirectoryFlowLogo size={ 50 } color="#0d47a1" />
-            <SpanTextDF>Bienvenu à DirectoryFlow</SpanTextDF>
-            <br />
+            <SpanTextDF>Rejoignez DirectoryFlow</SpanTextDF>
           </DivWraper>
-          <br />
-          <Link to={ '/' }>
-            <Homes size={ 30 } color='#0c0c0cff' />
-          </Link>
-          <br />
-          <label htmlFor='nom'>Nom</label>
+
+          <LinkHome to="/" title="Retour à l'accueil">
+            <Homes size={ 30 } color="#0c0c0cff" />
+          </LinkHome>
+
+          <Label htmlFor="nom">
+            Prénom <RequiredText>*</RequiredText>
+          </Label>
           <InputNom
-            placeholder='Ex: Jhon'
+            placeholder="Ex: Jean"
             required
-            size={ 50 }
             maxLength={ 50 }
-            onChange={ getfirstName }
+            onChange={ getFirstName }
+            aria-label="Prénom"
           />
-          <br />
-          <label htmlFor='prenom'>prenom</label>
+
+          <Label htmlFor="prenom">
+            Nom <RequiredText>*</RequiredText>
+          </Label>
           <InputPrenom
-            placeholder='Ex: Doe'
+            placeholder="Ex: Dupont"
             required
-            size={ 50 }
             maxLength={ 50 }
             onChange={ getLastName }
+            aria-label="Nom"
           />
-          <br />
-          <label htmlFor='email'>
-            Adresse e-mail <Mail size={ 30 } color='#fd3705ff' />
-          </label>
+
+          <Label htmlFor="email">
+            Adresse email <RequiredText>*</RequiredText> <Mail size={ 16 } color="#fd3705ff" />
+          </Label>
           <InputEmail
             required
-            placeholder='EX: Jhondoe@gmail.com'
-            maxLength={ 50 }
+            placeholder="exemple@email.com"
+            maxLength={ 100 }
             onChange={ getEmail }
+            aria-label="Adresse email"
           />
-          <br />
-          <label htmlFor='password'>Mot de passe </label>
-          <InputPassword onChange={ getPassword } required maxLength={ 50 } />
-          <BtnInscription
-            disabled={ isLoading }
-            onClick={ ( event ) =>
-            {
-              event.stopPropagation();
-              setErrorMessage( '' );
-              setSuccessMessage( '' );
+          { email && (
+            <ValidationMessage className={ isEmailValid ? 'valid' : 'invalid' }>
+              { isEmailValid ? '✓ Email valide' : '✗ Email invalide' }
+            </ValidationMessage>
+          ) }
 
-              if ( !name || !fullName || !email || !password )
-              {
-                setErrorMessage( 'Veuillez remplir tous les champs' );
-                return;
-              }
-
-              const fullNameCombined = name + ' ' + fullName;
-              console.log( fullNameCombined, email, password );
-
-              registerUser( fullNameCombined, email, password, setIsLoading, setErrorMessage, setSuccessMessage, navigate );
-            } }
-            style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
+          <InformationBoxHeader
+            onClick={ () => setShowEmailInfo( !showEmailInfo ) }
+            aria-expanded={ showEmailInfo }
+            aria-controls="email-info"
+            type="button"
           >
-            { isLoading ? 'Chargement...' : 'Inscription' }
-          </BtnInscription>
-          <LinkConnexion to={ '/connexion' }>
-            <span
-              style={ {
-                color: '#181616ff',
-                fontWeight: 'bold',
-                fontSize: '.8em',
-              } }
+            <span>📧 Format d'email</span>
+            { showEmailInfo ? <ChevronUp size={ 18 } /> : <ChevronDown size={ 18 } /> }
+          </InformationBoxHeader>
+
+          { showEmailInfo && (
+            <InformationBox id="email-info">
+              <ul>
+                <li>Doit contenir un @ et un domaine (ex: user@example.com)</li>
+                <li>Les caractères spéciaux sauf . et - ne sont pas acceptés</li>
+              </ul>
+            </InformationBox>
+          ) }
+
+          <Label htmlFor="password">
+            Mot de passe <RequiredText>*</RequiredText>
+          </Label>
+          <PasswordWrapper>
+            <InputPassword
+              id="password"
+              name="password"
+              type={ isSeePassword ? 'password' : 'text' }
+              onChange={ getPassword }
+              required
+              maxLength={ 100 }
+              placeholder="Minimum 8 caractères"
+              aria-label="Mot de passe"
+            />
+            <EyeButton
+              type="button"
+              onClick={ () => setIsSeePassword( !isSeePassword ) }
+              title={ isSeePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe' }
+              aria-label={ isSeePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe' }
             >
-              Vous avez déja un compte?
+              { isSeePassword ? (
+                <Eye size={ 20 } />
+              ) : (
+                <EyeOff size={ 20 } />
+              ) }
+            </EyeButton>
+          </PasswordWrapper>
+
+          { password && (
+            <ValidationMessage className={ isPasswordValid ? 'valid' : 'invalid' }>
+              { isPasswordValid ? '✓ Mot de passe valide' : '✗ Mot de passe faible' }
+            </ValidationMessage>
+          ) }
+
+          <InformationBoxHeader
+            onClick={ () => setShowPasswordInfo( !showPasswordInfo ) }
+            aria-expanded={ showPasswordInfo }
+            aria-controls="password-info"
+            type="button"
+          >
+            <span>🔐 Critères du mot de passe:</span>
+            { showPasswordInfo ? <ChevronUp size={ 18 } /> : <ChevronDown size={ 18 } /> }
+          </InformationBoxHeader>
+
+          { showPasswordInfo && (
+            <InformationBox id="password-info">
+              <ul>
+                <li className={ hasMinLength ? 'valid' : 'invalid' }>
+                  { hasMinLength ? '✓' : '✗' } Au moins 8 caractères
+                </li>
+                <li className={ hasUpperCase ? 'valid' : 'invalid' }>
+                  { hasUpperCase ? '✓' : '✗' } Au moins une majuscule (A-Z)
+                </li>
+                <li className={ hasLowerCase ? 'valid' : 'invalid' }>
+                  { hasLowerCase ? '✓' : '✗' } Au moins une minuscule (a-z)
+                </li>
+                <li className={ hasNumber ? 'valid' : 'invalid' }>
+                  { hasNumber ? '✓' : '✗' } Au moins un chiffre (0-9)
+                </li>
+                <li className={ hasSpecialChar ? 'valid' : 'invalid' }>
+                  { hasSpecialChar ? '✓' : '✗' } Au moins un caractère spécial (!@#$%^&*)
+                </li>
+              </ul>
+            </InformationBox>
+          ) }
+
+          <Label htmlFor="confirmPassword">
+            Confirmer le mot de passe <RequiredText>*</RequiredText>
+          </Label>
+          <PasswordWrapper>
+            <InputPassword
+              id="confirmPassword"
+              name="confirmPassword"
+              type={ isSeeConfirmPassword ? 'password' : 'text' }
+              onChange={ getConfirmPassword }
+              required
+              maxLength={ 100 }
+              placeholder="Confirmez votre mot de passe"
+              aria-label="Confirmation du mot de passe"
+            />
+            <EyeButton
+              type="button"
+              onClick={ () => setIsSeeConfirmPassword( !isSeeConfirmPassword ) }
+              title={ isSeeConfirmPassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe' }
+              aria-label={ isSeeConfirmPassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe' }
+            >
+              { isSeeConfirmPassword ? (
+                <Eye size={ 20 } />
+              ) : (
+                <EyeOff size={ 20 } />
+              ) }
+            </EyeButton>
+          </PasswordWrapper>
+
+          { confirmPassword && (
+            <ValidationMessage className={ isConfirmPasswordValid ? 'valid' : 'invalid' }>
+              { isConfirmPasswordValid ? '✓ Mots de passe correspondent' : '✗ Mots de passe différents' }
+            </ValidationMessage>
+          ) }
+
+          <CheckboxWrapper>
+            <CheckboxInput
+              id="politique"
+              checked={ acceptesPolitique }
+              onChange={ ( e ) => setAcceptesPolitique( e.target.checked ) }
+              aria-label="Accepter la politique de confidentialité"
+            />
+            <CheckboxLabel htmlFor="politique">
+              J'accepte la{ ' ' }
+              <CheckboxLink
+                onClick={ () => setIsPolitiqueOpen( true ) }
+                type="button"
+              >
+                politique de confidentialité
+              </CheckboxLink>{ ' ' }
+              et les conditions d'utilisation <RequiredText>*</RequiredText>
+            </CheckboxLabel>
+          </CheckboxWrapper>
+
+          <CheckboxWrapper>
+            <CheckboxInput
+              id="newsletter"
+              checked={ acceptesNewsletter }
+              onChange={ ( e ) => setAcceptesNewsletter( e.target.checked ) }
+              aria-label="S'inscrire à la newsletter"
+            />
+            <CheckboxLabel htmlFor="newsletter">
+              Je souhaite recevoir les actualités et offres exclusives de DirectoryFlow
+            </CheckboxLabel>
+          </CheckboxWrapper>
+
+          <BtnInscription
+            disabled={ isLoading || !acceptesPolitique }
+            onClick={ handleSubmit }
+            style={ {
+              opacity: isLoading || !acceptesPolitique ? 0.6 : 1,
+              cursor: isLoading || !acceptesPolitique ? 'not-allowed' : 'pointer',
+              marginTop: '10px',
+            } }
+            aria-busy={ isLoading }
+          >
+            { isLoading ? <Loader /> : 'Créer mon compte' }
+          </BtnInscription>
+
+          <LinkConnexion to="/connexion">
+            <span style={ { color: '#181616ff', fontWeight: 'bold' } }>
+              Vous avez déjà un compte?
             </span>{ ' ' }
             Connectez-vous.
           </LinkConnexion>
+
           { errorMessage && (
-            <div style={ { color: '#ff0000', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
+            <ErrorMessage role="alert">
+              <AlertCircle size={ 20 } />
               { errorMessage }
-            </div>
+            </ErrorMessage>
           ) }
+
           { successMessage && (
-            <div style={ { color: '#00cc00', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' } }>
-              { successMessage }
-            </div>
-          ) }
+            <SuccessMessage role="status">
+              ✓ { successMessage }
+            </SuccessMessage> ) }
         </DivWrapperForm>
-        { isLoading ? <p style={ { textAlign: 'center', marginTop: '20px', fontSize: '1.1em' } }>Inscription en cours....</p> : null }
+
+        { isLoading && <LoadingText>Création de votre compte en cours...</LoadingText> }
       </DivFormConnexion>
+
       <Footer />
-    </div>
+    </main>
   );
 }
 

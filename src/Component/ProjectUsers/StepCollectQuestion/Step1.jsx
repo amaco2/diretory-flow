@@ -2,6 +2,7 @@ import
 {
     AlarmClock,
     Film,
+    Loader,
     ProjectorIcon,
     Text,
 } from 'lucide-react';
@@ -88,7 +89,8 @@ function Step1()
             titre,
             description,
             status,
-            setErrorMessage );
+            setErrorMessage,
+            setIsLoading );
 
         // Redirection vers l'étape suivante après succès
         if ( isLoading && !errorMessage ) navigate( '/' );
@@ -157,7 +159,7 @@ function Step1()
                         disabled={ isLoading }
                         style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
                     >
-                        { isLoading ? 'Création en cours...' : 'Suivant' }
+                        { isLoading ? <Loader /> : "Suivant" }
                     </BtnNextQuest>
                     { errorMessage && (
                         <div style={ { color: '#ff0000', marginTop: '10px', textAlign: 'center', fontSize: '0.9em' } }>
