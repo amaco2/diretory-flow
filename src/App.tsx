@@ -99,6 +99,11 @@ function WrapperComponent()
 
     useAllProjects(setProjectId, setWasProject);
   }, [isConnect, wasProject, iconeUser]);
+  // test-net.js
+  // fetch("https://api.openai.com")
+  //   .then(res => console.log("OK", res.status))
+  //   .catch(err => console.error("FAIL", err));
+
 
   return (
     <div>

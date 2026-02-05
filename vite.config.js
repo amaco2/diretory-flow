@@ -10,18 +10,18 @@ import { fileURLToPath } from "node:url";
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
-    : path.dirname(fileURLToPath(import.meta.url));
+    : path.dirname( fileURLToPath( import.meta.url ) );
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig( {
+  plugins: [ react() ],
   // base: "/diretory-flow/",
   plugins: [
-    react({
+    react( {
       babel: {
-        plugins: [["babel-plugin-react-compiler"]],
+        plugins: [ [ "babel-plugin-react-compiler" ] ],
       },
-    }),
+    } ),
   ],
   test: {
     projects: [
@@ -46,9 +46,12 @@ export default defineConfig({
               },
             ],
           },
-          setupFiles: [".storybook/vitest.setup.js"],
+          setupFiles: [ ".storybook/vitest.setup.js" ],
         },
       },
     ],
   },
-});
+  optimizeDeps: {
+    include: [ 'recharts' ]
+  }
+} );

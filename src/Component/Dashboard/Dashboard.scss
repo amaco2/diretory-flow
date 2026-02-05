@@ -1,0 +1,817 @@
+// ============================================================================
+// DASHBOARD - TRELLO MODERN STYLE
+// Responsive, Accessible, SEO-friendly
+// ============================================================================
+
+// Colors palette - Trello inspired
+$primary: #0079bf;
+$primary-dark: #0051a3;
+$secondary: #5e6c84;
+$success: #216e4e;
+$warning: #974f0c;
+$danger: #ae2a19;
+$info: #0052a3;
+
+$bg-light: #f8f9fa;
+$bg-dark: #0f1419;
+$card-bg: #ffffff;
+$text-dark: #172b4d;
+$text-light: #626f86;
+$border-color: #d1d9e0;
+
+// Spacing scale
+$xs: 0.25rem;
+$sm: 0.5rem;
+$md: 1rem;
+$lg: 1.5rem;
+$xl: 2rem;
+$xxl: 3rem;
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$wide: 1440px;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(9, 30, 66, 0.13);
+$shadow-base: 0 1px 0 rgba(9, 30, 66, 0.13), 0 4px 8px rgba(9, 30, 66, 0.13);
+$shadow-lg: 0 8px 16px rgba(9, 30, 66, 0.15);
+$shadow-xl: 0 16px 32px rgba(9, 30, 66, 0.15);
+
+// ============================================================================
+// MIXINS
+// ============================================================================
+@mixin media-mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin media-tablet {
+    @media (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin media-desktop {
+    @media (max-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin media-wide {
+    @media (max-width: $wide) {
+        @content;
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin transition($prop: all, $duration: 200ms) {
+    transition: $prop $duration ease-in-out;
+}
+
+@mixin card-shadow {
+    box-shadow: $shadow-base;
+}
+
+@mixin hover-shadow {
+    box-shadow: $shadow-lg;
+}
+
+// ============================================================================
+// RESET & BASE
+// ============================================================================
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+                 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+                 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: $bg-light;
+    color: $text-dark;
+}
+
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 $sm 0;
+    color: $text-dark;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+
+    @include media-tablet {
+        font-size: 1.75rem;
+    }
+
+    @include media-mobile {
+        font-size: 1.5rem;
+    }
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 $sm 0;
+    color: $text-dark;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+
+    @include media-tablet {
+        font-size: 1.25rem;
+    }
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 $xs 0;
+    color: $text-dark;
+    line-height: 1.4;
+
+    @include media-mobile {
+        font-size: 1rem;
+    }
+}
+
+h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+    color: $text-light;
+}
+
+p {
+    margin: 0;
+    color: $text-light;
+    line-height: 1.5;
+
+    @include media-mobile {
+        font-size: 0.9rem;
+    }
+}
+
+// ============================================================================
+// DASHBOARD CONTAINER
+// ============================================================================
+.dashboard-container,
+.DashboardContainer {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: $xxl $xl;
+    background: $bg-light;
+    min-height: 100vh;
+
+    @include media-tablet {
+        padding: $xl $lg;
+    }
+
+    @include media-mobile {
+        padding: $lg $md;
+    }
+}
+
+// ============================================================================
+// HEADER SECTION
+// ============================================================================
+.dashboard-header,
+.header-section,
+.HeaderSection {
+    margin-bottom: $xxl;
+    padding: $xl;
+    background: $primary;
+    border-radius: 4px;
+    color: white;
+    @include card-shadow;
+    @include transition();
+
+    h1 {
+        color: white;
+        margin: 0 0 $sm 0;
+
+        @include media-mobile {
+            font-size: 1.5rem;
+        }
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.95);
+        margin: $xs 0;
+        font-size: 0.95rem;
+
+        @include media-mobile {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// ============================================================================
+// PROGRESS SECTION
+// ============================================================================
+.progress-container,
+.ProgressContainer {
+    margin-top: $xl;
+    padding-top: $xl;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    h3 {
+        color: white;
+        margin: 0 0 $md 0;
+        @include flex-between;
+        font-size: 1rem;
+    }
+}
+
+.progress-bar,
+.ProgressBar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: $md;
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+        @include transition(width);
+        border-radius: 10px;
+    }
+}
+
+.progress-text,
+.ProgressText {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.95);
+
+    strong {
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+}
+
+// ============================================================================
+// GRID LAYOUTS
+// ============================================================================
+.phases-container,
+.PhasesContainer,
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: $xl;
+    margin-bottom: $xxl;
+
+    @include media-tablet {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: $lg;
+    }
+
+    @include media-mobile {
+        grid-template-columns: 1fr;
+        gap: $md;
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $lg;
+    margin-bottom: $xl;
+
+    @include media-tablet {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-mobile {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ============================================================================
+// CARDS
+// ============================================================================
+.phase-card,
+.PhaseCard,
+.chart-card,
+.ChartCard,
+.stat-card,
+.StatCard,
+.card {
+    background: $card-bg;
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    padding: $xl;
+    @include card-shadow;
+    @include transition();
+    animation: slideInUp 0.3s ease-out;
+
+    @include media-tablet {
+        padding: $lg;
+    }
+
+    @include media-mobile {
+        padding: $md;
+    }
+
+    &:hover {
+        @include hover-shadow;
+        border-color: $primary;
+        transform: translateY(-2px);
+    }
+
+    h2,
+    h3,
+    h4 {
+        margin-top: 0;
+    }
+}
+
+// ============================================================================
+// CHART CONTAINERS
+// ============================================================================
+.chart-wrapper,
+.chart-container {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+
+    @include media-tablet {
+        min-height: 250px;
+    }
+
+    @include media-mobile {
+        min-height: 200px;
+    }
+
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+// Recharts customization
+.recharts-wrapper {
+    width: 100% !important;
+}
+
+.recharts-tooltip-wrapper {
+    outline: none;
+}
+
+.recharts-tooltip {
+    background: $card-bg !important;
+    border: 1px solid $border-color !important;
+    border-radius: 4px !important;
+    box-shadow: $shadow-lg !important;
+}
+
+.recharts-tooltip-label {
+    font-weight: 600;
+    color: $text-dark !important;
+    margin-bottom: $xs !important;
+}
+
+.recharts-legend-wrapper {
+    padding-top: $lg !important;
+
+    .recharts-legend-item {
+        margin-right: $lg !important;
+        padding: $sm !important;
+    }
+}
+
+.recharts-text {
+    font-size: 12px !important;
+    fill: $text-light !important;
+}
+
+// ============================================================================
+// STATUS BADGES & INDICATORS
+// ============================================================================
+.status-badge,
+.badge {
+    display: inline-block;
+    padding: $sm $md;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    @include transition();
+
+    &.success {
+        background: rgba(33, 110, 78, 0.15);
+        color: $success;
+        border: 1px solid rgba(33, 110, 78, 0.3);
+    }
+
+    &.warning {
+        background: rgba(151, 79, 12, 0.15);
+        color: $warning;
+        border: 1px solid rgba(151, 79, 12, 0.3);
+    }
+
+    &.danger {
+        background: rgba(174, 42, 25, 0.15);
+        color: $danger;
+        border: 1px solid rgba(174, 42, 25, 0.3);
+    }
+
+    &.info {
+        background: rgba(0, 82, 163, 0.15);
+        color: $info;
+        border: 1px solid rgba(0, 82, 163, 0.3);
+    }
+}
+
+// ============================================================================
+// STAT ITEMS
+// ============================================================================
+.stat-item {
+    @include flex-between;
+    margin-bottom: $md;
+    padding-bottom: $md;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: $text-light;
+        font-weight: 500;
+    }
+
+    .stat-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: $text-dark;
+    }
+}
+
+// ============================================================================
+// BUTTONS
+// ============================================================================
+button,
+.button {
+    padding: $sm $md;
+    border-radius: 3px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    @include transition();
+    @include card-shadow;
+
+    &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+    }
+
+    &.primary {
+        background: $primary;
+        color: white;
+
+        &:hover:not(:disabled) {
+            background: $primary-dark;
+            @include hover-shadow;
+        }
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+
+        &:hover {
+            transform: none;
+            box-shadow: $shadow-base;
+        }
+    }
+}
+
+// ============================================================================
+// LOADING SPINNER
+// ============================================================================
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: $lg auto;
+    margin-top: 20svw;
+    border: 4px solid $border-color;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    &.small {
+        width: 24px;
+        height: 24px;
+        border-width: 2px;
+    }
+
+    &.large {
+        width: 56px;
+        height: 56px;
+        border-width: 5px;
+    }
+}
+
+// ============================================================================
+// ANIMATIONS
+// ============================================================================
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.phase-card,
+.chart-card,
+.stat-card,
+.card {
+    animation: slideInUp 0.3s ease-out forwards;
+
+    &:nth-child(1) {
+        animation-delay: 0ms;
+    }
+    &:nth-child(2) {
+        animation-delay: 100ms;
+    }
+    &:nth-child(3) {
+        animation-delay: 200ms;
+    }
+    &:nth-child(n + 4) {
+        animation-delay: 300ms;
+    }
+}
+
+// ============================================================================
+// UTILITY CLASSES
+// ============================================================================
+.text-primary {
+    color: $primary;
+}
+
+.text-success {
+    color: $success;
+}
+
+.text-warning {
+    color: $warning;
+}
+
+.text-danger {
+    color: $danger;
+}
+
+.text-light {
+    color: $text-light;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-1 { margin-top: $sm; }
+.mt-2 { margin-top: $md; }
+.mt-3 { margin-top: $lg; }
+.mt-4 { margin-top: $xl; }
+
+.mb-1 { margin-bottom: $sm; }
+.mb-2 { margin-bottom: $md; }
+.mb-3 { margin-bottom: $lg; }
+.mb-4 { margin-bottom: $xl; }
+
+.p-1 { padding: $sm; }
+.p-2 { padding: $md; }
+.p-3 { padding: $lg; }
+.p-4 { padding: $xl; }
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+@media print {
+    .dashboard-container {
+        background: white;
+        padding: 0;
+    }
+
+    .phase-card,
+    .chart-card,
+    .stat-card,
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        background: white;
+    }
+
+    .no-print {
+        display: none;
+    }
+
+    .print-break {
+        page-break-after: always;
+    }
+}
+
+// ============================================================================
+// RESPONSIVE DESIGN
+// ============================================================================
+@media (max-width: $wide) {
+    .dashboard-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: $tablet) {
+    .dashboard-header {
+        padding: $lg $md;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .grid-layout,
+    .phases-container {
+        gap: $md;
+    }
+
+    .card {
+        padding: $md;
+    }
+}
+
+@media (max-width: $mobile) {
+    .dashboard-container {
+        padding: $md;
+    }
+
+    .dashboard-header {
+        margin-bottom: $lg;
+        padding: $lg;
+
+        h1 {
+            font-size: 1.3rem;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
+    }
+
+    .grid-layout,
+    .phases-container,
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: $md;
+    }
+
+    .chart-wrapper {
+        min-height: 200px;
+    }
+
+    .card {
+        padding: $md;
+    }
+}
+
+// ============================================================================
+// DARK MODE SUPPORT
+// ============================================================================
+@media (prefers-color-scheme: dark) {
+    html,
+    body {
+        background: #1a1a1a;
+        color: #f0f0f0;
+    }
+
+    .dashboard-container {
+        background: #0f0f0f;
+    }
+
+    .card,
+    .phase-card,
+    .chart-card,
+    .stat-card {
+        background: #1a1a1a;
+        border-color: #333;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: #f0f0f0;
+    }
+
+    p {
+        color: #b0b0b0;
+    }
+}
+
+// ============================================================================
+// HIGH DPI SCREENS
+// ============================================================================
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .card,
+    .phase-card,
+    .chart-card,
+    .stat-card {
+        box-shadow: $shadow-base;
+    }
+}

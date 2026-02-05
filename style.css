@@ -59,3 +59,22 @@ html {
     transition: none !important;
   }
 }
+
+@media screen and (max-width: 780px) {
+
+  .load {
+    left: 40svw;
+    top: 35svw;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+
+  .load {
+    top: 60svw;
+    left: 30svw;
+
+  }
+
+}

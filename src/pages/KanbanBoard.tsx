@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, type ReactHTMLElement } from "react";
 import { DndContext, type DragEndEvent, closestCenter } from "@dnd-kit/core";
 import
 {
@@ -7,12 +7,13 @@ import
     arrayMove
 } from "@dnd-kit/sortable";
 import axios from "axios";
-import "../styles/Kanban.css";
+import "../styles/Kanban.scss";
 import { type Task, type Column } from "../Component/types/kanban";
 import KanbanColumn from "../Component/KanbanColumn";
 import { TContext } from "../ThemeContext";
 import { useOutletContext } from "react-router-dom";
 import axio from "../config/axiosConfig";
+import { getBreakdowns, getPhaseOfProject } from "./GetInfosProjects";
 
 interface Props
 {
@@ -34,8 +35,8 @@ const KanbanBoard: React.FC = () =>
 
     console.log(projectId);
     console.log(ID_Project);
-    // const projectContext: Project = projectId.find((item: Project) => (Number(item.id) === Number(ID_Project)));
-    // console.log("Context du projet", projectContext);
+    const projectContext: Project = projectId && projectId.find((item: Project) => (Number(item.id) === Number(ID_Project)));
+    console.log("Context du projet", projectContext);
 
     useEffect(() =>
     {
@@ -82,7 +83,50 @@ const KanbanBoard: React.FC = () =>
             <header className="seo-header">
                 <h1>Tableau de production – DirectoryFlow</h1>
                 <p>Kanban intelligent pour la production audiovisuelle</p>
-                <button>Genere les taches</button>
+
+                <button
+                    onClick={async (e) =>
+                    {
+                        e.stopPropagation();
+
+                        try
+                        {
+
+                            const getScriptFrtomLocalStorage: string | null = localStorage.getItem('aiOutput');
+                            console.log('localstorage', getScriptFrtomLocalStorage)
+                            const ProjectName = projectContext?.name;
+
+                            const breakdownsItems = getScriptFrtomLocalStorage;
+                            const phases = await getPhaseOfProject(ID_Project);
+
+                            console.log(breakdownsItems)
+                            console.log('type:', typeof breakdownsItems)
+                            const columnsOrder = columns.map(col => col.name);
+
+                            const res = await axio.post(
+                                `/api/generate-tasks-columns/generate-task/${ID_Project}`,
+                                {
+                                    ProjectName,
+                                    breakdownsItems,
+                                    columnsOrder,
+                                    phases
+                                }
+                            );
+
+                            console.log("IA OK :", res.data);
+
+                        }
+                        catch (err: any)
+                        {
+                            console.error(
+                                "IA ERROR :",
+                                err.response?.data || err.message
+                            );
+                        }
+                    }}
+                >
+                    Générer les tâches IA
+                </button>
             </header>
 
             <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>

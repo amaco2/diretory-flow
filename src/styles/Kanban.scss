@@ -1,0 +1,481 @@
+// ============================================================================
+// KANBAN BOARD - TRELLO STYLE
+// Responsive & SEO-friendly design
+// ============================================================================
+
+// ============================================================================
+// VARIABLES
+// ============================================================================
+$colors: (
+    'primary': #0079bf,
+    'primary-dark': #0051a3,
+    'primary-light': #e2f0ff,
+    'bg-dark': #0f1419,
+    'bg-light': #f8f9fa,
+    'card-bg': #ffffff,
+    'text-dark': #172b4d,
+    'text-light': #626f86,
+    'border': #d1d9e0,
+    'shadow': rgba(9, 30, 66, 0.13),
+    'high': #ae2a19,
+    'medium': #974f0c,
+    'low': #216e4e,
+);
+
+$spacing: (
+    'xs': 0.25rem,
+    'sm': 0.5rem,
+    'md': 1rem,
+    'lg': 1.5rem,
+    'xl': 2rem,
+);
+
+$breakpoints: (
+    'mobile': 480px,
+    'tablet': 768px,
+    'desktop': 1024px,
+    'wide': 1440px,
+);
+
+$transitions: (
+    'fast': 150ms ease-in-out,
+    'base': 200ms ease-in-out,
+    'slow': 300ms ease-in-out,
+);
+
+// ============================================================================
+// MIXINS
+// ============================================================================
+@mixin media($breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin card-shadow {
+    box-shadow: 0 1px 0 rgb(9, 30, 66, 0.13),
+                0 4px 8px rgb(9, 30, 66, 0.13);
+}
+
+@mixin hover-shadow {
+    box-shadow: 0 8px 16px rgb(9, 30, 66, 0.15);
+}
+
+@mixin transition($prop: all) {
+    transition: $prop map-get($transitions, 'base');
+}
+
+// ============================================================================
+// RESET & BASE STYLES
+// ============================================================================
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto Huddle', 'Oxygen', 
+                 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================================================
+// SEO HEADER
+// ============================================================================
+.seo-header {
+    padding: map-get($spacing, 'lg') map-get($spacing, 'md');
+    background: map-get($colors, 'primary');
+    color: white;
+    @include card-shadow;
+
+    h1 {
+        margin: 0 0 map-get($spacing, 'sm') 0;
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        line-height: 1.3;
+
+        @include media('tablet') {
+            font-size: 1.5rem;
+        }
+
+        @include media('mobile') {
+            font-size: 1.25rem;
+        }
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.95rem;
+        opacity: 0.95;
+        font-weight: 400;
+
+        @include media('mobile') {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// ============================================================================
+// BOARD CONTAINER
+// ============================================================================
+.kanban-board {
+    display: flex;
+    gap: map-get($spacing, 'lg');
+    padding: map-get($spacing, 'lg');
+    background: map-get($colors, 'bg-light');
+    min-height: calc(100vh - 120px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: flex-start;
+
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: map-get($colors, 'border');
+        border-radius: 4px;
+
+        &:hover {
+            background: darken(map-get($colors, 'border'), 10%);
+        }
+    }
+
+    @include media('tablet') {
+        padding: map-get($spacing, 'md');
+        gap: map-get($spacing, 'md');
+    }
+
+    @include media('mobile') {
+        padding: map-get($spacing, 'sm');
+        gap: map-get($spacing, 'sm');
+        min-height: calc(100vh - 100px);
+    }
+}
+
+// ============================================================================
+// COLUMN STYLES
+// ============================================================================
+.kanban-column {
+    flex: 0 0 272px;
+    display: flex;
+    flex-direction: column;
+    background: #ebecf0;
+    border-radius: 3px;
+    max-height: calc(100vh - 200px);
+    @include transition();
+
+    @include media('tablet') {
+        flex: 0 0 260px;
+    }
+
+    @include media('mobile') {
+        flex: 0 0 calc(100vw - 40px);
+    }
+
+    // Semantic header element
+    header.column-header {
+        padding: map-get($spacing, 'md');
+        background: transparent;
+        border-bottom: none;
+        @include flex-between;
+
+        h2 {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: map-get($colors, 'text-dark');
+            letter-spacing: -0.3px;
+            flex: 1;
+
+            @include media('mobile') {
+                font-size: 0.9rem;
+            }
+        }
+
+        span {
+            font-size: 0.8rem;
+            color: map-get($colors, 'text-light');
+            font-weight: 500;
+            min-width: auto-fit;
+            margin-left: map-get($spacing, 'sm');
+        }
+    }
+
+    // Semantic article container for tasks
+    .column-body {
+        flex: 1;
+        padding: 0 map-get($spacing, 'sm') map-get($spacing, 'sm') map-get($spacing, 'sm');
+        display: flex;
+        flex-direction: column;
+        gap: map-get($spacing, 'sm');
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(9, 30, 66, 0.2);
+            border-radius: 4px;
+
+            &:hover {
+                background: rgba(9, 30, 66, 0.3);
+            }
+        }
+    }
+}
+
+// ============================================================================
+// TASK CARD STYLES
+// ============================================================================
+.kanban-task {
+    background: map-get($colors, 'card-bg');
+    padding: map-get($spacing, 'md');
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: grab;
+    @include card-shadow;
+    @include transition();
+
+    &:hover {
+        @include hover-shadow;
+        border-color: map-get($colors, 'primary');
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: map-get($colors, 'primary');
+            border-radius: 3px 0 0 3px;
+        }
+    }
+
+    &:active {
+        cursor: grabbing;
+        opacity: 0.8;
+    }
+
+    h3 {
+        margin: 0 0 map-get($spacing, 'sm') 0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: map-get($colors, 'text-dark');
+        line-height: 1.4;
+        word-break: break-word;
+
+        @include media('mobile') {
+            font-size: 0.85rem;
+        }
+    }
+
+    p {
+        margin: 0 0 map-get($spacing, 'md') 0;
+        font-size: 0.85rem;
+        color: map-get($colors, 'text-light');
+        line-height: 1.4;
+        word-break: break-word;
+
+        @include media('mobile') {
+            font-size: 0.8rem;
+        }
+    }
+
+    // Priority badge
+    .priority {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: map-get($spacing, 'xs') map-get($spacing, 'sm');
+        border-radius: 2px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin: 0;
+        @include transition();
+
+        &.high {
+            background: rgba(174, 42, 25, 0.15);
+            color: map-get($colors, 'high');
+            border: 1px solid rgba(174, 42, 25, 0.3);
+        }
+
+        &.medium {
+            background: rgba(151, 79, 12, 0.15);
+            color: map-get($colors, 'medium');
+            border: 1px solid rgba(151, 79, 12, 0.3);
+        }
+
+        &.low {
+            background: rgba(33, 110, 78, 0.15);
+            color: map-get($colors, 'low');
+            border: 1px solid rgba(33, 110, 78, 0.3);
+        }
+    }
+}
+
+// ============================================================================
+// ANIMATIONS
+// ============================================================================
+@keyframes fadeInColumn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kanban-column {
+    animation: fadeInColumn 0.3s map-get($transitions, 'base') forwards;
+
+    &:nth-child(1) {
+        animation-delay: 0ms;
+    }
+    &:nth-child(2) {
+        animation-delay: 100ms;
+    }
+    &:nth-child(3) {
+        animation-delay: 200ms;
+    }
+}
+
+.kanban-task {
+    animation: slideUp 0.3s map-get($transitions, 'base') forwards;
+}
+
+// ============================================================================
+// DRAG & DROP FEEDBACK
+// ============================================================================
+.kanban-task.dragging {
+    opacity: 0.5;
+    @include hover-shadow;
+}
+
+.kanban-column.drag-over {
+    background: darken(#ebecf0, 2%);
+    border: 2px dashed map-get($colors, 'primary');
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+.kanban-task:focus-visible {
+    outline: 2px solid map-get($colors, 'primary');
+    outline-offset: 2px;
+}
+
+.column-header h2:focus-visible {
+    outline: 2px solid map-get($colors, 'primary');
+    outline-offset: 2px;
+}
+
+// ============================================================================
+// RESPONSIVE DESIGN
+// ============================================================================
+@media (max-width: map-get($breakpoints, 'tablet')) {
+    .seo-header {
+        padding: map-get($spacing, 'md') map-get($spacing, 'md');
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: map-get($spacing, 'xs');
+        }
+    }
+
+    .kanban-board {
+        min-height: calc(100vh - 100px);
+    }
+}
+
+@media (max-width: map-get($breakpoints, 'mobile')) {
+    .kanban-board {
+        flex-direction: column;
+        overflow-x: visible;
+        overflow-y: auto;
+        min-height: auto;
+    }
+
+    .kanban-column {
+        max-height: 500px;
+        flex: 1 1 auto;
+
+        .column-body {
+            max-height: 400px;
+        }
+    }
+
+    .kanban-task {
+        padding: map-get($spacing, 'md') map-get($spacing, 'sm');
+    }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+@media print {
+    .kanban-board {
+        background: white;
+        padding: 0;
+    }
+
+    .kanban-column {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .kanban-task {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+// ============================================================================
+// HIGH DPI SCREENS
+// ============================================================================
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .kanban-task,
+    .kanban-column {
+        @include card-shadow;
+    }
+}

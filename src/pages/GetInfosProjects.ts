@@ -5,7 +5,6 @@ import axio from "../config/axiosConfig"
 
 const getBreakdowns = async (projectId: number) =>
 {
-    // const getScriptFrtomLocalStorage: string | null = localStorage.getItem('aiOutput');
 
     // Recuperation du Depouillement depuis le METHODE <<GET>> de axios
     axio
@@ -14,7 +13,7 @@ const getBreakdowns = async (projectId: number) =>
         {
             console.log("Depouillement du projet", response?.data?.data);
 
-            if (response?.data?.data) return response?.data?.data;
+            return [response?.data?.data];
         })
         .catch(error =>
         (
@@ -49,4 +48,4 @@ const useGetInfosProjects = (projectId: number) =>
 
 }
 
-export { useGetInfosProjects };
+export { useGetInfosProjects, getBreakdowns, getPhaseOfProject };

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import Bg_Img_Main from '../asset/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg';
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard } from 'lucide-react';
+import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import axio from '../config/axiosConfig';
@@ -10,36 +10,29 @@ import { TContext } from '../ThemeContext';
 import { IconArrowGuide } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
 import carouselImg1 from '../asset/CarroselAnimation/etienne-girardet-QyFDgLRjaiU-unsplash.jpg';
-import carouselImg2 from '../asset/CarroselAnimation/premium_photo-1683120963435-6f9355d4a776.avif';
-import carouselImg3 from '../asset/CarroselAnimation/rubaitul-azad-DBQcVVvv1YE-unsplash.jpg';
 import carouselImg4 from '../asset/gr-stocks-q8P8YoR6erg-unsplash.jpg';
 import { AnimatedBloc } from '../Component/Scroll';
+import videoMain from '../Ui/videos/istockphoto-2240060367-640_adpp_is.mp4'
+import { button, div, section } from 'framer-motion/client';
 
 // Image d'accueil
 const Div_Img_Bg_Main = styled.div`
   width: 100%;
   height: 650px;
   margin-top: 65px;
-  background-image: url('${ Bg_Img_Main }');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  object-fit: cover;
+  position: relative;
   border: none;
-  background-attachment: fixed;
-  background-clip: padding-box;
-  animation: bgAnimation linear 20s infinite;
-  transition: animation 2s ease;
+  overflow: hidden;
 
-
-  @keyframes bgAnimation{
-      50%{
-        background-image: url('${ carouselImg2 }');
-      }
-      100%{
-        background-image: url('${ carouselImg3 }');
-      }
-    }
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // z-index: -1;
+  }
 
   @media screen and (max-width: 480px){
     height: 680px;
@@ -493,8 +486,26 @@ function Main()
    * <Link to={isConnect?"projects":"connexion"}>
    */
   const { isConnect } = useContext( TContext );
+  const [ isShowProject, setIsShowProject ] = useState( false );
   const { wasProject, setWasProject, projectId, } = useContext( TContext );
   const navigate = useNavigate();
+
+  const handleShowProject = ( e ) =>
+  {
+    e.preventDefault();
+    if ( !isShowProject )
+    {
+      setIsShowProject( o => !o );
+    }
+  }
+  const handelHiddenProject = ( e ) =>
+  {
+    e.preventDefault();
+    if ( isShowProject )
+    {
+      setIsShowProject( p => !p );
+    }
+  }
 
   return (
     <motion.main
@@ -505,6 +516,10 @@ function Main()
       role="main">
       <header>
         <Div_Img_Bg_Main>
+          <video autoPlay muted loop>
+            <source src={ videoMain } type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <BtnGetStarts onClick={ ( e ) =>
           {
             e.stopPropagation();
@@ -518,12 +533,32 @@ function Main()
 
       <section id="recent-projects" aria-labelledby="recent-projects-title">
         <h2 id="recent-projects-title">Projets récents</h2>
+        {/* <ChevronDown /> */ }
         { wasProject && projectId && projectId.length > 0 ? (
-          <div className="projects-grid">
-            { projectId.map( ( project, index ) => (
-              <ProjectCard project={ project } key={ project.id || index } />
-            ) ) }
-          </div>
+          <section>
+            <div>
+              { !isShowProject ?
+                <button className='btn-hidden-project'><ChevronDown onClick={ handleShowProject } cursor={ 'pointer' }
+                  color="#fff" /></button> :
+                <div>
+                  <span className='chevron-show-project'
+                    onClick={ handelHiddenProject }>
+                    Déroulez vos projets
+                    <button>
+                      <ChevronRight cursor={ 'pointer' }
+                        size={ 28 }
+                        color='#fff' />
+                    </button>
+                  </span>
+                </div>
+              }
+            </div>
+            <div className="projects-grid" style={ { display: isShowProject && "none" } }>
+              { projectId.map( ( project, index ) => (
+                <ProjectCard project={ project } key={ project.id || index } />
+              ) ) }
+            </div>
+          </section>
         ) : (
           <div className="no-projects">
             <p>Aucun projet récent trouvé</p>
@@ -554,7 +589,7 @@ function Main()
       <Testimonials />
       <CallToAction />
       <Footer />
-    </motion.main>
+    </motion.main >
   );
 }
 

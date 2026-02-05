@@ -32,7 +32,7 @@ function ProfilUser()
             <div className='pp-user'>
               <DivUser
                 className='pp-user-img'
-                style={ { backgroundColor: `${ bgColor }`, marginLeft: '55px', top: "30px" } }
+                style={ { backgroundColor: `${ bgColor }` } }
 
                 onClick={ ( e ) =>
                 {
@@ -61,13 +61,13 @@ function ProfilUser()
         </ul>
       </SettingUser>
       <DivUser
+        className='pp-user-img'
         onClick={ ( event ) =>
         {
           event.stopPropagation();
           setIsShowProfil( o => !o );
         } }
-        style={ { backgroundColor: `${ bgColor }` } }
-        className='pp-user-img'
+        style={ { backgroundColor: `${ bgColor }`, paddingTop: "3px", paddingLeft: "11.8px" } }
       >
         { intialUser }
       </DivUser>

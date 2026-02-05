@@ -26,7 +26,7 @@ import
     Info,
 } from 'lucide-react';
 import styled from 'styled-components';
-import './ProjectOverview.css';
+import './Dashboard.scss';
 
 // Styled Components
 const DashboardContainer = styled.div`
@@ -34,12 +34,21 @@ const DashboardContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   padding: 30px 20px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1a1a1a;
 
   @media (max-width: 768px) {
     padding: 20px 15px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 `;
 
