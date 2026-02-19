@@ -1,6 +1,7 @@
 import
 {
     AlarmClock,
+    ArrowLeft,
     Film,
     Loader,
     ProjectorIcon,
@@ -93,7 +94,7 @@ function Step1()
             setIsLoading );
 
         // Redirection vers l'étape suivante après succès
-        if ( isLoading && !errorMessage ) navigate( '/' );
+        if ( !isLoading && !errorMessage ) navigate( '/' );
 
 
     };
@@ -107,6 +108,8 @@ function Step1()
         <section aria-labelledby="step1-title" className='section'>
             <h2 id="step1-title" className="sr-only">Informations générales</h2>
             <form className="step-form center-column" onSubmit={ handleSubmit }>
+                <ArrowLeft color='#000' size={ 30 } width={ 500 } onClick={ () => navigate( '/projects' ) } cursor={ 'pointer' } style={ { marginLeft: '-40svw' } } />
+
                 <div className="form-field">
                     <label htmlFor='titre'>
                         Titre du projet : <ProjectorIcon color='#00ff00' size={ 35 } />{ ' ' }

@@ -27,7 +27,7 @@ function ScriptUpload()
     // Dynamically import all images from the asset folder (Vite)
     // @ts-ignore
     const modules = import.meta.glob('../../IA_asset/*.{jpg,jpeg,png}', { eager: true }) as Record<string, any>;
-    const entries = Object.entries(modules).sort((a, b) => a[0].localeCompare(b[0]));
+    const entries = Object.entries(modules).sort((a, b) => a[0].localeCompare(b[0])).slice(0, 4);
     const images = entries.map(([k, v]) => v.default || v);
     const captions = entries.map(([k]) =>
     {

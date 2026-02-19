@@ -1,14 +1,19 @@
+import { useState } from 'react';
 import Headers from '../Ui/Header';
 import Main from '../Ui/Main.jsx';
+import { HomeContext } from '../ThemeContext';
 
 function Home()
 {
+    const [ isShowProject, setIsShowProject ] = useState( true );
+
     return (
-        <div>
+        <HomeContext.Provider
+            value={ { isShowProject, setIsShowProject } }>
             <Headers />
 
             <Main />
-        </div>
+        </HomeContext.Provider>
     );
 }
 

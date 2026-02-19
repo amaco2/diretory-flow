@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style/LayoutProjects.css";
 import { Footer } from "../../Ui/Main";
+import { ArrowLeft, Clapperboard, ClipboardCopy, FileArchive, TrendingUp, UserRoundPlus } from "lucide-react";
 
 function LayoutProject()
 {
+    const navigate = useNavigate();
+    const color = '#fff';
+    const size = 38;
     return (
         <div className="layout-projects-container">
             {/* Header */}
             <header className="projects-header">
+                <ArrowLeft size={35} onClick={() => navigate('/')} cursor={'pointer'} />
                 <div className="header-content">
                     <h1>Mes Projets</h1>
                     <p className="header-subtitle">Créez et gérez vos projets audiovisuels</p>
@@ -19,7 +24,7 @@ function LayoutProject()
                 <div className="projects-welcome">
                     {/* Empty State */}
                     <section className="empty-state">
-                        <div className="empty-state-icon">📋</div>
+                        <div className="empty-state-icon"><FileArchive size={60} color={color} /></div>
                         <h2>Bienvenue dans DirectoryFlow</h2>
                         <p className="empty-state-description">
                             Vous n'avez pas encore de projets. Créez votre premier projet pour commencer
@@ -67,19 +72,21 @@ function LayoutProject()
                     {/* Info Cards */}
                     <section className="info-cards">
                         <div className="info-card">
-                            <div className="card-icon">🎬</div>
+                            <div className="card-icon"><Clapperboard size={size} color={color
+
+                            } /></div>
                             <h4>Production Audiovisuelle</h4>
                             <p>Organisez vos tournages, montage et post-production</p>
                         </div>
 
                         <div className="info-card">
-                            <div className="card-icon">👥</div>
+                            <div className="card-icon"><UserRoundPlus color={color} size={size} /></div>
                             <h4>Collaboration</h4>
                             <p>Invitez vos collaborateurs et travaillez ensemble</p>
                         </div>
 
                         <div className="info-card">
-                            <div className="card-icon">📊</div>
+                            <div className="card-icon"><TrendingUp color={color} size={size} /></div>
                             <h4>Kanban Intuitif</h4>
                             <p>Suivez la progression de votre projet en temps réel</p>
                         </div>

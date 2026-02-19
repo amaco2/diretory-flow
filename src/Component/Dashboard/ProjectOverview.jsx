@@ -24,9 +24,17 @@ import
     CheckCircle,
     AlertCircle,
     Info,
+    Users2,
+    Calendar1Icon,
+    Check,
+    FileArchive,
+    TrendingUpDownIcon,
+    Clipboard,
+    ClipboardIcon,
 } from 'lucide-react';
 import styled from 'styled-components';
 import './Dashboard.scss';
+import { IconLayoutDashboard, IconMoneybag } from '@tabler/icons-react';
 
 // Styled Components
 const DashboardContainer = styled.div`
@@ -34,7 +42,7 @@ const DashboardContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   padding: 30px 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+//   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   min-height: 100vh;
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1a1a1a;
@@ -55,7 +63,7 @@ const DashboardContainer = styled.div`
 const HeaderSection = styled.div`
   margin-bottom: 40px;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 30%, #23445b 70%);
   border-radius: 15px;
   color: white;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -64,6 +72,7 @@ const HeaderSection = styled.div`
     margin: 0 0 10px 0;
     font-size: 2.5em;
     font-weight: 700;
+    color: #fff;
 
     @media (max-width: 768px) {
       font-size: 1.8em;
@@ -74,6 +83,7 @@ const HeaderSection = styled.div`
     margin: 5px 0;
     opacity: 0.95;
     font-size: 1.1em;
+    color: #fff;
 
     @media (max-width: 768px) {
       font-size: 0.95em;
@@ -92,6 +102,7 @@ const ProgressContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #fff !important;
   }
 `;
 
@@ -136,7 +147,7 @@ const PhasesContainer = styled.div`
 `;
 
 const PhaseCard = styled.div`
-  background: white;
+  background: #0a1b3b;
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -210,7 +221,7 @@ const ChartsContainer = styled.div`
 `;
 
 const ChartCard = styled.div`
-  background: white;
+  background: #000000;
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -223,7 +234,7 @@ const ChartCard = styled.div`
   h3 {
     margin: 0 0 10px 0;
     font-size: 1.3em;
-    color: #333;
+    color: #f0f6f6;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -266,7 +277,7 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled.div`
-  background: white;
+  background: #000;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -291,14 +302,14 @@ const StatCard = styled.div`
   }
 
   .stat-label {
-    color: #666;
+    color: #d5e8e9;
     font-size: 0.95em;
-    font-weight: 500;
+    font-weight: 800;
   }
 `;
 
 const InfoBanner = styled.div`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #303858e9 30%, #10393e 70%);
   color: white;
   padding: 20px;
   border-radius: 12px;
@@ -311,6 +322,7 @@ const InfoBanner = styled.div`
   .icon {
     flex-shrink: 0;
     margin-top: 2px;
+    color: #fff;
   }
 
   .content {
@@ -318,14 +330,17 @@ const InfoBanner = styled.div`
 
     h4 {
       margin: 0 0 8px 0;
-      font-size: 1.1em;
+      color: #fff;
+      font-size: 1.5em;
       font-weight: 600;
     }
 
     p {
       margin: 0;
-      font-size: 0.95em;
+      font-size: 1.2em;
       opacity: 0.95;
+      color: #fff;
+
     }
   }
 
@@ -471,7 +486,7 @@ function ProjectOverview()
         <DashboardContainer>
             {/* Header Section */ }
             <HeaderSection>
-                <h1>📊 Tableau de Bord du Projet</h1>
+                <h1><IconLayoutDashboard size={ 40 } /> Tableau de Bord du Projet</h1>
                 <p>
                     <strong>{ projectData.projectName }</strong> - { projectData.projectType }
                 </p>
@@ -509,39 +524,39 @@ function ProjectOverview()
             {/* Quick Stats */ }
             <StatsGrid>
                 <StatCard borderColor="#667eea" textColor="#667eea">
-                    <div className="stat-icon">👥</div>
+                    <div className="stat-icon"><Users2 size={ 40 } color='#667eea' /></div>
                     <div className="stat-value">{ projectData.teamSize }</div>
                     <div className="stat-label">Membres de l'équipe</div>
                 </StatCard>
 
                 <StatCard borderColor="#f59e0b" textColor="#f59e0b">
-                    <div className="stat-icon">💰</div>
+                    <div className="stat-icon"><IconMoneybag size={ 40 } color="#f59e0b" /></div>
                     <div className="stat-value">{ ( projectData.budget / 1000 ).toFixed( 0 ) }k€</div>
                     <div className="stat-label">Budget Total</div>
                 </StatCard>
 
                 <StatCard borderColor="#10b981" textColor="#10b981">
-                    <div className="stat-icon">📅</div>
+                    <div className="stat-icon"><Calendar1Icon size={ 40 } color='#10b981' /></div>
                     <div className="stat-value">14</div>
                     <div className="stat-label">Semaines Restantes</div>
                 </StatCard>
 
                 <StatCard borderColor="#8b5cf6" textColor="#8b5cf6">
-                    <div className="stat-icon">✅</div>
+                    <div className="stat-icon"><Check size={ 40 } color='#8b5cf6' /></div>
                     <div className="stat-value">50</div>
                     <div className="stat-label">Tâches Complétées</div>
                 </StatCard>
             </StatsGrid>
 
             {/* Phases Section */ }
-            <h2 style={ { marginBottom: '20px', fontSize: '1.8em', color: '#333' } }>
-                📌 Phases du Projet
+            <h2 style={ { marginBottom: '20px', fontSize: '1.8em', color: '#ffffff' } }>
+                <FileArchive fill='#0094f0' size={ 30 } /> Phases du Projet
             </h2>
             <PhasesContainer>
                 { Object.entries( phases ).map( ( [ key, phase ] ) => (
                     <PhaseCard key={ key } color={ phase.color } badgeBg={ phase.badgeBg }>
                         <h3>
-                            { phase.icon } { key.charAt( 0 ).toUpperCase() + key.slice( 1 ) }
+                            <ClipboardIcon />{ key.charAt( 0 ).toUpperCase() + key.slice( 1 ) }
                         </h3>
                         <div className="info-item">
                             <label>Statut:</label>
@@ -563,8 +578,8 @@ function ProjectOverview()
             </PhasesContainer>
 
             {/* Charts Section */ }
-            <h2 style={ { marginBottom: '20px', fontSize: '1.8em', color: '#333' } }>
-                📈 Statistiques Détaillées
+            <h2 style={ { marginBottom: '20px', fontSize: '1.8em', color: '#ffffff' } }>
+                <TrendingUpDownIcon size={ 35 } color='#fff' /> Statistiques Détaillées
             </h2>
             <ChartsContainer>
                 {/* Chart 1: Team Composition */ }

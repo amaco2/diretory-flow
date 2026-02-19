@@ -1,10 +1,12 @@
 import
 {
   Contact2,
+  FileBarChart,
   HelpCircle,
   History,
   Home,
   User2Icon,
+  Users2,
   Workflow,
   X,
 } from 'lucide-react';
@@ -13,9 +15,9 @@ import styled from 'styled-components';
 import { breakPoint } from './MediaQuery/MediaQuery.jsx';
 // Importation de l'icone personnalisée de directoryflow
 import './style/Header.css';
-import { Link } from 'react-router-dom';
+import { href, Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { TContext } from '../ThemeContext.jsx';
+import { HomeContext, TContext } from '../ThemeContext.jsx';
 import ProfilUser from './ProfilUsers/ProfilsUser.jsx';
 import
 {
@@ -25,6 +27,7 @@ import
 import { IconUsers } from '@tabler/icons-react';
 import { Burger } from '@mantine/core';
 import DirectoryFlowLogo from '../Icon/DirectoryFlowLogo.jsx';
+import { label } from 'framer-motion/client';
 
 /* Creation du logo DirectoryFlow personnalisé */
 
@@ -75,7 +78,7 @@ const BtnConnexion = styled.button`
 const SpanTextDF = styled.span`
   font-size: 1.7em;
   font-weight: bold;
-  color: #161616ff;
+  color: rgb(0, 157, 255);
   @media screen and (max-width: ${ breakPoint.mobile }) {
     font-size: 1.2em;
   }
@@ -83,7 +86,7 @@ const SpanTextDF = styled.span`
 
 // Creation de l'icone connexion apres la desaction des boutons deja present
 
-const IconUser = styled( User2Icon )`
+const IconUser = styled( Users2 )`
   display: none;
   margin-top: 18px;
   cursor: pointer;
@@ -106,13 +109,29 @@ function Headers()
   const bgColor = stringToColor( iconeUser );
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState( false );
 
+  // cette constante a pour principal role d'afficher la liste des projets d'un utilisateur
+  const { isShowProject, setIsShowProject } = useContext( HomeContext );
+
   const navMenuItems = [
     { label: 'Accueil', icon: Home, href: '/' },
     { label: 'Contact', icon: Contact2, href: '#' },
     { label: 'Aide', icon: HelpCircle, href: '#' },
     { label: 'Workflow', icon: Workflow, href: '#' },
     { label: 'Historique', icon: History, href: '#' },
+    isConnect ? { label: "Projet", icon: FileBarChart, href: '#' } : ''
   ];
+
+  // Cette sert a affucher liste des projets recent de l'iutilisateur
+  const handleShowProject = ( e ) =>
+  {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if ( isShowProject )
+    {
+      setIsShowProject( o => !o );
+    }
+  }
 
   return (
     <div>
@@ -131,9 +150,12 @@ function Headers()
             {
               const Icon = item.icon;
               return (
-                <Link key={ item.label } to={ item.href } className='nav-item'>
+                <Link key={ item.label } to={ item.href } className='nav-item' onClick={ ( e ) =>
+                {
+                  item.label === 'Projet' ? handleShowProject( e ) : '';
+                } }>
                   <Icon size={ 22 } color={ bgColor } />
-                  <span>{ item.label }</span>
+                  <span >{ item.label }</span>
                 </Link>
               );
             } ) }
@@ -164,7 +186,7 @@ function Headers()
                   <BtnInscription>Inscription</BtnInscription>
                 </Link>
                 <Link to={ '/connexion' }>
-                  <IconUser fill='#000' color='#ffff' size={ 50 } />
+                  <IconUser color='#ffff' size={ 40 } />
                 </Link>
               </div>
             ) }

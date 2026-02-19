@@ -100,14 +100,16 @@ html, body {
 // ============================================================================
 .seo-header {
     padding: map-get($spacing, 'lg') map-get($spacing, 'md');
-    background: map-get($colors, 'primary');
+    background: map-get($colors, 'bg-dark');
     color: white;
+    border-radius: 8px;
     @include card-shadow;
 
     h1 {
         margin: 0 0 map-get($spacing, 'sm') 0;
-        font-size: 1.75rem;
+        font-size: 1.95rem;
         font-weight: 700;
+        color: #057cc1;
         letter-spacing: -0.3px;
         line-height: 1.3;
 
@@ -122,9 +124,10 @@ html, body {
 
     p {
         margin: 0;
-        font-size: 0.95rem;
+        font-size: 1.4rem;
         opacity: 0.95;
-        font-weight: 400;
+        font-weight: 800;
+        color: map-get($colors, "primary-light" );
 
         @include media('mobile') {
             font-size: 0.9rem;

@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard, ArrowLeft, ChevronDown, ChevronUp, ProjectorIcon, Smile, FileArchive, Equal, CalendarX, FileText, UsersIcon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import axio from '../config/axiosConfig';
-import { TContext } from '../ThemeContext';
-import { IconArrowGuide } from '@tabler/icons-react';
+import { HomeContext, TContext } from '../ThemeContext';
+import { IconArrowGuide, IconBrandTeams, IconCapProjecting, IconRobot, IconUsersPlus } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
 import carouselImg1 from '../asset/CarroselAnimation/etienne-girardet-QyFDgLRjaiU-unsplash.jpg';
 import carouselImg4 from '../asset/gr-stocks-q8P8YoR6erg-unsplash.jpg';
@@ -52,12 +52,12 @@ const BtnGetStarts = styled.button`
   padding: 14px 28px;
   min-width: 20svw;
   height: 7svw;
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 800;
   border-radius: 15px;
   color: #fff;
-  background: linear-gradient(90deg, #ff7a18 0%, #ff3d81 50%, #7a00ff 100%);
-  border: none;
+  background-color: #000000;
+  border: 1px solid #e9f8fa;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 -4px 12px rgba(255,255,255,0.05);
   cursor: pointer;
   transition: transform 180ms ease, box-shadow 180ms ease;
@@ -72,9 +72,18 @@ const BtnGetStarts = styled.button`
   }
 
   &:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(4px) scale(1.02);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    animation: animate linear 4s infinite; 
   }
+    @keyframes animate{
+      to{
+       opacity: 0.4;
+      }
+       from{
+       opacity: 1;
+       }
+    }
 
   &:focus {
     outline: 3px solid rgba(255, 255, 255, 0.14);
@@ -417,7 +426,7 @@ function Carousel()
 {
   const [ currentIndex, setCurrentIndex ] = useState( 0 );
   const modules = import.meta.glob( './CarroselHome/*.{jpg,jpeg,png}', { eager: true } );
-  const entries = Object.entries( modules ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) );
+  const entries = Object.entries( modules ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) ).slice( 0, 3 );
   const images = entries.map( ( [ k, v ] ) => v.default || v );
   const nextSlide = () =>
   {
@@ -486,7 +495,7 @@ function Main()
    * <Link to={isConnect?"projects":"connexion"}>
    */
   const { isConnect } = useContext( TContext );
-  const [ isShowProject, setIsShowProject ] = useState( false );
+  const { isShowProject, setIsShowProject } = useContext( HomeContext );
   const { wasProject, setWasProject, projectId, } = useContext( TContext );
   const navigate = useNavigate();
 
@@ -532,22 +541,24 @@ function Main()
       </header>
 
       <section id="recent-projects" aria-labelledby="recent-projects-title">
-        <h2 id="recent-projects-title">Projets récents</h2>
+        <h2 id="recent-projects-title">Projets récents <FileArchive color='#16d716' size={ 30 } /></h2>
         {/* <ChevronDown /> */ }
         { wasProject && projectId && projectId.length > 0 ? (
           <section>
+            {/* <IconRobot /> */ }
             <div>
               { !isShowProject ?
-                <button className='btn-hidden-project'><ChevronDown onClick={ handleShowProject } cursor={ 'pointer' }
-                  color="#fff" /></button> :
+                <button className='btn-hidden-project' onClick={ handleShowProject }><ChevronDown size={ 26 }
+                  color='#ffffff'
+                  cursor={ 'pointer' }
+                /></button> :
                 <div>
                   <span className='chevron-show-project'
                     onClick={ handelHiddenProject }>
                     Déroulez vos projets
                     <button>
                       <ChevronRight cursor={ 'pointer' }
-                        size={ 28 }
-                        color='#fff' />
+                        size={ 28 } color='#ffffff' />
                     </button>
                   </span>
                 </div>
@@ -568,21 +579,21 @@ function Main()
       </section>
 
       <section id="platform-description" aria-labelledby="platform-description-title">
-        <h2 id="platform-description-title">Plateforme IA de gestion de production audiovisuelle</h2>
+        <h2 id="platform-description-title"><IconRobot size={ 35 } color="#00d5ff" />Plateforme IA de gestion de production audiovisuelle</h2>
         <p>Planifiez, organisez et collaborez efficacement sur vos projets audiovisuels.</p>
       </section>
 
-      <FunctionalityHome />
+      {/* <FunctionalityHome /> */ }
 
       <Carousel />
 
       <section id="problems-solved" aria-labelledby="problems-solved-title">
         <h2 id="problems-solved-title">Problèmes résolus</h2>
         <ul>
-          <li>Gestion complexe des équipes</li>
-          <li>Planning inefficace</li>
-          <li>Manque de collaboration</li>
-          <li>Feuilles de service manuelles</li>
+          <li><UsersIcon size={ 40 } color="#0099ff" /> <br /> Gestion complexe des équipes</li>
+          <li><CalendarX size={ 40 } color="#0099ff" /><br />  Planning inefficace</li>
+          <li><IconUsersPlus size={ 40 } color="#0099ff" /><br />  Manque de collaboration</li>
+          <li><FileText size={ 40 } color="#0099ff" /><br /> Feuilles de service manuelles</li>
         </ul>
       </section>
 

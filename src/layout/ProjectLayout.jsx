@@ -23,11 +23,11 @@ function ProjectLayout( { children } )
             bg={ "#ffffffff" }
             className="bg-img-layout-main"
         >
-            <AppShell.Navbar bg={ '#23363dff' } color="#fff" __size="30">
+            <AppShell.Navbar bg={ 'rgb(6, 27, 77)' } color="#fff" __size="30">
                 <Sidebar />
             </AppShell.Navbar>
 
-            <AppShell.Header bg={ "#343f43ff" } color="#fff">
+            <AppShell.Header bg={ "rgb(6, 27, 77)" } color="#fff" h={80}>
                 <Topbar
                     toogleSidebar={ setOpened }
                     opened={ opened } />
