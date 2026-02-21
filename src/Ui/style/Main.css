@@ -489,13 +489,13 @@ p {
 .carousel {
   margin-top: 15rem;
   padding: 50px 20px;
-  background-color: #f8f9fa;
+  background-color: #171f28;
   text-align: center;
   border-radius: 0px !important;
 }
 
 .carousel h2 {
-  color: #2c3e50;
+  color: #bad1e7;
   margin-bottom: 40px;
   font-size: 2.5em;
 }
@@ -504,9 +504,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 85vw;
-  max-width: 90svw;
+  width: 55vw;
+  max-width: 60svw;
   margin: 0 auto;
+  background-color: #203956;
   position: relative;
 }
 
@@ -535,7 +536,7 @@ p {
 }
 
 .carousel-slides img {
-  width: 97svw;
+  width: 55svw;
   height: 30svw;
   border-radius: 10px;
   object-fit: cover;
@@ -548,7 +549,7 @@ p {
 }
 
 .carousel-btn {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   color: white;
   border: none;
   padding: 10px;

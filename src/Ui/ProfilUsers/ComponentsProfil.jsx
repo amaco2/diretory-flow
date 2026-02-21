@@ -24,7 +24,7 @@ const SettingUser = styled.div`
   width: 100%;
   //        border-radius: 20px;
   height: 300px;
-  background-color: #fff;
+  background-color: #000000d8;
 `;
 const DivImgPpUser = styled.img``;
 

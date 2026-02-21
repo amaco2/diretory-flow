@@ -1,0 +1,78 @@
+/* ScriptExtraction.css */
+
+.pdf-content {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style pour l'impression PDF */
+@media print {
+    body {
+        background: white;
+    }
+
+    /* Général : fond blanc et marges pour PDF */
+    body, .pdf-content {
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Empêcher les ruptures à l'intérieur d'une rangée de détails */
+    .pdf-content table, .pdf-content thead, .pdf-content tbody, .pdf-content tr, .pdf-content td {
+        page-break-inside: avoid !important;
+    }
+
+    /* Forcer l'affichage de l'entête de table sur chaque page */
+    .pdf-content thead {
+        display: table-header-group;
+    }
+
+    /* Les lignes de détails peuvent se séparer, mais on évite de couper les blocs pré-formatés */
+    .pdf-content .detail-content, .pdf-content pre, .pdf-content code {
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    /* Taille et marges d'impression (A4 portrait) */
+    @page {
+        size: A4 portrait;
+        margin: 12mm 10mm;
+    }
+
+    /* Réduire les ombres et éléments non imprimables */
+    .pdf-content * {
+        box-shadow: none !important;
+    }
+
+    /* Ajuster les tableaux pour l'impression */
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        font-size: 11px !important;
+    }
+
+    th, td {
+        padding: 6px 8px !important;
+        border: 0.5px solid #ddd !important;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    /* Réduction des tailles pour tablettes */
+}
+
+@media (max-width: 768px) {
+
+    /* La table peut devenir scrollable sur mobile */
+    table {
+        font-size: 0.8em;
+    }
+
+    th,
+    td {
+        padding: 8px 10px;
+    }
+}

@@ -2,19 +2,19 @@
   margin-left: 70px;
   font-weight: 800;
   font-size: 1.2em;
-  color: #000 !important;
+  color: #ffffff !important;
 }
 
 .listItemsUser li .pp-user-img {
   margin-left: 55px;
   top: 30px !important;
-  padding-top: 3px !important;
-  padding-left: 12px;
+  padding-top: 2px !important;
+  padding-left: 11px;
 }
 
 .pp-user-img {
   padding-left: 11px;
   font-weight: bolder;
-  color: #000;
+  color: #000000;
   font-size: 1.5em;
 }

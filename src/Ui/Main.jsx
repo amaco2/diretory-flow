@@ -2,18 +2,21 @@ import styled from 'styled-components';
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import { ArrowBigRight, CheckCheck, Star, ChevronLeft, ChevronRight, HandCoins, Clapperboard, ArrowLeft, ChevronDown, ChevronUp, ProjectorIcon, Smile, FileArchive, Equal, CalendarX, FileText, UsersIcon } from 'lucide-react';
+import
+{
+  ArrowBigRight, CheckCheck, Star, ChevronLeft,
+  ChevronRight, Clapperboard,
+  ChevronDown, FileArchive,
+  CalendarX, FileText, UsersIcon
+} from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import axio from '../config/axiosConfig';
 import { HomeContext, TContext } from '../ThemeContext';
 import { IconArrowGuide, IconBrandTeams, IconCapProjecting, IconRobot, IconUsersPlus } from '@tabler/icons-react';
 import img_infos from "../UI_ASSET/1767128404958.jpg";
-import carouselImg1 from '../asset/CarroselAnimation/etienne-girardet-QyFDgLRjaiU-unsplash.jpg';
-import carouselImg4 from '../asset/gr-stocks-q8P8YoR6erg-unsplash.jpg';
 import { AnimatedBloc } from '../Component/Scroll';
 import videoMain from '../Ui/videos/istockphoto-2240060367-640_adpp_is.mp4'
-import { button, div, section } from 'framer-motion/client';
 
 // Image d'accueil
 const Div_Img_Bg_Main = styled.div`
@@ -515,7 +518,6 @@ function Main()
       setIsShowProject( p => !p );
     }
   }
-
   return (
     <motion.main
       initial={ { opacity: 0 } }

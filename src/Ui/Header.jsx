@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import { breakPoint } from './MediaQuery/MediaQuery.jsx';
 // Importation de l'icone personnalisée de directoryflow
 import './style/Header.css';
-import { href, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { HomeContext, TContext } from '../ThemeContext.jsx';
 import ProfilUser from './ProfilUsers/ProfilsUser.jsx';
@@ -117,8 +117,8 @@ function Headers()
     { label: 'Contact', icon: Contact2, href: '#' },
     { label: 'Aide', icon: HelpCircle, href: '#' },
     { label: 'Workflow', icon: Workflow, href: '#' },
-    { label: 'Historique', icon: History, href: '#' },
-    isConnect ? { label: "Projet", icon: FileBarChart, href: '#' } : ''
+    { label: 'Historique', icon: History, href: '#recent-projects-title' },
+    ...( isConnect ? [ { label: 'Projet', icon: FileBarChart, href: '#' } ] : [] ),
   ];
 
   // Cette sert a affucher liste des projets recent de l'iutilisateur
@@ -146,16 +146,23 @@ function Headers()
 
           {/* Desktop Navigation */ }
           <nav className='navbar--header__nav-desktop'>
-            { navMenuItems.map( ( item ) =>
+            { navMenuItems.filter( Boolean ).map( ( item, idx ) =>
             {
               const Icon = item.icon;
+              /**je voudrais que tu creer une page d'extraction du depouillement ou l'on pourra 
+               * exporter le depouillement en pdf apres le depouillement un 
+               * dialogue doit apparaitre et en cliquant su sauvegarder 
+               * l'utilisateur est redirige vers la page d'extraction 
+               * avec un apercu du depouillement structure comme un vrai 
+               * depouillemnt de scenario des profesionelle pour de vrai projet 
+               * audiovisuel (dans un tableau) la boite de dialogue se trouve dans saveScriptUpload */
               return (
-                <Link key={ item.label } to={ item.href } className='nav-item' onClick={ ( e ) =>
+                <Link key={ `${ item.label }-${ idx }` } to={ item.href } className='nav-item' onClick={ ( e ) =>
                 {
-                  item.label === 'Projet' ? handleShowProject( e ) : '';
+                  if ( item.label === 'Projet' ) handleShowProject( e );
                 } }>
-                  <Icon size={ 22 } color={ bgColor } />
-                  <span >{ item.label }</span>
+                  { Icon ? <Icon size={ 22 } color={ bgColor } /> : null }
+                  <span>{ item.label }</span>
                 </Link>
               );
             } ) }

@@ -20,6 +20,7 @@ import Summary from './Component/ProjectUsers/StepCollectQuestion/Summary.jsx';
 import { useAllProjects } from './getProject.js';
 import { LayoutProject } from './Component/ProjectUsers/LayoutProjects';
 import ScriptUpload from './pages/AI/ScriptUpload.js';
+import ScriptExtraction from './pages/AI/ScriptExtraction.js';
 import KanbanBoard from './pages/KanbanBoard.js';
 import ProjectOverview from './Component/Dashboard/ProjectOverview.jsx';
 
@@ -81,24 +82,39 @@ function WrapperComponent()
   // Connextion en utlisant les cookies
   useEffect(() =>
   {
-    axios
-      .get('http://localhost:5000/api/auth/me', {
-        withCredentials: true,
-      })
-      .then((res) =>
-      {
-        setIconeUser(res.data.message.email);
-        setUsername(res.data.message.username + "");
+    const FetchUser = () =>
+    {
+      axios
+        .get('http://localhost:5000/api/auth/me', {
+          withCredentials: true,
+        })
+        .then((res) =>
+        {
+          setIconeUser(res.data.message.email);
+          setUsername(res.data.message.username + "");
 
-        setIsConnect(true);
-      })
-      .catch((error) =>
-      {
-        console.error(error);
-      });
+          setIsConnect(true);
+        })
+        .catch((error) =>
+        {
+          console.error(error);
+        });
+    }
 
+    FetchUser();
     useAllProjects(setProjectId, setWasProject);
-  }, [isConnect, wasProject, iconeUser]);
+
+    const intervale = setInterval(FetchUser, 1000);
+    const intervalProject = setInterval(useAllProjects, 1000);
+
+
+    return (() =>
+    {
+      clearInterval(intervale);
+      clearInterval(intervalProject);
+    })
+
+  }, []);
   // test-net.js
   // fetch("https://api.openai.com")
   //   .then(res => console.log("OK", res.status))
@@ -147,6 +163,7 @@ function WrapperComponent()
             <Route path='kanban' element={<KanbanBoard />} />
             {/* <Route path='timeline' element={ <Timeline /> } /> */}
             <Route path='ai' element={<ScriptUpload />} />
+            <Route path='depouillement-extraction' element={<ScriptExtraction />} />
             {/* <Route path='documents' element={ <Documents /> } /> */}
             {/* <Route path='team' element={ <Team /> } /> */}
             <Route path='step3' element={<Step3 />} />

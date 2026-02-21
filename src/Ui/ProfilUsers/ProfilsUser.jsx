@@ -67,7 +67,7 @@ function ProfilUser()
           event.stopPropagation();
           setIsShowProfil( o => !o );
         } }
-        style={ { backgroundColor: `${ bgColor }`, paddingTop: "3px", paddingLeft: "11.8px" } }
+        style={ { backgroundColor: `${ bgColor }`, paddingTop: "2px", paddingLeft: "10.8px" } }
       >
         { intialUser }
       </DivUser>

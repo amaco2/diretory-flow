@@ -7,7 +7,7 @@ import
     arrayMove
 } from "@dnd-kit/sortable";
 import axios from "axios";
-import "../styles/Kanban.scss";
+import "../styles/Kanban.css";
 import { type Task, type Column } from "../Component/types/kanban";
 import KanbanColumn from "../Component/KanbanColumn";
 import { TContext } from "../ThemeContext";

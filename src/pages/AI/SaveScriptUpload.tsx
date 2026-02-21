@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { useRef, useState, type ChangeEvent, type ReactElement } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import './style/SaveScript.css';
 import axio from "../../config/axiosConfig";
@@ -36,14 +36,13 @@ const BtnRemoveUpload = styled.button`
      box-shadow: 0 5px 10px #935d13;
      }
 `
-const saveScript = async (projectId: number, aiResult: any) =>
+const saveScript = async (projectId: number, aiResult: any, navigate: any) =>
 {
     if (!aiResult)
     {
         console.error("Aucun texte à sauvegarder.");
         return;
     }
-    alert(aiResult);
     try
     {
         console.log(aiResult)
@@ -51,15 +50,22 @@ const saveScript = async (projectId: number, aiResult: any) =>
             { projectId, aiResult }
         );
         console.log(response?.data)
+
+        // Redirection vers la page d'extraction après succès
+        setTimeout(() =>
+        {
+            navigate(`../depouillement-extraction`);
+        }, 500);
+
     } catch (error: any)
     {
-        error.response?.data?.message || error.message || "Erreur inconue"
+        console.error(error.response?.data?.message || error.message || "Erreur inconue")
     }
 }
-const handleClick = (projectId: number, aiOuput: any) =>
+const handleClick = (projectId: number, aiOuput: any, navigate: any) =>
 {
     // Appel de la fonction de sauvegarde de donnees
-    saveScript(projectId, aiOuput)
+    saveScript(projectId, aiOuput, navigate)
 }
 const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, projectId, checkHandlesending }: Record<string, any>): ReactElement =>
 {
@@ -67,6 +73,7 @@ const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, project
     const sliceSrciptUpload: Array<Object> = aiOuput;
     const object: string | null | Object = localStorage.getItem("aiOutput");
     const [checkHandlesend, setCheckHandleSend] = useState<boolean>(checkHandlesending)
+    const navigate = useNavigate();
     // ref
     const setDialogue = useRef<any>(null);
 
@@ -101,8 +108,10 @@ const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, project
                             if (projectId && aiOuput)
                             {
                                 console.log(aiOuput);
-                                handleClick(projectId, aiOuput);
+                                handleClick(projectId, aiOuput, navigate);
                             }
+
+
                         }}>Sauvegarder</BtnSaveUpload>
                 </div>
             </div>
