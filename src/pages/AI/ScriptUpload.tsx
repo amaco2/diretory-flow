@@ -1,17 +1,273 @@
 import { useState, type ChangeEvent, type FormEvent, useEffect, useContext } from "react";
 import { useOutletContext } from "react-router-dom"
+import styled from "styled-components";
 import axio from "../../config/axiosConfig";
-import './style/style.css'
-import { File, FileArchive } from "lucide-react";
-import { itemslist } from "../../Component/ProjectUsers/ComponentUser";
+import { File, Upload, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { TContext } from "../../ThemeContext";
-import { Footer } from "../../Ui/Main";
 import SaveScriptUpload from "./SaveScriptUpload";
-
+// import { itemslist } from "../ProjectUsers/ComponentUser.jsx"
 
 type RouteParams = {
     ID_Project: number;
 };
+
+const Container = styled.section`
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+    padding: 40px 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+`;
+
+const Header = styled.div`
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+`;
+
+const Title = styled.h1`
+    color: white;
+    font-size: 2.5em;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    animation: slideInLeft 0.6s ease-out;
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+`;
+
+const Subtitle = styled.p`
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1em;
+    margin: 0;
+`;
+
+const MainContent = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+const CarouselSection = styled.aside`
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+`;
+
+const Carousel = styled.div`
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+`;
+
+const CarouselSlide = styled.div<{ active: boolean }>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: ${p => p.active ? 1 : 0};
+    transition: opacity 0.5s ease-in-out;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+`;
+
+const CarouselDots = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+`;
+
+const Dot = styled.button<{ active: boolean }>`
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: ${p => p.active ? '#00d4ff' : 'rgba(255, 255, 255, 0.3)'};
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #00d4ff;
+        transform: scale(1.2);
+    }
+`;
+
+const Caption = styled.p`
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 10px;
+`;
+
+const FormSection = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`;
+
+const DropZone = styled.label`
+    position: relative;
+    padding: 40px;
+    background: rgba(0, 212, 255, 0.05);
+    border: 2px dashed rgba(0, 212, 255, 0.4);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    input[type="file"] {
+        display: none;
+    }
+
+    &:hover {
+        background: rgba(0, 212, 255, 0.1);
+        border-color: rgba(0, 212, 255, 0.7);
+        transform: translateY(-2px);
+    }
+`;
+
+const DropContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+
+    svg {
+        width: 40px;
+        height: 40px;
+        color: #00d4ff;
+    }
+
+    p {
+        margin: 0;
+        font-weight: 500;
+    }
+`;
+
+const ErrorMessage = styled.span`
+    color: #ff3b30;
+    font-size: 0.9em;
+    padding: 10px;
+    background: rgba(255, 59, 48, 0.1);
+    border-left: 3px solid #ff3b30;
+    border-radius: 4px;
+    display: block;
+`;
+
+const SubmitButton = styled.button`
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #00d4ff, #0099ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    }
+`;
+
+const StepsContainer = styled.section`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+const StepCard = styled.div<{ index: number }>`
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #00d4ff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    animation: slideUp 0.6s ease-out;
+    animation-delay: ${p => p.index * 0.1}s;
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(0, 212, 255, 0.6);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 212, 255, 0.15);
+    }
+`;
+
+const StepNumber = styled.div`
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #00d4ff, #0099ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 10px;
+`;
+
+const StepTitle = styled.h3`
+    color: white;
+    font-size: 1.1em;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+`;
+
+const StepDesc = styled.p`
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9em;
+    margin: 0;
+    line-height: 1.5;
+`;
 
 
 function ScriptUpload()
@@ -64,6 +320,8 @@ function ScriptUpload()
     {
         e.preventDefault();
 
+        // setCheckHandleSending(() => true);
+
         if (!file)
         {
             setError("Veulliez selectionner un fichier");
@@ -93,8 +351,11 @@ function ScriptUpload()
                 { withCredentials: true },
             );
 
+            // setCheckHandleSending(() => true);
+
             // Récupération propre de la donnée AI (gestion des variantes de clé)
             const raw = response.data?.aiOutput ?? response.data?.aiOutpout ?? null;
+
 
             // Préparer une chaîne JSON fiable pour le localStorage
             let jsonString: string | null = null;
@@ -135,6 +396,7 @@ function ScriptUpload()
             }
             alert('Scénario envoyé avec succè');
             setCheckHandleSending(() => true);
+
         } catch (err: any)
         {
             setError(
@@ -143,75 +405,110 @@ function ScriptUpload()
         } finally
         {
             setLoading(false);
-            // setCheckHandleSending(() => false);
         }
     }
 
     return (
+        <Container>
+            <Header>
+                <Title>
+                    <Upload size={40} />
+                    Dépouillement de Scénario IA
+                </Title>
+                <Subtitle>Analysez vos scénarios automatiquement et générez des dépouillements professionnels</Subtitle>
+            </Header>
 
-        <div className="div-upload-script">
-            {/* <form onSubmit={handleSubmit} className="form-upload-script">
-                <label className="drop-zone">
-                    <input type="file" accept=".pdf, .doc, .docx, .txt"
-                        title="Ajouter un fichier" id="input-file" onChange={handleFileChange} />
-                    {error && <span className="span-text-errors">{error}</span>}
-                    <div className="drop-content">
-                        <p><File /> Glisser le scénario ici</p>
-                    </div>
-                </label>
-                <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
-                    {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
-            </form> */}
-            <aside className="infos-upload">
-                <div className="carousell-aside" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-                    {images.map((src, idx) => (
-                        <div key={idx} className={"carousel-slide" + (idx === current ? ' active' : '')}>
-                            <img src={src} alt={`Production cinématographique ${idx + 1}`} />
-                        </div>
-                    ))}
-                    <div className="carousel-dots">
-                        {images.map((_, idx) => (
-                            <button key={idx} className={"dot" + (idx === current ? ' active' : '')} onClick={() => setCurrent(idx)} aria-label={`Voir image ${idx + 1}`} />
+            <MainContent>
+                {/* Carrousel Aside */}
+                <CarouselSection onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+                    <Carousel>
+                        {images.map((src, idx) => (
+                            <CarouselSlide key={idx} active={idx === current}>
+                                <img src={src} alt={`Production cinématographique ${idx + 1}`} />
+                            </CarouselSlide>
                         ))}
-                    </div>
-                    <div className="carousel-caption" aria-live="polite">{itemslist[current]?.description}</div>
-                </div>
-            </aside>
-            <form onSubmit={handleSubmit} className="form-upload-script">
-                <div className="boot-ai-img">
-                    {/* <img src={AI_boot} alt="AI boot style image " /> */}
-                    {/* <h2>Film: {projectId}</h2> */}
-                </div>
-                <label className="drop-zone">
-                    <input type="file" accept=".pdf, .doc, .docx, .txt"
-                        title="Ajouter un fichier" id="input-file" onChange={handleFileChange} />
-                    {error && <span className="span-text-errors">{error}</span>}<br />
-                    <div className="drop-content">
-                        <p><File color="#000" /> Glisser le scénario ici et laisser votre assistant faire le travail</p>
-                    </div>
-                </label>
-                <button type="submit" disabled={loading} aria-labelledby="input-file" className="btn-send-file">
-                    {loading ? "Analyse en cours..." : "Envoyer le scénario"}</button>
-            </form >
-            <section className="upload-steps" aria-label="Étapes d'envoi et de dépouillement">
-                {steps.map((s, i) => (
-                    <div className="step" key={i}>
-                        <div className="step-num">{i + 1}</div>
-                        <div className="step-body">
-                            <h4>{s.title}</h4>
-                            <p>{s.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </section>
-            {!error ? <SaveScriptUpload aiOuput={dataScript} URL_version="depouillement"
-                setCheckHandleSending={setCheckHandleSending}
-                projectId={ID_Project}
-                checkHandlesending={checkHandlesending}
-            /> : ""}
-            {/* <Footer /> */}
-        </div >
+                    </Carousel>
+                    <CarouselDots>
+                        {images.map((_, idx) => (
+                            <Dot key={idx} active={idx === current} onClick={() => setCurrent(idx)} />
+                        ))}
+                    </CarouselDots>
+                    <Caption>{captions[current]}</Caption>
+                </CarouselSection>
 
+                {/* Formulaire */}
+                <FormSection onSubmit={handleSubmit}>
+                    <DropZone>
+                        <input
+                            type="file"
+                            accept=".pdf, .doc, .docx, .txt"
+                            id="input-file"
+                            onChange={handleFileChange}
+                            disabled={loading}
+                        />
+                        <DropContent>
+                            <File />
+                            <p>Glissez votre scénario ici ou cliquez pour sélectionner</p>
+                            <span style={{ fontSize: '0.8em', opacity: 0.6 }}>(.pdf, .docx, .txt)</span>
+                        </DropContent>
+                    </DropZone>
+
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+
+                    <SubmitButton type="submit" disabled={loading || !file}>
+                        {loading ? (
+                            <>
+                                <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
+                                Analyse en cours...
+                            </>
+                        ) : (
+                            <>
+                                <CheckCircle2 size={20} />
+                                Envoyer pour dépouillement
+                            </>
+                        )}
+                    </SubmitButton>
+
+                    {file && (
+                        <div style={{ color: 'rgba(0, 212, 255, 0.8)', fontSize: '0.9em' }}>
+                            ✓ Fichier sélectionné: <strong>{file.name}</strong>
+                        </div>
+                    )}
+                </FormSection>
+            </MainContent>
+
+            {/* Étapes */}
+            <div>
+                <h2 style={{ color: 'white', marginBottom: '20px', fontSize: '1.5em' }}>Processus de dépouillement</h2>
+                <StepsContainer>
+                    {steps.map((step, index) => (
+                        <StepCard key={index} index={index}>
+                            <StepNumber>{index + 1}</StepNumber>
+                            <StepTitle>{step.title}</StepTitle>
+                            <StepDesc>{step.desc}</StepDesc>
+                        </StepCard>
+                    ))}
+                </StepsContainer>
+            </div>
+
+            {/* Dialog SaveScriptUpload */}
+            {!error && (
+                < SaveScriptUpload
+                    aiOuput={dataScript}
+                    URL_version="depouillement-extraction"
+                    setCheckHandleSending={setCheckHandleSending}
+                    projectId={ID_Project}
+                    checkHandlesending={checkHandlesending}
+                />
+            )}
+
+            <style>{`
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
+        </Container>
     )
 }
 

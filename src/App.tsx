@@ -23,6 +23,8 @@ import ScriptUpload from './pages/AI/ScriptUpload.js';
 import ScriptExtraction from './pages/AI/ScriptExtraction.js';
 import KanbanBoard from './pages/KanbanBoard.js';
 import ProjectOverview from './Component/Dashboard/ProjectOverview.jsx';
+import RecentProjects from './pages/RecentProjects.jsx';
+import Chat from './pages/Chat.tsx';
 
 // Cette position est temporaire
 const colors = {
@@ -155,6 +157,7 @@ function WrapperComponent()
             <Route path='createproject' element={<Step1 />} />
             {/* <Route path='step2' element={<Step2 />} /> */}
           </Route>
+          <Route path='/recent-projects' element={<RecentProjects />} />
           <Route index path='/' element={<Home />} />
           <Route path='/project/:projectid' element={<ProjectDashboar />} >
             <Route index element={<ProjectOverview />} />
@@ -164,6 +167,7 @@ function WrapperComponent()
             {/* <Route path='timeline' element={ <Timeline /> } /> */}
             <Route path='ai' element={<ScriptUpload />} />
             <Route path='depouillement-extraction' element={<ScriptExtraction />} />
+            <Route path='chat' element={<Chat />} />
             {/* <Route path='documents' element={ <Documents /> } /> */}
             {/* <Route path='team' element={ <Team /> } /> */}
             <Route path='step3' element={<Step3 />} />
@@ -177,5 +181,5 @@ function WrapperComponent()
     </div>
   );
 }
-
+// ollama run gpt-oss:120b-cloud command --port 5000 pour lancer le serveur de l'ia sur le cloud
 export default WrapperComponent;

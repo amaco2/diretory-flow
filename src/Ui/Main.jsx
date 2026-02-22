@@ -542,44 +542,6 @@ function Main()
         </Div_Img_Bg_Main>
       </header>
 
-      <section id="recent-projects" aria-labelledby="recent-projects-title">
-        <h2 id="recent-projects-title">Projets récents <FileArchive color='#16d716' size={ 30 } /></h2>
-        {/* <ChevronDown /> */ }
-        { wasProject && projectId && projectId.length > 0 ? (
-          <section>
-            {/* <IconRobot /> */ }
-            <div>
-              { !isShowProject ?
-                <button className='btn-hidden-project' onClick={ handleShowProject }><ChevronDown size={ 26 }
-                  color='#ffffff'
-                  cursor={ 'pointer' }
-                /></button> :
-                <div>
-                  <span className='chevron-show-project'
-                    onClick={ handelHiddenProject }>
-                    Déroulez vos projets
-                    <button>
-                      <ChevronRight cursor={ 'pointer' }
-                        size={ 28 } color='#ffffff' />
-                    </button>
-                  </span>
-                </div>
-              }
-            </div>
-            <div className="projects-grid" style={ { display: isShowProject && "none" } }>
-              { projectId.map( ( project, index ) => (
-                <ProjectCard project={ project } key={ project.id || index } />
-              ) ) }
-            </div>
-          </section>
-        ) : (
-          <div className="no-projects">
-            <p>Aucun projet récent trouvé</p>
-            <Link to={ isConnect ? 'projects/createproject' : 'inscription' } className="create-first">Créer un projet</Link>
-          </div>
-        ) }
-      </section>
-
       <section id="platform-description" aria-labelledby="platform-description-title">
         <h2 id="platform-description-title"><IconRobot size={ 35 } color="#00d5ff" />Plateforme IA de gestion de production audiovisuelle</h2>
         <p>Planifiez, organisez et collaborez efficacement sur vos projets audiovisuels.</p>

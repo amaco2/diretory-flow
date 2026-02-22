@@ -18,11 +18,20 @@ const styleAllInput = `
        height: 40px;
        box-sizing: border-box;
        padding: 8px 10px;
-       border: none;
-       background-color: #DEE5F1;
+       border: 1px solid rgba(255, 255, 255, 0.2);
+       background-color: rgba(255, 255, 255, 0.1);
+       color: #ffffff;
        border-radius: 10px;
        outline: none;
-       &:focus{ box-shadow: 0 0 0 3px rgba(0,123,255,0.18); }
+       transition: all 0.3s ease;
+       &::placeholder {
+         color: rgba(255, 255, 255, 0.5);
+       }
+       &:focus{ 
+         box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+         border-color: rgba(255, 255, 255, 0.4);
+         background-color: rgba(255, 255, 255, 0.15);
+       }
 
        @media screen and (max-width: ${ breakPoint.tablet }) {
          width: 78vw;
@@ -42,10 +51,11 @@ const DivForm = styled.div`
   max-width: 980px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(11,11,11,0.85);
+  background: linear-gradient(135deg, #0a1929 0%, #191e3b 100%);
   color: #fff;
   border-radius: 8px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
   @media screen and (max-width: ${ breakPoint.tablet }) {
     padding: 16px;
@@ -63,10 +73,20 @@ const InputDescription = styled.textarea`
   height: 200px;
   box-sizing: border-box;
   padding: 10px;
-  border: none;
-  background-color: #dee5f1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   border-radius: 10px;
-  &:focus{ box-shadow: 0 0 0 3px rgba(0,123,255,0.18); }
+  outline: none;
+  transition: all 0.3s ease;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &:focus{ 
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
 
        @media screen and (max-width: ${ breakPoint.tablet }) {
          width: 90vw;
@@ -75,22 +95,42 @@ const InputDescription = styled.textarea`
 const InputTypeProductyion = styled.select`
   cursor: pointer;
   ${ styleAllInput }
+  option {
+    background-color: #0a1929;
+    color: #ffffff;
+  }
 `;
 // Bouton de navigation des etapes suivantes
 
 const BtnNextQuest = styled.button`
     width: auto;
-    padding: 8px 14px;
-    height: 36px;
-    border: none;
+    padding: 12px 24px;
+    height: 44px;
+    border: 2px solid #ffffff;
     border-radius: 8px;
-  background-color: #c82333; /* cinema red */
-    color: #fff;
-    font-weight: bold;
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: 700;
     font-size: 1em;
     cursor: pointer;
-    &:focus{ outline: 3px solid rgba(55, 253, 11, 0.3); }
-    &:hover { background-color: #3aec04ff; color: #fff; }
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    &:focus{ outline: 3px solid rgba(255, 255, 255, 0.3); }
+    &:hover { 
+        background-color: #ffffff; 
+        color: #000000;
+        border-color: #000000;
+    }
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        &:hover {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+    }
 `;
 const BtnPrevQuest = styled.button`
   width: auto;

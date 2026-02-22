@@ -5,8 +5,7 @@ import
   HelpCircle,
   History,
   Home,
-  User2Icon,
-  Users2,
+  User,
   Workflow,
   X,
 } from 'lucide-react';
@@ -86,7 +85,7 @@ const SpanTextDF = styled.span`
 
 // Creation de l'icone connexion apres la desaction des boutons deja present
 
-const IconUser = styled( Users2 )`
+const IconUser = styled( User )`
   display: none;
   margin-top: 18px;
   cursor: pointer;
@@ -117,8 +116,8 @@ function Headers()
     { label: 'Contact', icon: Contact2, href: '#' },
     { label: 'Aide', icon: HelpCircle, href: '#' },
     { label: 'Workflow', icon: Workflow, href: '#' },
-    { label: 'Historique', icon: History, href: '#recent-projects-title' },
-    ...( isConnect ? [ { label: 'Projet', icon: FileBarChart, href: '#' } ] : [] ),
+    { label: 'Projets', icon: FileBarChart, href: '/recent-projects' },
+    ...( isConnect ? [ { label: 'Historique', icon: History, href: '#recent-projects-title' } ] : [] ),
   ];
 
   // Cette sert a affucher liste des projets recent de l'iutilisateur
@@ -224,5 +223,5 @@ function Headers()
     </div>
   );
 }
-
+// Vienspas2025
 export default Headers;

@@ -24,7 +24,7 @@ import { ProgressBar } from './ProgressBar';
 
 
 
-function Step1()
+const Step1 = () =>
 {
 
 
@@ -108,7 +108,7 @@ function Step1()
         <section aria-labelledby="step1-title" className='section'>
             <h2 id="step1-title" className="sr-only">Informations générales</h2>
             <form className="step-form center-column" onSubmit={ handleSubmit }>
-                <ArrowLeft color='#000' size={ 30 } width={ 500 } onClick={ () => navigate( '/projects' ) } cursor={ 'pointer' } style={ { marginLeft: '-40svw' } } />
+                <ArrowLeft color='#ffffff' size={ 30 } width={ 500 } onClick={ () => navigate( '/projects' ) } cursor={ 'pointer' } style={ { marginLeft: '-40svw' } } />
 
                 <div className="form-field">
                     <label htmlFor='titre'>
@@ -160,9 +160,12 @@ function Step1()
                         type='submit'
                         onClick={ handleSendData }
                         disabled={ isLoading }
-                        style={ { opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' } }
+                        style={ {
+                            opacity: isLoading ? 0.6 : 1, cursor: isLoading ? 'not-allowed' : 'pointer',
+                            width: "200px", height: "40px"
+                        } }
                     >
-                        { isLoading ? <Loader /> : "Suivant" }
+                        { isLoading ? <Loader /> : "Create" }
                     </BtnNextQuest>
                     { errorMessage && (
                         <div style={ { color: '#ff0000', marginTop: '10px', textAlign: 'center', fontSize: '0.9em' } }>

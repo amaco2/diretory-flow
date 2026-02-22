@@ -14,29 +14,30 @@ const Container = styled.section`
     width: 100%;
     min-height: 100vh;
     padding: 40px 20px;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 const Header = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     padding: 25px;
-    background: #000;
-    color: white;
-    border-radius: 4px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 `;
 
 const Title = styled.h1`
     color: white;
-    font-size: 2em;
+    font-size: 2.2em;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
-    text-align: center;
+    gap: 15px;
     font-weight: 700;
     letter-spacing: 0.5px;
     animation: slideInLeft 0.6s ease-out;
@@ -55,7 +56,7 @@ const Title = styled.h1`
 
 const ButtonGroup = styled.div`
     display: flex;
-    gap: 15px;
+    gap: 12px;
 `;
 
 const Button = styled.button`
@@ -64,82 +65,74 @@ const Button = styled.button`
     gap: 8px;
     padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 0.95em;
-    position: relative;
-    overflow: hidden;
 
     &.primary {
-        background: white;
-        color: #000;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(135deg, #00d4ff, #0099ff);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 
         &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        &:active {
-            transform: translateY(0);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
         }
     }
 
     &.secondary {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.1);
         color: white;
-        border: 2px solid white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
 
         &:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
         }
     }
 
     &.toggle {
-        background: transparent;
-        color: #000;
-        border: 1px solid #000;
+        background: rgba(0, 212, 255, 0.1);
+        color: #00d4ff;
+        border: 1px solid rgba(0, 212, 255, 0.3);
         padding: 8px 12px;
         font-size: 0.85em;
-        border-radius: 3px;
+        border-radius: 6px;
         transition: all 0.2s ease;
 
         &:hover {
-            background: #000;
-            color: white;
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.6);
             transform: scale(1.05);
         }
 
         svg {
             transition: transform 0.3s ease;
         }
-
-        &:active svg {
-            transform: rotate(180deg);
-        }
     }
 `;
 
 const TableContainer = styled.div`
-    background: white;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     margin-bottom: 30px;
+    backdrop-filter: blur(10px);
 `;
 
 const Table = styled.table`
     width: 100%;
     border-collapse: collapse;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: white;
+    background: transparent;
 
     thead {
-        background: #1a1a1a;
-        color: white;
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 255, 0.2));
+        color: #00d4ff;
         position: sticky;
         top: 0;
         z-index: 10;
@@ -151,58 +144,63 @@ const Table = styled.table`
         font-weight: 600;
         font-size: 0.95em;
         letter-spacing: 0.5px;
-        border-bottom: 3px solid #000;
+        border-bottom: 2px solid rgba(0, 212, 255, 0.3);
         text-transform: uppercase;
     }
 
     tbody tr {
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.2s ease;
 
         &:hover {
-            background-color: #f9f9f9;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            background-color: rgba(0, 212, 255, 0.1);
+            box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.05);
         }
 
         &:nth-child(even) {
-            background-color: #fafafa;
+            background-color: rgba(255, 255, 255, 0.03);
         }
     }
 
     td {
         padding: 14px 15px;
         font-size: 0.9em;
-        color: #333;
+        color: rgba(255, 255, 255, 0.8);
     }
 
     tbody tr:last-child {
-        border-bottom: 3px solid #000;
+        border-bottom: 2px solid rgba(0, 212, 255, 0.3);
     }
 `;
 
 const EmptyState = styled.div`
     text-align: center;
-    padding: 40px;
-    color: #999;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    svg {
+        color: rgba(255, 59, 48, 0.7);
+    }
+
     p {
         font-size: 1.1em;
-        margin: 10px 0;
+        margin: 15px 0;
+        color: rgba(255, 255, 255, 0.7);
     }
 `;
 
 const DetailsRow = styled.tr<{ isExpanded: boolean }>`
     display: ${props => props.isExpanded ? 'table-row' : 'none'};
-    background-color: #f5f5f5 !important;
+    background-color: rgba(0, 212, 255, 0.08) !important;
 
     td {
         padding: 20px 15px;
         font-size: 0.85em;
-        color: #666;
-        border-top: 1px solid #ddd;
+        color: rgba(255, 255, 255, 0.7);
+        border-top: 1px solid rgba(0, 212, 255, 0.2);
     }
 `;
 
@@ -211,9 +209,38 @@ const DetailContent = styled.div`
     white-space: pre-wrap;
     word-break: break-word;
     font-family: "Courier New", monospace;
-    background: #fff;
-    border-left: 4px solid #000;
+    background: rgba(0, 212, 255, 0.05);
+    border-left: 4px solid #00d4ff;
     padding-left: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    animation: slideInDetail 0.3s ease-out;
+
+    @keyframes slideInDetail {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+
+// Animation fluide pour l'entrée de la section
+const AnimatedTableContainer = styled(TableContainer)`
+    animation: fadeInUp 0.5s ease-out;
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 `;
 
 const ScriptExtraction = () =>

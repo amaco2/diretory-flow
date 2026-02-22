@@ -32,7 +32,7 @@
 }
 
 main {
-  background: linear-gradient(135deg, #ffffff 0%, #252149 30%, #0e2022 10%, #114363) !important;
+  background: linear-gradient(135deg, #000000 0%, #100c30 30%, #031c31 10%, #011b2b) !important;
   color: #000000;
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
 }
@@ -290,12 +290,12 @@ p {
 /* Testimonials */
 .testimonials {
   padding: 50px 20px;
-  background-color: #f8f9fa6e;
+  background-color: #111a2b;
   text-align: center;
 }
 
 .testimonials h2 {
-  color: #2c3e50;
+  color: #b1d0ef;
   margin-bottom: 40px;
   font-size: 2.5em;
 }
@@ -822,7 +822,8 @@ p {
 }
 
 #platform-description:hover {
-  border: 2px dotted rgb(255, 153, 0);
+  border: 0.2px dotted rgb(0, 187, 255);
+  box-shadow: 3px 3px 60px #000;
 }
 
 @keyframes translate {
@@ -850,6 +851,7 @@ p {
   margin-left: var(--margin-size);
   font-size: 1.2em;
   color: rgb(8, 146, 188);
+  margin-top: 20px;
 }
 
 /* Responsive Design */
@@ -901,7 +903,7 @@ p {
   }
 
   #platform-description #platform-description-title {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 
   #platform-description p {
@@ -936,6 +938,10 @@ p {
     grid-template-columns: 1fr;
   }
 
+  #platform-description #platform-description-title {
+    font-size: 1.1em;
+  }
+
   .main--bg-img-p:hover {
     font-size: 1.5em;
   }
@@ -968,6 +974,10 @@ p {
     width: 80svw;
     left: 15svw;
     top: 35svw;
+  }
+
+  #platform-description #platform-description-title {
+    font-size: 1em;
   }
 
   .carousel-container {

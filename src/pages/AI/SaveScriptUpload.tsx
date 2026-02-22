@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { useRef, useState, type ChangeEvent, type ReactElement } from "react";
+import { useRef, useState, type ChangeEvent, type ReactElement, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import './style/SaveScript.css';
@@ -36,6 +36,7 @@ const BtnRemoveUpload = styled.button`
      box-shadow: 0 5px 10px #935d13;
      }
 `
+
 const saveScript = async (projectId: number, aiResult: any, navigate: any) =>
 {
     if (!aiResult)
@@ -67,23 +68,44 @@ const handleClick = (projectId: number, aiOuput: any, navigate: any) =>
     // Appel de la fonction de sauvegarde de donnees
     saveScript(projectId, aiOuput, navigate)
 }
-const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, projectId, checkHandlesending }: Record<string, any>): ReactElement =>
+
+interface HandleCheck
+{
+    checkHandlesending: boolean;
+    setCheckHandleSending: React.Dispatch<React.SetStateAction<boolean>>;
+    projectId: number;
+    aiOuput: any;
+    URL_version: string;
+}
+const SaveScriptUpload: React.FC<HandleCheck> = ({ aiOuput, URL_version,
+    setCheckHandleSending, projectId,
+    checkHandlesending }) =>
 {
     // extrait du deouillement
     const sliceSrciptUpload: Array<Object> = aiOuput;
     const object: string | null | Object = localStorage.getItem("aiOutput");
-    const [checkHandlesend, setCheckHandleSend] = useState<boolean>(checkHandlesending)
+    const [checkHandlesend, setCheckHandleSend] = useState<boolean>(false);
     const navigate = useNavigate();
     // ref
+
+    console.log("checkHandlesending dans SaveScriptUpload :", checkHandlesending);
     const setDialogue = useRef<any>(null);
 
-    if (setDialogue.current || checkHandlesend)
+
+
+
+    if (setDialogue.current)
     {
-        setDialogue.current.showModal();
-    } if (checkHandlesend === false && setDialogue.current)
-    {
-        setDialogue.current.close();
+        console.log("checkHandlesend :", checkHandlesend);
+        setDialogue.current && setDialogue.current.showModal();
+        console.log(!checkHandlesend)
+
+        if (!checkHandlesending && setDialogue.current)
+            return setDialogue.current.close();
+        // setDialogue.current.close();
     }
+
+
 
 
     return (
@@ -99,7 +121,10 @@ const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, project
                     {
                         e.stopPropagation();
                         // console.log("localstorage :", ((localStorage.getItem("aiOutput"))));
-                        setCheckHandleSend(o => !o);
+                        setTimeout(() =>
+                        {
+                            setCheckHandleSending(false);
+                        }, 1000);
                     }}>Annuler</BtnRemoveUpload>
                     <BtnSaveUpload
                         onClick={(e) =>
@@ -110,6 +135,7 @@ const SaveScriptUpload = ({ aiOuput, URL_version, setCheckHandlesending, project
                                 console.log(aiOuput);
                                 handleClick(projectId, aiOuput, navigate);
                             }
+                            // navigate(`../depouillement-extraction`);
 
 
                         }}>Sauvegarder</BtnSaveUpload>
