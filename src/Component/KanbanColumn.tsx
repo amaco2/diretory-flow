@@ -1,21 +1,19 @@
 import type { Column, Task } from "./types/kanban";
 import KanbanTask from "./KanbanTask";
 
-interface Props
-{
+interface Props {
     column: Column;
     tasks: Task[];
 }
 
-const KanbanColumn: React.FC<Props> = ({ column, tasks }) =>
-{
+const KanbanColumn: React.FC<Props> = ({ column, tasks }) => {
     const columnTasks = tasks.filter((task: any) => task.column_id === column.id);
 
     return (
         <section className="kanban-column">
             <header className="column-header">
                 <h2>{column.name}</h2>
-                <span>{columnTasks.length} tâches</span>
+                <span>{columnTasks.length} {columnTasks.length > 1 ? 'tâches' : 'tâche'}</span>
             </header>
 
             <div className="column-body">

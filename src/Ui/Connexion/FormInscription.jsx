@@ -38,6 +38,7 @@ const DivFormConnexion = styled.div`
   background-color: #000000ff;
   width: 100%;
   min-height: 100vh;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +48,15 @@ const DivFormConnexion = styled.div`
   @media screen and (max-width: ${ breakPoints.mobile }) {
     padding: 30px 15px;
     background-attachment: scroll;
+    min-width: 100%;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+  }
+     @media screen and (max-width: ${ breakPoints.tablet }) {
+    max-width: 100%;
+    width: 100vw;
+    padding: 30px;
   }
 `;
 
@@ -61,19 +71,19 @@ const DivWrapperForm = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 750px;
+  max-width: 950px;
   padding: 40px;
   gap: 15px;
 
   @media screen and (max-width: ${ breakPoints.tablet }) {
-    max-width: 100%;
-    width: 100%;
+    max-width: 945px;
+    width: 100vw;
     padding: 30px;
   }
 
   @media screen and (max-width: ${ breakPoints.mobile }) {
-    max-width: 100%;
-    width: 100%;
+    max-width: 955px;
+    width: 100vw;
     padding: 25px;
     border-radius: 8px;
   }

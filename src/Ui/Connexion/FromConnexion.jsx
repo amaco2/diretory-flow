@@ -64,15 +64,15 @@ const DivWrapperForm = styled.div`
   padding: 40px;
   gap: 15px;
 
-  @media screen and (max-width: ${ breakPoints.tablet }) {
-    max-width: 100%;
-    width: 100%;
+    @media screen and (max-width: ${ breakPoints.tablet }) {
+    max-width: 945px;
+    width: 100vw;
     padding: 30px;
   }
 
   @media screen and (max-width: ${ breakPoints.mobile }) {
-    max-width: 100%;
-    width: 100%;
+    max-width: 955px;
+    width: 100vw;
     padding: 25px;
     border-radius: 8px;
   }

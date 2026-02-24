@@ -72,7 +72,6 @@ function Sidebar()
                 label="Chat"
                 leftSection={ <IconMessage /> }
                 __size={ 20 }
-                target="blank"
             />
         </Stack >
     )

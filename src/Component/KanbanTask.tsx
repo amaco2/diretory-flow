@@ -2,24 +2,30 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { Task } from "./types/kanban";
 
-interface Props
-{
+interface Props {
     task: Task;
 }
 
-const KanbanTask: React.FC<Props> = ({ task }) =>
-{
+const priorityLabels: Record<string, string> = {
+    high: "Haute",
+    medium: "Moyenne",
+    low: "Basse",
+};
+
+const KanbanTask: React.FC<Props> = ({ task }) => {
     const {
         attributes,
         listeners,
         setNodeRef,
         transform,
-        transition
+        transition,
+        isDragging,
     } = useSortable({ id: task.id });
 
     const style: React.CSSProperties = {
         transform: CSS.Transform.toString(transform),
-        transition
+        transition,
+        opacity: isDragging ? 0.5 : 1,
     };
 
     return (
@@ -28,12 +34,12 @@ const KanbanTask: React.FC<Props> = ({ task }) =>
             style={style}
             {...attributes}
             {...listeners}
-            className="kanban-task"
+            className={`kanban-task${isDragging ? ' dragging' : ''}`}
         >
             <h3>{task.title}</h3>
-            <p>{task.description}</p>
+            {task.description && <p>{task.description}</p>}
             <span className={`priority ${task.priority}`}>
-                {task.priority}
+                {priorityLabels[task.priority] || task.priority}
             </span>
         </article>
     );

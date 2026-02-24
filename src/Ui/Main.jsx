@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import './style/Main.css';
-import
-{
+import {
   ArrowBigRight, CheckCheck, Star, ChevronLeft,
   ChevronRight, Clapperboard,
   ChevronDown, FileArchive,
@@ -133,7 +132,7 @@ const BtnGetStarts = styled.button`
  * 
  * @returns (ReactElement)
  */
-const Check = () => <CheckCheck fill='#006dfcff' size={ 25 } />;
+const Check = () => <CheckCheck fill='#006dfcff' size={25} />;
 
 const tab_infos_service = [
   {
@@ -160,8 +159,7 @@ const tab_infos_service = [
 ];
 
 // Composant Témoignages
-function Testimonials()
-{
+function Testimonials() {
   const testimonials = [
     {
       name: "Marie Dupont",
@@ -184,52 +182,73 @@ function Testimonials()
   ];
 
   return (
-    <section id="testimonials" aria-labelledby="testimonials-title" className="testimonials">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6 }}
+      id="testimonials" aria-labelledby="testimonials-title" className="testimonials">
       <h2 id="testimonials-title">Témoignages de nos utilisateurs</h2>
       <div className="testimonials-grid">
-        { testimonials.map( ( testimonial, index ) => (
-          <div key={ index } className="testimonial-card">
+        {testimonials.map((testimonial, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            key={index} className="testimonial-card">
             <div className="rating">
-              { [ ...Array( testimonial.rating ) ].map( ( _, i ) => (
-                <Star key={ i } fill="#00ffb7" color='#00ffb7' size={ 20 } />
-              ) ) }
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} fill="#00ffb7" color='#00ffb7' size={20} />
+              ))}
             </div>
-            <p className="review">"{ testimonial.review }"</p>
+            <p className="review">"{testimonial.review}"</p>
             <div className="author">
-              <strong>{ testimonial.name }</strong>
-              <span>{ testimonial.role }</span>
+              <strong>{testimonial.name}</strong>
+              <span>{testimonial.role}</span>
             </div>
-          </div>
-        ) ) }
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 // Composant Appel à l'action
-function CallToAction()
-{
-  const { isConnect } = useContext( TContext );
+function CallToAction() {
+  const { isConnect } = useContext(TContext);
 
   return (
-    <section id="cta" aria-labelledby="cta-title" className="cta">
+    <motion.section
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      id="cta" aria-labelledby="cta-title" className="cta">
       <h2 id="cta-title">Prêt à révolutionner votre production audiovisuelle ?</h2>
       <p>Rejoignez des milliers de professionnels qui utilisent DirectoryFlow pour créer des projets exceptionnels.</p>
-      <Link to={ isConnect ? 'projects' : 'connexion' }>
-        <button className="cta-button">
+      <Link to={isConnect ? 'projects' : 'connexion'}>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="cta-button">
           <ArrowBigRight className='arrowRight' />
           Commencer maintenant
-        </button>
+        </motion.button>
       </Link>
-    </section>
+    </motion.section>
   );
 }
 
 // Composant Pied de page
-function Footer()
-{
+function Footer() {
   return (
-    <footer role="contentinfo" className="footer">
+    <motion.footer
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      role="contentinfo" className="footer">
       <div className="footer-content">
         <div className="footer-section">
           <h3>DirectoryFlow</h3>
@@ -247,8 +266,9 @@ function Footer()
         <div className="footer-section">
           <h3>Contact</h3>
           <p>Email: contact@directoryflow.com</p>
-          <p>Tél: +33 1 23 45 67 89</p>
+          <p>Tél: +237 659 582 556</p>
         </div>
+        {/* run ollama <<ollama run gpt-oss:120b-cloud>> */}
         <div className="footer-section">
           <h3>Suivez-nous</h3>
           <div className="social-links">
@@ -262,132 +282,124 @@ function Footer()
       <div className="footer-bottom">
         <p>&copy; 2026 DirectoryFlow. Tous droits réservés.</p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
 
 
-function InfoLayout()
-{
+function InfoLayout() {
   // Stockage des  images dans getImage
-  const getImage = import.meta.glob( "../UI_ASSET/*.{jpg,jpeg,png}", { eager: true } );
-  console.log( getImage );
-  const entries = Object.entries( getImage ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) ).slice( 2 );
-  const images = entries.map( ( [ k, v ] ) => v.default || v );
+  const getImage = import.meta.glob("../UI_ASSET/*.{jpg,jpeg,png}", { eager: true });
+  console.log(getImage);
+  const entries = Object.entries(getImage).sort((a, b) => a[0].localeCompare(b[0])).slice(2);
+  const images = entries.map(([k, v]) => v.default || v);
   images.pop()
-  const captions = entries.map( ( [ k ] ) =>
-  {
-    const name = k.split( '/' ).pop()?.replace( /\.[^/.]+$/, '' ) || 'Image';
-    const pretty = name.replace( /[-_]/g, ' ' ).replace( /\b\w/g, ( c ) => c.toUpperCase() );
-    return `${ pretty } — Production cinématographique`;
-  } );
+  const captions = entries.map(([k]) => {
+    const name = k.split('/').pop()?.replace(/\.[^/.]+$/, '') || 'Image';
+    const pretty = name.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    return `${pretty} — Production cinématographique`;
+  });
   const { scrollY } = useScroll();
 
-  const opacity = useTransform( scrollY, [ 300, 850 ], [ 1, 2 ] );
-  const y = useTransform( scrollY, [ 300, 850 ], [ 50, 1 ] );
-  const ref = useRef( null );
+  const opacity = useTransform(scrollY, [300, 850], [1, 2]);
+  const y = useTransform(scrollY, [300, 850], [50, 1]);
+  const ref = useRef(null);
 
-  const { scrollYProgress } = useScroll( {
+  const { scrollYProgress } = useScroll({
     target: ref,
-    offset: [ "start end", "end start" ],
-  } );
+    offset: ["start end", "end start"],
+  });
 
   // Déplacement lent de l’image
-  const z = useTransform( scrollYProgress, [ 0, 1 ], [ "-15%", "15%" ] );
+  const z = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
     <section
       className="main--intro__image-slides"
-      ref={ ref }>
+      ref={ref}>
       {
-        images.map( ( src, index ) =>
+        images.map((src, index) =>
         (
-          <figure className="image-slides-contenair" key={ index }>
-            <img src={ src } alt={ captions[ index ] } />
+          <figure className="image-slides-contenair" key={index}>
+            <img src={src} alt={captions[index]} />
             <figcaption className="image-info-card">
-              <h3>{ captions[ index ] }</h3>
-              <p className="image-tagline">{ `Capturez l'essence de ${ captions[ index ].split( ' — ' )[ 0 ] } et structurez votre production.` }</p>
-              <p className="image-rationale"><strong>Rationnel :</strong> { `Cette image illustre une scène/type de production qui aide à définir le ton, les ressources et les étapes nécessaires.` }</p>
-              <p className="image-logic"><strong>Usage :</strong> { `Utilisez cette référence pour créer les tâches, assigner l'équipe et planifier les livrables.` }</p>
+              <h3>{captions[index]}</h3>
+              <p className="image-tagline">{`Capturez l'essence de ${captions[index].split(' — ')[0]} et structurez votre production.`}</p>
+              <p className="image-rationale"><strong>Rationnel :</strong> {`Cette image illustre une scène/type de production qui aide à définir le ton, les ressources et les étapes nécessaires.`}</p>
+              <p className="image-logic"><strong>Usage :</strong> {`Utilisez cette référence pour créer les tâches, assigner l'équipe et planifier les livrables.`}</p>
             </figcaption>
           </figure>
-        ) )
+        ))
       }
     </section>
   )
 }
 
 // Component ProjectCard: manages thumbnail preview and upload to backend
-function ProjectCard( { project } )
-{
-  const [ preview, setPreview ] = useState( project.thumbnail || null );
-  const [ uploading, setUploading ] = useState( false );
-  const inputRef = useRef( null );
+function ProjectCard({ project }) {
+  const [preview, setPreview] = useState(project.thumbnail || null);
+  const [uploading, setUploading] = useState(false);
+  const inputRef = useRef(null);
 
-  const handleFileChange = async ( e ) =>
-  {
-    const file = e.target.files && e.target.files[ 0 ];
-    if ( !file ) return;
+  const handleFileChange = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
     // preview locally
-    const url = URL.createObjectURL( file );
-    setPreview( url );
+    const url = URL.createObjectURL(file);
+    setPreview(url);
 
     // upload to backend
-    try
-    {
-      setUploading( true );
+    try {
+      setUploading(true);
       const form = new FormData();
-      form.append( 'thumbnail', file );
-      const res = await axio.post( `/api/projects/${ project.id }/thumbnail`, form, {
+      form.append('thumbnail', file);
+      const res = await axio.post(`/api/projects/${project.id}/thumbnail`, form, {
         headers: { 'Content-Type': 'multipart/form-data' },
-      } );
+      });
       // expected response contains url
-      if ( res?.data?.url ) setPreview( res.data.url );
-    } catch ( err )
-    {
-      console.error( 'Upload error', err );
+      if (res?.data?.url) setPreview(res.data.url);
+    } catch (err) {
+      console.error('Upload error', err);
       // keep local preview but you could show error to user
-    } finally
-    {
-      setUploading( false );
+    } finally {
+      setUploading(false);
     }
   };
 
   return (
-    <article className="project-card" key={ project.id }>
+    <article className="project-card" key={project.id}>
       <div className="project-card-media">
-        { preview ? (
-          <img className="project-thumbnail" src={ preview } alt={ `${ project.name } thumbnail` } />
+        {preview ? (
+          <img className="project-thumbnail" src={preview} alt={`${project.name} thumbnail`} />
         ) : (
           <div className="project-media-upload">
             <label className="upload-label">
               <input
-                ref={ inputRef }
+                ref={inputRef}
                 type="file"
                 accept="image/*"
                 className="upload-input"
-                onChange={ handleFileChange }
+                onChange={handleFileChange}
               />
               <button type="button" className="upload-btn">Ajouter une image</button>
             </label>
           </div>
-        ) }
+        )}
       </div>
       <div className="project-card-body">
-        <h3 className="project-card-title">{ project.name }</h3>
-        <p className="project-card-desc">{ project.description || 'Aucun descriptif disponible — ajoutez une courte description pour mieux organiser votre projet.' }</p>
+        <h3 className="project-card-title">{project.name}</h3>
+        <p className="project-card-desc">{project.description || 'Aucun descriptif disponible — ajoutez une courte description pour mieux organiser votre projet.'}</p>
         <div className="project-card-meta">
-          <span className="project-id">ID: { project.id }</span>
-          <Link to={ `/project/${ project.id }` } className="project-cta">Ouvrir</Link>
+          <span className="project-id">ID: {project.id}</span>
+          <Link to={`/project/${project.id}`} className="project-cta">Ouvrir</Link>
         </div>
-        { uploading && <small>Envoi de l'image…</small> }
+        {uploading && <small>Envoi de l'image…</small>}
       </div>
     </article>
   );
 }
 
-function FunctionalityHome()
-{
+function FunctionalityHome() {
   return (
     <AnimatedBloc
       id="functionalities" aria-labelledby="functionalities-title" className='main--intro'>
@@ -397,14 +409,13 @@ function FunctionalityHome()
             <h2 id="functionalities-title">Les fonctionnalités principales</h2>
           </div>
           <ul>
-            { tab_infos_service.map( ( itemslist, index ) =>
-            {
-              return <li key={ index }><Check />{ itemslist.fonctionnalite }</li>
-            } ) }
+            {tab_infos_service.map((itemslist, index) => {
+              return <li key={index}><Check />{itemslist.fonctionnalite}</li>
+            })}
           </ul>
         </div>
         <div className='img-infos'>
-          <img src={ img_infos } alt="Présentation des fonctionnalités de DirectoryFlow pour la gestion de projets audiovisuels" />
+          <img src={img_infos} alt="Présentation des fonctionnalités de DirectoryFlow pour la gestion de projets audiovisuels" />
         </div>
         <div className='main--intro__exemple'>
           <h2>Laissez-vous guider <IconArrowGuide /></h2>
@@ -425,71 +436,199 @@ function FunctionalityHome()
 }
 
 // Composant Carousel
-function Carousel()
-{
-  const [ currentIndex, setCurrentIndex ] = useState( 0 );
-  const modules = import.meta.glob( './CarroselHome/*.{jpg,jpeg,png}', { eager: true } );
-  const entries = Object.entries( modules ).sort( ( a, b ) => a[ 0 ].localeCompare( b[ 0 ] ) ).slice( 0, 3 );
-  const images = entries.map( ( [ k, v ] ) => v.default || v );
-  const nextSlide = () =>
-  {
-    setCurrentIndex( ( prevIndex ) => ( prevIndex + 1 ) % images.length );
+function Carousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const modules = import.meta.glob('./CarroselHome/*.{jpg,jpeg,png}', { eager: true });
+  const entries = Object.entries(modules).sort((a, b) => a[0].localeCompare(b[0])).slice(0, 3);
+  const images = entries.map(([k, v]) => v.default || v);
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const prevSlide = () =>
-  {
-    setCurrentIndex( ( prevIndex ) => ( prevIndex - 1 ) % images.length );
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1) % images.length);
   };
 
-  useEffect( () =>
-  {
-    if ( images.length === 0 ) return;
-    const id = setInterval( () =>
-    {
-      setCurrentIndex( ( i ) => ( i + 1 ) % images.length )
-    }, 5000 )
+  useEffect(() => {
+    if (images.length === 0) return;
+    const id = setInterval(() => {
+      setCurrentIndex((i) => (i + 1) % images.length)
+    }, 5000)
 
-    return () => clearInterval( id )
-  }, [ currentIndex, images.length ] )
+    return () => clearInterval(id)
+  }, [currentIndex, images.length])
 
   return (
     <motion.section
-      initial={ { opacity: 0 } }
-      animate={ { opacity: 1, calcMode: 2 } }
-      exit={ { opacity: 0 } }
-      transition={ { duration: 0.3 } }
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, calcMode: 2 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
 
       id="carousel" aria-labelledby="carousel-title" className="carousel">
       <h2 id="carousel-title">Découvrez nos projets audiovisuels</h2>
       <div className="carousel-containers">
-        <button className="carousel-btn prev" onClick={ prevSlide } aria-label="Image précédente">
-          <ChevronLeft size={ 24 } />
+        <button className="carousel-btn prev" onClick={prevSlide} aria-label="Image précédente">
+          <ChevronLeft size={24} />
         </button>
-        { images.map( ( src, idx ) => (
-          <div key={ idx } className={ "carousel-slides" + ( idx === currentIndex ? ' active' : '' ) }>
-            <img src={ src } alt={ `Production cinématographique ${ idx + 1 }` } id='img' />
+        {images.map((src, idx) => (
+          <div key={idx} className={"carousel-slides" + (idx === currentIndex ? ' active' : '')}>
+            <img src={src} alt={`Production cinématographique ${idx + 1}`} id='img' />
           </div>
-        ) ) }
-        <button className="carousel-btn next" onClick={ nextSlide } aria-label="Image suivante">
-          <ChevronRight size={ 24 } />
+        ))}
+        <button className="carousel-btn next" onClick={nextSlide} aria-label="Image suivante">
+          <ChevronRight size={24} />
         </button>
       </div>
       <div className="carousel-indicators">
-        { images.map( ( _, index ) => (
+        {images.map((_, index) => (
           <button
-            key={ index }
-            className={ `indicator ${ index === currentIndex ? 'active' : '' }` }
-            onClick={ () => setCurrentIndex( index ) }
-            aria-label={ `Aller à l'image ${ index + 1 }` }
+            key={index}
+            className={`indicator ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Aller à l'image ${index + 1}`}
           />
-        ) ) }
+        ))}
       </div>
     </motion.section>
   );
 }
 
-function Main()
-{
+// =============================================
+// PROBLEMS SOLVED SECTION (Premium Redesign)
+// =============================================
+const ProblemsSection = styled.section`
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #0d131f 0%, #050a12 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+  }
+`;
+
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 60px;
+
+  h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    letter-spacing: -0.5px;
+    font-weight: 800;
+    
+    span {
+      color: #00d4ff;
+    }
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+`;
+
+const ProblemsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const ProblemCard = styled(motion.article)`
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .icon-wrapper {
+      transform: scale(1.1) translateY(-5px);
+      background: rgba(0, 212, 255, 0.1);
+      border-color: rgba(0, 212, 255, 0.4);
+      
+      svg {
+        filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.6));
+      }
+    }
+  }
+
+  h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    position: relative;
+    font-weight: 600;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+  }
+`;
+
+const IconWrapper = styled.div`
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  svg {
+    color: #00d4ff;
+    transition: all 0.4s ease;
+  }
+`;
+
+function Main() {
   /**
    * @param {isConnect} Stockage de l'etat de connexion de l'utilisateur pour decider de se reidrection en
    * fonction de si <<isConnect>> est a <<true> ou <<false>>
@@ -497,69 +636,120 @@ function Main()
    * @example
    * <Link to={isConnect?"projects":"connexion"}>
    */
-  const { isConnect } = useContext( TContext );
-  const { isShowProject, setIsShowProject } = useContext( HomeContext );
-  const { wasProject, setWasProject, projectId, } = useContext( TContext );
+  const { isConnect } = useContext(TContext);
+  const { isShowProject, setIsShowProject } = useContext(HomeContext);
+  const { wasProject, setWasProject, projectId, } = useContext(TContext);
   const navigate = useNavigate();
 
-  const handleShowProject = ( e ) =>
-  {
+  const handleShowProject = (e) => {
     e.preventDefault();
-    if ( !isShowProject )
-    {
-      setIsShowProject( o => !o );
+    if (!isShowProject) {
+      setIsShowProject(o => !o);
     }
   }
-  const handelHiddenProject = ( e ) =>
-  {
+  const handelHiddenProject = (e) => {
     e.preventDefault();
-    if ( isShowProject )
-    {
-      setIsShowProject( p => !p );
+    if (isShowProject) {
+      setIsShowProject(p => !p);
     }
   }
   return (
     <motion.main
-      initial={ { opacity: 0 } }
-      animate={ { opacity: 1 } }
-      exit={ { opacity: 0 } }
-      transition={ { duration: 0.3 } }
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
       role="main">
       <header>
         <Div_Img_Bg_Main>
           <video autoPlay muted loop>
-            <source src={ videoMain } type="video/mp4" />
+            <source src={videoMain} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <BtnGetStarts onClick={ ( e ) =>
-          {
+          <BtnGetStarts onClick={(e) => {
             e.stopPropagation();
-            navigate( isConnect ? 'projects' : 'connexion' );
-          } } aria-label="Démarrer l'aventure">
-            <Clapperboard size={ 30 } className='arrowRight' />
+            navigate(isConnect ? 'projects' : 'connexion');
+          }} aria-label="Démarrer l'aventure">
+            <Clapperboard size={30} className='arrowRight' />
             Démarrer l'aventure
           </BtnGetStarts>
         </Div_Img_Bg_Main>
       </header>
 
-      <section id="platform-description" aria-labelledby="platform-description-title">
-        <h2 id="platform-description-title"><IconRobot size={ 35 } color="#00d5ff" />Plateforme IA de gestion de production audiovisuelle</h2>
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+        id="platform-description" aria-labelledby="platform-description-title">
+        <h2 id="platform-description-title"><IconRobot size={35} color="#00d5ff" />Plateforme IA de gestion de production audiovisuelle</h2>
         <p>Planifiez, organisez et collaborez efficacement sur vos projets audiovisuels.</p>
-      </section>
+      </motion.section>
 
-      {/* <FunctionalityHome /> */ }
+      {/* <FunctionalityHome /> */}
 
       <Carousel />
 
-      <section id="problems-solved" aria-labelledby="problems-solved-title">
-        <h2 id="problems-solved-title">Problèmes résolus</h2>
-        <ul>
-          <li><UsersIcon size={ 40 } color="#0099ff" /> <br /> Gestion complexe des équipes</li>
-          <li><CalendarX size={ 40 } color="#0099ff" /><br />  Planning inefficace</li>
-          <li><IconUsersPlus size={ 40 } color="#0099ff" /><br />  Manque de collaboration</li>
-          <li><FileText size={ 40 } color="#0099ff" /><br /> Feuilles de service manuelles</li>
-        </ul>
-      </section>
+      <ProblemsSection id="problems-solved" aria-labelledby="problems-solved-title">
+        <SectionHeader>
+          <h2 id="problems-solved-title">Problèmes <span>résolus</span></h2>
+          <p>DirectoryFlow élimine les frictions de votre processus de production en automatisant et centralisant vos tâches les plus fastidieuses.</p>
+        </SectionHeader>
+
+        <ProblemsGrid>
+          <ProblemCard
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <IconWrapper className="icon-wrapper">
+              <UsersIcon size={32} strokeWidth={1.5} />
+            </IconWrapper>
+            <h3>Gestion complexe</h3>
+            <p>Fini les emails dispersés. Centralisez la communication et l'assignation de votre équipe au même endroit.</p>
+          </ProblemCard>
+
+          <ProblemCard
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <IconWrapper className="icon-wrapper">
+              <CalendarX size={32} strokeWidth={1.5} />
+            </IconWrapper>
+            <h3>Planning inefficace</h3>
+            <p>Notre ligne du temps visuelle et notre vue Kanban préviennent les conflits et optimisent vos journées de tournage.</p>
+          </ProblemCard>
+
+          <ProblemCard
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <IconWrapper className="icon-wrapper">
+              <IconUsersPlus size={32} stroke={1.5} />
+            </IconWrapper>
+            <h3>Manque de collaboration</h3>
+            <p>Travaillez de manière synchronisée avec tous les départements grâce aux documents partagés en temps réel.</p>
+          </ProblemCard>
+
+          <ProblemCard
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <IconWrapper className="icon-wrapper">
+              <FileText size={32} strokeWidth={1.5} />
+            </IconWrapper>
+            <h3>Tâches manuelles</h3>
+            <p>Notre IA génère automatiquement vos feuilles de service et décompose vos scénarios en quelques secondes.</p>
+          </ProblemCard>
+        </ProblemsGrid>
+      </ProblemsSection>
 
       <Testimonials />
       <CallToAction />
